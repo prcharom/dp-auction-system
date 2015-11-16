@@ -8,6 +8,22 @@ body {
     padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
 }
 
+/* --- --- NAVBAR --- --- */
+.navbar {
+    background: #3a5795;
+    border: 0;
+    border-bottom: 1px solid #133783;
+    box-shadow: 0 2px 2px -2px rgba(0, 0, 0, .52);
+}
+
+.navbar-inverse .navbar-brand {
+    color: #FFF;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: #DDD;
+}
+
 .slide-image {
     width: 100%;
 }
@@ -16,8 +32,7 @@ body {
     margin-bottom: 30px;
 }
 
-.carousel-control,
-.item {
+.carousel-control,.item {
     border-radius: 4px;
 }
 
