@@ -13,6 +13,6 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter {
 
 	public function beforeRender() {
 		
-        $this->template->category = array('Nemovitosti', 'Automoto', 'Nábytek', 'Elektronika', 'Oblečení', 'Hračky', 'Domácí potřeby', 'Ostatní');
+        $this->template->category = array('Automoto', 'Domácnost', 'Elektronika', 'Hračky', 'Nemovitosti','Oblečení', 'Potraviny', 'Ostatní');
     }
 }

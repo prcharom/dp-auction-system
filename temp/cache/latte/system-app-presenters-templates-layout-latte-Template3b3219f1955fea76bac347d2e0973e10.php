@@ -98,7 +98,8 @@ call_user_func(reset($_b->blocks['head']), $_b, get_defined_vars())  ?>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Homepage</a>
+                <a class="navbar-brand" href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("Homepage:default"), ENT_COMPAT) ?>
+">Homepage</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -107,7 +108,8 @@ call_user_func(reset($_b->blocks['head']), $_b, get_defined_vars())  ?>
                         <a href="#">About</a>
                     </li>
                     <li>
-                        <a href="#">Services</a>
+                        <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("Homepage:heroic"), ENT_COMPAT) ?>
+">Heroic</a>
                     </li>
                     <li>
                         <a href="#">Contact</a>
@@ -152,7 +154,7 @@ call_user_func(reset($_b->blocks['head']), $_b, get_defined_vars())  ?>
         <footer>
             <div class="row">
                 <div class="col-lg-12">
-                    <p>Copyright &copy; aukční systém</p>
+                    <p>Copyright &copy; Aukční systém 2015</p>
                 </div>
             </div>
         </footer>
