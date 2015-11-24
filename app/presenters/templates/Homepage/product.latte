@@ -10,12 +10,9 @@
                     <div class="ratings">
                         <p class="pull-right">{$products['reviews'][$id]} reviews</p>
                         <p>
-                            {for $j=0; $j<$products['stars'][$id]; $j++}
-                                    <span class="glyphicon glyphicon-star"></span>
-                                {/for}
-                                {for $j=5; $j>$products['stars'][$id]; $j--}
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                {/for}
+                            {for $j=0; $j<5; $j++}
+                                <span class="glyphicon glyphicon-star{if $j>=$products['stars'][$id]}-empty{/if}"></span>
+                            {/for}
                             {$products['stars'][$id]}.0 stars
                         </p>
                     </div>

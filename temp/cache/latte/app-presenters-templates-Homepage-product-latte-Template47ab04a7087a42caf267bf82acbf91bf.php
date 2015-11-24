@@ -22,10 +22,9 @@ if (!function_exists($_b->blocks['content'][] = '_lb18920efd08_content')) { func
                     <div class="ratings">
                         <p class="pull-right"><?php echo Latte\Runtime\Filters::escapeHtml($products['reviews'][$id], ENT_NOQUOTES) ?> reviews</p>
                         <p>
-<?php for ($j=0; $j<$products['stars'][$id]; $j++) { ?>
-                                    <span class="glyphicon glyphicon-star"></span>
-<?php } for ($j=5; $j>$products['stars'][$id]; $j--) { ?>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
+<?php for ($j=0; $j<5; $j++) { ?>
+                                <span class="glyphicon glyphicon-star<?php if ($j>=$products['stars'][$id]) { ?>
+-empty<?php } ?>"></span>
 <?php } ?>
                             <?php echo Latte\Runtime\Filters::escapeHtml($products['stars'][$id], ENT_NOQUOTES) ?>.0 stars
                         </p>

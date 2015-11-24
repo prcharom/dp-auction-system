@@ -99,20 +99,21 @@ call_user_func(reset($_b->blocks['head']), $_b, get_defined_vars())  ?>
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("Homepage:default"), ENT_COMPAT) ?>
-">Homepage</a>
+">Yes2Aukce.cz</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="#">About</a>
+                        <a href="#">Podmínky</a>
                     </li>
                     <li>
                         <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("Homepage:heroic"), ENT_COMPAT) ?>
-">Heroic</a>
+">Kontakt</a>
                     </li>
                     <li>
-                        <a href="#">Contact</a>
+                        <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("Homepage:admin"), ENT_COMPAT) ?>
+">Admin</a>
                     </li>
                 </ul>
             </div>
