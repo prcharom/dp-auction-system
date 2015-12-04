@@ -9,6 +9,14 @@ list($_b, $_g, $_l) = $template->initialize('d9db5f0ca4', 'html')
 ;
 // prolog Latte\Macros\BlockMacros
 //
+// block title
+//
+if (!function_exists($_b->blocks['title'][] = '_lb5aa1068629_title')) { function _lb5aa1068629_title($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v
+?>Přihlášení
+<?php
+}}
+
+//
 // block content
 //
 if (!function_exists($_b->blocks['content'][] = '_lb980562ddc4_content')) { function _lb980562ddc4_content($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v
@@ -33,22 +41,22 @@ if (!function_exists($_b->blocks['content'][] = '_lb980562ddc4_content')) { func
 	            </ul> 
 <?php } ?>
 	            <!-- vykresleni formu -->
-	            <div class="mar-input input-group col-md-9">
-	                <span class="input-group-addon" id="profile_email" style="width: 7em">Nick</span>
+	            <div class="mar-input input-group col-xs-9">
+	                <span class="input-group-addon" id="login-username" style="width: 8em">Nick</span>
 	                <?php echo $_form["username"]->getControl() ?>
 
 	            </div>
-	            <div class="mar-input input-group col-md-9">
-	                <span class="input-group-addon" id="profile_email" style="width: 7em">Heslo</span>
+	            <div class="mar-input input-group col-xs-9">
+	                <span class="input-group-addon" id="login-password" style="width: 8em">Heslo</span>
 	                <?php echo $_form["password"]->getControl() ?>
 
 	            </div>
-	            <div class="input-group col-md-9 pad-input">
+	            <div class="input-group col-xs-9 pad-input">
 	                <?php echo $_form["remember"]->getControl() ?>
 
 	            </div>
 	        </div>
-	        <div class="input-group col-md-9">
+	        <div class="input-group col-xs-9">
             	<?php echo $_form["send"]->getControl() ?>
 
         	</div>
@@ -80,7 +88,7 @@ div .btn-primary { width: 100%;}
 
 // template extending
 
-$_l->extends = "../@layout-login.latte"; $_g->extended = TRUE;
+$_l->extends = "../@layout-lr.latte"; $_g->extended = TRUE;
 
 if ($_l->extends) { ob_start();}
 
@@ -93,9 +101,12 @@ if (empty($_l->extends) && !empty($_control->snippetMode)) {
 
 //
 // main template
-//
- if ($_l->extends) { ob_end_clean(); return $template->renderChildTemplate($_l->extends, get_defined_vars()); }
-call_user_func(reset($_b->blocks['content']), $_b, get_defined_vars())  ?>
+// ?>
+
+<?php if ($_l->extends) { ob_end_clean(); return $template->renderChildTemplate($_l->extends, get_defined_vars()); }
+call_user_func(reset($_b->blocks['title']), $_b, get_defined_vars())  ?>
+
+<?php call_user_func(reset($_b->blocks['content']), $_b, get_defined_vars())  ?>
 
 <?php call_user_func(reset($_b->blocks['head']), $_b, get_defined_vars()) ; 
 }}

@@ -132,7 +132,8 @@ call_user_func(reset($_b->blocks['head']), $_b, get_defined_vars())  ?>
         <footer>
             <div class="row">
                 <div class="col-lg-12">
-                    <p>Copyright &copy; Aukční systém 2015</p>
+                    <p>Copyright &copy; <?php echo Latte\Runtime\Filters::escapeHtml($systemName->value, ENT_NOQUOTES) ?>
+ <?php echo Latte\Runtime\Filters::escapeHtml(date('Y'), ENT_NOQUOTES) ?></p>
                 </div>
             </div>
         </footer>

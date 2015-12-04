@@ -153,3 +153,9 @@ li.message-footer {
 ul.alert-dropdown {
     width: 200px;
 }
+
+/* --- --- Footer --- --- */
+footer {
+    margin: 1em 0;
+    color: #aaa;
+}

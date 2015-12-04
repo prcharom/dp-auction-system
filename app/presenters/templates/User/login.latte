@@ -1,4 +1,9 @@
-{layout "../@layout-login.latte"}
+{layout "../@layout-lr.latte"}
+
+{block title}
+Přihlášení
+{/block}
+
 {block content}
     {form signInForm}
         <div class="left-panel col-md-6">
@@ -17,19 +22,19 @@
 	                <li n:foreach="$form->errors as $error">{$error}</li>
 	            </ul> 
 	            <!-- vykresleni formu -->
-	            <div class="mar-input input-group col-md-9">
-	                <span class="input-group-addon" id="profile_email" style="width: 7em">Nick</span>
+	            <div class="mar-input input-group col-xs-9">
+	                <span class="input-group-addon" id="login-username" style="width: 8em">Nick</span>
 	                {input username}
 	            </div>
-	            <div class="mar-input input-group col-md-9">
-	                <span class="input-group-addon" id="profile_email" style="width: 7em">Heslo</span>
+	            <div class="mar-input input-group col-xs-9">
+	                <span class="input-group-addon" id="login-password" style="width: 8em">Heslo</span>
 	                {input password}
 	            </div>
-	            <div class="input-group col-md-9 pad-input">
+	            <div class="input-group col-xs-9 pad-input">
 	                {input remember}
 	            </div>
 	        </div>
-	        <div class="input-group col-md-9">
+	        <div class="input-group col-xs-9">
             	{input send}
         	</div>
         </div>

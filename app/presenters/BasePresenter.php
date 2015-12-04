@@ -22,7 +22,7 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter {
 
 	public function beforeRender() {
 		
-		$this->template->systemName = $this->database->findById('setings', 1);
+		$this->template->systemName = $this->database->findAll('setings')->where('id_parameter', 1)->fetch();
         $this->template->categories = $this->database->findAll('setings')->where('id_parameter', 2);
     }
 }

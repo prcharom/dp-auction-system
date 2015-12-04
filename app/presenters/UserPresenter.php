@@ -4,12 +4,16 @@ namespace App\Presenters;
 
 use Nette;
 use App\Forms\SignFormFactory;
+use App\Forms\RegistrationFormFactory;
 
 
 class UserPresenter extends BasePresenter {
 	
 	/** @var SignFormFactory @inject */
-	public $factory;
+	public $signFactory;
+
+	/** @var RegistrationFormFactory @inject */
+	public $registrationFactory;
 
 
 	/* --- --- Render functions --- --- */
@@ -33,13 +37,26 @@ class UserPresenter extends BasePresenter {
 	 * @return Nette\Application\UI\Form
 	 */
 	protected function createComponentSignInForm() {		
-		$form = $this->factory->create();
+		$form = $this->signFactory->create();
 		$form->onSuccess[] = function ($form) {
 			if($this->user->identity->id_gender == 1) {
 				$this->flashMessage('Byl jste úspěšně přihlášen.');
 			} else {
 				$this->flashMessage('Byla jste úspěšně přihlášena.');
 			} 
+			$this->redirect('Homepage:default');
+		};
+		return $form;
+	}
+
+
+	/**
+	 * Registration form factory.
+	 * @return Nette\Application\UI\Form
+	 */
+	protected function createComponentRegistrationForm() {		
+		$form = $this->registrationFactory->create();
+		$form->onSuccess[] = function ($form) {
 			$this->redirect('Homepage:default');
 		};
 		return $form;

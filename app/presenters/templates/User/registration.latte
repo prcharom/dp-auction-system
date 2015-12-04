@@ -1,0 +1,76 @@
+{layout "../@layout-lr.latte"}
+
+{block title}
+Registrace
+{/block}
+
+{block content}
+    {form registrationForm}
+        <div class="col-xs-9 col-md-6">
+        	<div>
+	            <!-- vykreslení chyb -->
+	            <ul class="errors" n:if="$form->hasErrors()">
+	                <li n:foreach="$form->errors as $error">{$error}</li>
+	            </ul> 
+	            <!-- vykresleni formu -->
+	            <div class="mar-input input-group col-xs-12">
+	                <span class="input-group-addon" id="reg-nick" style="width: 8em">Nick</span>
+	                {input nick}
+	            </div>
+	            <div class="mar-input input-group col-xs-12">
+	                <span class="input-group-addon" id="reg-password" style="width: 8em">Heslo</span>
+	                {input password}
+	            </div>
+	            <div class="mar-input-2x input-group col-xs-12">
+	            	<span class="input-group-addon" id="reg-password-2" style="width: 8em">Heslo znovu</span>
+	                {input password2}
+	            </div>
+	           	<div class="mar-input input-group col-xs-12">
+	                <span class="input-group-addon" id="reg-name" style="width: 8em">Celé jméno</span>
+	                {input name}
+	            </div>
+	           	<!-- radio gender -->
+	            <div class="mar-input-2x row">
+	            {foreach $form[id_gender]->items as $key => $label}
+		            <div class="col-xs-6">
+			            <div class="input-group">
+			              	<span class="input-group-addon">
+			                	<input n:name="id_gender:$key">
+			              	</span>
+			              	<input type="text" value="{$label}" class="form-control">
+			            </div>
+			        </div>
+			    {/foreach}
+		        </div>
+		        <!-- / radio gender -->
+	           	<div class="mar-input input-group col-xs-12">
+	                <span class="input-group-addon" id="reg-address" style="width: 8em">Adresa</span>
+	                {input address}
+	            </div>
+	           	<div class="mar-input input-group col-xs-12">
+	                <span class="input-group-addon" id="reg-phone" style="width: 8em">Telefon</span>
+	                {input phone}
+	            </div>
+	           	<div class="mar-input input-group col-xs-12">
+	                <span class="input-group-addon" id="reg-email" style="width: 8em">E-mail</span>
+	                {input email}
+	            </div>
+	        </div>
+	        <div class="input-group col-xs-6 col-xs-offset-6 col-md-4 col-md-offset-8">
+            	{input send}
+        	</div>
+        </div>
+    {/form}
+{/block}
+
+{block head}
+<style>
+	div.mar-input { margin-bottom: 1em;}
+	div.mar-input-2x { margin-bottom: 2.5em;}
+	div.pad-input { padding: 0 0 5px 0;}
+	label > input { float: left;}
+	label { color: #555; font-weight: normal;}
+	label > input[type="radio"] { margin: 0; margin-left: 1em; float: left;}
+	.btn { width: 100%;}
+</style>
+{/block}
