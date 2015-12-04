@@ -11,8 +11,18 @@ use App\Model;
  */
 abstract class BasePresenter extends Nette\Application\UI\Presenter {
 
+		/** @var Model\Database */
+		private $database;
+
+
+	public function __construct(Model\Database $database) {
+		$this->database = $database;
+	}
+
+
 	public function beforeRender() {
 		
-        $this->template->category = array('Automoto', 'Domácnost', 'Elektronika', 'Hračky', 'Nemovitosti','Oblečení', 'Potraviny', 'Ostatní');
+		$this->template->systemName = $this->database->findById('setings', 1);
+        $this->template->categories = $this->database->findAll('setings')->where('id_parameter', 2);
     }
 }

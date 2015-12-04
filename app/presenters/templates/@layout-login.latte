@@ -2,7 +2,7 @@
  * @param string   $basePath web base path
  * @param array    $flashes  flash messages
  *}
-<!-- pohlaví = gender -->
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,27 +50,6 @@
                 </button>
                 <a class="navbar-brand" n:href="Homepage:default">{$systemName->value}</a>
             </div>
-            <!-- Top Menu Items -->
-            <ul class="nav navbar-right top-nav" n:if="$user->loggedIn">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Roman Prchal <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-fw fa-info"></i> Přehled</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-fw fa-gear"></i> Admin</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a n:href="User:logout"><i class="fa fa-fw fa-power-off"></i> Odhlásit se</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
@@ -79,9 +58,6 @@
                     </li>
                     <li>
                         <a href="#">Kontakt</a>
-                    </li>
-                    <li n:if="!$user->loggedIn">
-                        <a n:href="User:login">Přihlásit</a>
                     </li>
                 </ul>
             </div>
@@ -92,34 +68,16 @@
 
     <!-- Page Content -->
     <div class="container">
-
         <div class="row">
-
-            <div class="col-md-3">
-                <p class="lead">Kategorie</p>
-                <div class="list-group">
-                	{foreach $categories as $category}
-                    	<a href="Auctions:all, {$category->id}" class="list-group-item">{$category->value}</a>
-                    {/foreach}
-                </div>
-            </div>
-
-            <div class="col-md-9">
-
-                <div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
-	            {include content}
-
-	        </div>
-
+            <div class="col-md-12">
+   				{include content}
+           </div>
         </div>
-
     </div>
     <!-- /.container -->
 
     <div class="container">
-
         <hr>
-
         <!-- Footer -->
         <footer>
             <div class="row">
@@ -128,7 +86,6 @@
                 </div>
             </div>
         </footer>
-
     </div>
     <!-- /.container -->
 
@@ -136,9 +93,6 @@
 
 	<!-- jQuery -->
     <script src="{$basePath}/assets/js/jquery.js"></script>
-
-     <!-- My Custome JavaScript -->
-    <script src="{$basePath}/js/dp-js-functions.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="{$basePath}/assets/js/bootstrap.min.js"></script>

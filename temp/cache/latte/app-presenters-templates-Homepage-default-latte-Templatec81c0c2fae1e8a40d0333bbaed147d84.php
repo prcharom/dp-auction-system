@@ -51,7 +51,7 @@ if (!function_exists($_b->blocks['content'][] = '_lb13520a9f1b_content')) { func
                             <img src="images/products/<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($products['photo'][$i]), ENT_COMPAT) ?>
 " alt="<?php echo Latte\Runtime\Filters::escapeHtml($products['title'][$i], ENT_COMPAT) ?>">
                             <div class="caption">
-                                <h4 class="pull-right"><?php echo Latte\Runtime\Filters::escapeHtml($template->number($products['prize'][$i]), ENT_NOQUOTES) ?> Kč</h4>
+                                <h4 class="pull-right"><?php echo Latte\Runtime\Filters::escapeHtml($template->number($products['prize'][$i]), ENT_NOQUOTES) ?> CZK</h4>
                                 <h4>
                                     <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("Homepage:product", array($i+1)), ENT_COMPAT) ?>
 "><?php echo Latte\Runtime\Filters::escapeHtml($products['title'][$i], ENT_NOQUOTES) ?></a>
@@ -104,9 +104,7 @@ if (empty($_l->extends) && !empty($_control->snippetMode)) {
 //
 // main template
 //
-?>
-
-<?php if ($_l->extends) { ob_end_clean(); return $template->renderChildTemplate($_l->extends, get_defined_vars()); }
+if ($_l->extends) { ob_end_clean(); return $template->renderChildTemplate($_l->extends, get_defined_vars()); }
 call_user_func(reset($_b->blocks['content']), $_b, get_defined_vars())  ?>
 
 <?php

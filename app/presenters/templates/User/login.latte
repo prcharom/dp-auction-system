@@ -1,0 +1,49 @@
+{layout "../@layout-login.latte"}
+{block content}
+    {form signInForm}
+        <div class="left-panel col-md-6">
+        		<img class="col-md-4" src="../images/web/icons/user_success.png" style="max-width: 100%">
+        		<p class="col-md-8">
+        			Po úspěšném přihlášení do systému se budete moci účastnit jednotlivých aukcí, nové aukce zakládat a mnoho dalšího. 
+        		</p>
+        		<p class="col-md-8">
+        			Nemáte ještě účet? Založte si ho <a n:href="User:registration">zde</a>. 
+        		</p>
+        </div>
+        <div class="col-md-6">
+        	<div>
+	            <!-- vykreslení chyb -->
+	            <ul class="errors" n:if="$form->hasErrors()">
+	                <li n:foreach="$form->errors as $error">{$error}</li>
+	            </ul> 
+	            <!-- vykresleni formu -->
+	            <div class="mar-input input-group col-md-9">
+	                <span class="input-group-addon" id="profile_email" style="width: 7em">Nick</span>
+	                {input username}
+	            </div>
+	            <div class="mar-input input-group col-md-9">
+	                <span class="input-group-addon" id="profile_email" style="width: 7em">Heslo</span>
+	                {input password}
+	            </div>
+	            <div class="input-group col-md-9 pad-input">
+	                {input remember}
+	            </div>
+	        </div>
+	        <div class="input-group col-md-9">
+            	{input send}
+        	</div>
+        </div>
+    {/form}
+{/block}
+
+{block head}
+<style>
+div.mar-input { margin-bottom: 1em;}
+div.pad-input { padding: 0 0 5px 0;}
+label > input { float: left;}
+label { color: #555; font-weight: normal;}
+div .btn-primary { width: 100%;}
+.left-panel img { height: 160px;}
+.left-panel p { padding: 1em;}
+</style>
+{/block}

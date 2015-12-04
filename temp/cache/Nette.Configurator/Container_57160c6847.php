@@ -20,7 +20,7 @@ class Container_57160c6847 extends Nette\DI\Container
 					'security.user',
 					'session.session',
 					'25_App_Forms_SignFormFactory',
-					'26_App_Model_UserManager',
+					'26_App_Model_Database',
 					'application.1',
 					'application.2',
 					'application.3',
@@ -74,8 +74,7 @@ class Container_57160c6847 extends Nette\DI\Container
 			'App\Forms\SignFormFactory' => array(
 				1 => array('25_App_Forms_SignFormFactory'),
 			),
-			'Nette\Security\IAuthenticator' => array(1 => array('26_App_Model_UserManager')),
-			'App\Model\UserManager' => array(1 => array('26_App_Model_UserManager')),
+			'App\Model\Database' => array(1 => array('26_App_Model_Database')),
 			'App\Presenters\BasePresenter' => array(
 				array(
 					'application.1',
@@ -173,18 +172,18 @@ class Container_57160c6847 extends Nette\DI\Container
 			'App\Presenters\Error4xxPresenter' => array(array('application.1')),
 			'App\Presenters\ErrorPresenter' => array(array('application.2')),
 			'App\Presenters\HomepagePresenter' => array(array('application.3')),
-			'App\Presenters\SignPresenter' => array(array('application.4')),
+			'App\Presenters\UserPresenter' => array(array('application.4')),
 			'NetteModule\ErrorPresenter' => array(array('application.5')),
 			'NetteModule\MicroPresenter' => array(array('application.6')),
 			'Nette\DI\Container' => array(1 => array('container')),
 		),
 		'services' => array(
 			'25_App_Forms_SignFormFactory' => 'App\Forms\SignFormFactory',
-			'26_App_Model_UserManager' => 'App\Model\UserManager',
+			'26_App_Model_Database' => 'App\Model\Database',
 			'application.1' => 'App\Presenters\Error4xxPresenter',
 			'application.2' => 'App\Presenters\ErrorPresenter',
 			'application.3' => 'App\Presenters\HomepagePresenter',
-			'application.4' => 'App\Presenters\SignPresenter',
+			'application.4' => 'App\Presenters\UserPresenter',
 			'application.5' => 'NetteModule\ErrorPresenter',
 			'application.6' => 'NetteModule\MicroPresenter',
 			'application.application' => 'Nette\Application\Application',
@@ -226,7 +225,7 @@ class Container_57160c6847 extends Nette\DI\Container
 				'application.1' => 'App\Presenters\Error4xxPresenter',
 				'application.2' => 'App\Presenters\ErrorPresenter',
 				'application.3' => 'App\Presenters\HomepagePresenter',
-				'application.4' => 'App\Presenters\SignPresenter',
+				'application.4' => 'App\Presenters\UserPresenter',
 				'application.5' => 'NetteModule\ErrorPresenter',
 				'application.6' => 'NetteModule\MicroPresenter',
 			),
@@ -274,17 +273,17 @@ class Container_57160c6847 extends Nette\DI\Container
 	 */
 	public function createService__25_App_Forms_SignFormFactory()
 	{
-		$service = new App\Forms\SignFormFactory($this->getService('security.user'));
+		$service = new App\Forms\SignFormFactory($this->getService('security.user'), $this->getService('database.default.context'));
 		return $service;
 	}
 
 
 	/**
-	 * @return App\Model\UserManager
+	 * @return App\Model\Database
 	 */
-	public function createService__26_App_Model_UserManager()
+	public function createService__26_App_Model_Database()
 	{
-		$service = new App\Model\UserManager($this->getService('database.default.context'));
+		$service = new App\Model\Database($this->getService('database.default.context'));
 		return $service;
 	}
 
@@ -294,7 +293,7 @@ class Container_57160c6847 extends Nette\DI\Container
 	 */
 	public function createServiceApplication__1()
 	{
-		$service = new App\Presenters\Error4xxPresenter;
+		$service = new App\Presenters\Error4xxPresenter($this->getService('26_App_Model_Database'));
 		$service->injectPrimary($this, $this->getService('application.presenterFactory'), $this->getService('routing.router'),
 			$this->getService('http.request'), $this->getService('http.response'), $this->getService('session.session'),
 			$this->getService('security.user'), $this->getService('latte.templateFactory'));
@@ -318,7 +317,7 @@ class Container_57160c6847 extends Nette\DI\Container
 	 */
 	public function createServiceApplication__3()
 	{
-		$service = new App\Presenters\HomepagePresenter;
+		$service = new App\Presenters\HomepagePresenter($this->getService('26_App_Model_Database'));
 		$service->injectPrimary($this, $this->getService('application.presenterFactory'), $this->getService('routing.router'),
 			$this->getService('http.request'), $this->getService('http.response'), $this->getService('session.session'),
 			$this->getService('security.user'), $this->getService('latte.templateFactory'));
@@ -328,11 +327,11 @@ class Container_57160c6847 extends Nette\DI\Container
 
 
 	/**
-	 * @return App\Presenters\SignPresenter
+	 * @return App\Presenters\UserPresenter
 	 */
 	public function createServiceApplication__4()
 	{
-		$service = new App\Presenters\SignPresenter;
+		$service = new App\Presenters\UserPresenter($this->getService('26_App_Model_Database'));
 		$service->injectPrimary($this, $this->getService('application.presenterFactory'), $this->getService('routing.router'),
 			$this->getService('http.request'), $this->getService('http.response'), $this->getService('session.session'),
 			$this->getService('security.user'), $this->getService('latte.templateFactory'));
@@ -437,7 +436,7 @@ class Container_57160c6847 extends Nette\DI\Container
 	 */
 	public function createServiceDatabase__default__connection()
 	{
-		$service = new Nette\Database\Connection('mysql:host=127.0.0.1;dbname=test', NULL, NULL, array('lazy' => TRUE));
+		$service = new Nette\Database\Connection('mysql:host=127.0.0.1;dbname=dp_auction_system', 'root', NULL, array('lazy' => TRUE));
 		$this->getService('tracy.blueScreen')->addPanel('Nette\Bridges\DatabaseTracy\ConnectionPanel::renderException');
 		Nette\Database\Helpers::createDebugPanel($service, TRUE, 'default');
 		return $service;
@@ -583,7 +582,7 @@ class Container_57160c6847 extends Nette\DI\Container
 	 */
 	public function createServiceSecurity__user()
 	{
-		$service = new Nette\Security\User($this->getService('security.userStorage'), $this->getService('26_App_Model_UserManager'));
+		$service = new Nette\Security\User($this->getService('security.userStorage'));
 		$this->getService('tracy.bar')->addPanel(new Nette\Bridges\SecurityTracy\UserPanel($service));
 		return $service;
 	}

@@ -20,6 +20,6 @@ session:
 
 
 services:
-	- App\Model\UserManager
+	- App\Model\Database
 	- App\Forms\SignFormFactory
 	router: App\RouterFactory::createRouter

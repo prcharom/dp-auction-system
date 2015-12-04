@@ -1,29 +1,26 @@
 <?php
-// source: C:\Users\prcharom\Desktop\EasyPHP-DevServer-14.1VC9\data\localweb\dp-auction-system\app\presenters/templates/@layout.latte
+// source: C:\Users\prcharom\Desktop\EasyPHP-DevServer-14.1VC9\data\localweb\dp-auction-system\app\presenters/templates/User/../@layout-login.latte
 
-class Template3b3219f1955fea76bac347d2e0973e10 extends Latte\Template {
+class Templateec324d1613390a20fe1fc4386f10fdc8 extends Latte\Template {
 function render() {
 foreach ($this->params as $__k => $__v) $$__k = $__v; unset($__k, $__v);
 // prolog Latte\Macros\CoreMacros
-list($_b, $_g, $_l) = $template->initialize('f4051d300c', 'html')
+list($_b, $_g, $_l) = $template->initialize('e35f90d138', 'html')
 ;
 // prolog Latte\Macros\BlockMacros
 //
 // block head
 //
-if (!function_exists($_b->blocks['head'][] = '_lb681d77e7dd_head')) { function _lb681d77e7dd_head($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v
+if (!function_exists($_b->blocks['head'][] = '_lb6a2abb955c_head')) { function _lb6a2abb955c_head($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v
 ;
 }}
 
 //
 // block scripts
 //
-if (!function_exists($_b->blocks['scripts'][] = '_lb40a8740310_scripts')) { function _lb40a8740310_scripts($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v
+if (!function_exists($_b->blocks['scripts'][] = '_lbd0c2a70064_scripts')) { function _lbd0c2a70064_scripts($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v
 ?>	<!-- jQuery -->
     <script src="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>/assets/js/jquery.js"></script>
-
-     <!-- My Custome JavaScript -->
-    <script src="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>/js/dp-js-functions.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>/assets/js/bootstrap.min.js"></script>
@@ -52,7 +49,6 @@ if (empty($_l->extends) && !empty($_control->snippetMode)) {
 // main template
 //
 ?>
-<!-- pohlaví = gender -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -104,29 +100,6 @@ call_user_func(reset($_b->blocks['head']), $_b, get_defined_vars())  ?>
                 <a class="navbar-brand" href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("Homepage:default"), ENT_COMPAT) ?>
 "><?php echo Latte\Runtime\Filters::escapeHtml($systemName->value, ENT_NOQUOTES) ?></a>
             </div>
-            <!-- Top Menu Items -->
-<?php if ($user->loggedIn) { ?>            <ul class="nav navbar-right top-nav">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Roman Prchal <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-fw fa-info"></i> Přehled</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-fw fa-gear"></i> Admin</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("User:logout"), ENT_COMPAT) ?>
-"><i class="fa fa-fw fa-power-off"></i> Odhlásit se</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-<?php } ?>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
@@ -136,11 +109,6 @@ call_user_func(reset($_b->blocks['head']), $_b, get_defined_vars())  ?>
                     <li>
                         <a href="#">Kontakt</a>
                     </li>
-<?php if (!$user->loggedIn) { ?>                    <li>
-                        <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("User:login"), ENT_COMPAT) ?>
-">Přihlásit</a>
-                    </li>
-<?php } ?>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -150,36 +118,16 @@ call_user_func(reset($_b->blocks['head']), $_b, get_defined_vars())  ?>
 
     <!-- Page Content -->
     <div class="container">
-
         <div class="row">
-
-            <div class="col-md-3">
-                <p class="lead">Kategorie</p>
-                <div class="list-group">
-<?php $iterations = 0; foreach ($categories as $category) { ?>
-                    	<a href="Auctions:all, <?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($category->id), ENT_COMPAT) ?>
-" class="list-group-item"><?php echo Latte\Runtime\Filters::escapeHtml($category->value, ENT_NOQUOTES) ?></a>
-<?php $iterations++; } ?>
-                </div>
-            </div>
-
-            <div class="col-md-9">
-
-<?php $iterations = 0; foreach ($flashes as $flash) { ?>                <div<?php if ($_l->tmp = array_filter(array('flash', $flash->type))) echo ' class="', Latte\Runtime\Filters::escapeHtml(implode(" ", array_unique($_l->tmp)), ENT_COMPAT), '"' ?>
-><?php echo Latte\Runtime\Filters::escapeHtml($flash->message, ENT_NOQUOTES) ?></div>
-<?php $iterations++; } Latte\Macros\BlockMacrosRuntime::callBlock($_b, 'content', $template->getParameters()) ?>
-
-	        </div>
-
+            <div class="col-md-12">
+<?php Latte\Macros\BlockMacrosRuntime::callBlock($_b, 'content', $template->getParameters()) ?>
+           </div>
         </div>
-
     </div>
     <!-- /.container -->
 
     <div class="container">
-
         <hr>
-
         <!-- Footer -->
         <footer>
             <div class="row">
@@ -188,7 +136,6 @@ call_user_func(reset($_b->blocks['head']), $_b, get_defined_vars())  ?>
                 </div>
             </div>
         </footer>
-
     </div>
     <!-- /.container -->
 
