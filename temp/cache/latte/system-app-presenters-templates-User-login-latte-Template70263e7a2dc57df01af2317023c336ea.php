@@ -9,19 +9,12 @@ list($_b, $_g, $_l) = $template->initialize('d9db5f0ca4', 'html')
 ;
 // prolog Latte\Macros\BlockMacros
 //
-// block title
-//
-if (!function_exists($_b->blocks['title'][] = '_lb5aa1068629_title')) { function _lb5aa1068629_title($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v
-?>Přihlášení
-<?php
-}}
-
-//
 // block content
 //
 if (!function_exists($_b->blocks['content'][] = '_lb980562ddc4_content')) { function _lb980562ddc4_content($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v
 ?>    <?php echo Nette\Bridges\FormsLatte\Runtime::renderFormBegin($form = $_form = $_control["signInForm"], array()) ?>
 
+<?php call_user_func(reset($_b->blocks['title']), $_b, get_defined_vars())  ?>
         <div class="left-panel col-md-6">
         		<img class="col-md-4" src="../images/web/icons/user_success.png" style="max-width: 100%">
         		<p class="col-md-8">
@@ -67,6 +60,14 @@ if (!function_exists($_b->blocks['content'][] = '_lb980562ddc4_content')) { func
 }}
 
 //
+// block title
+//
+if (!function_exists($_b->blocks['title'][] = '_lb5aa1068629_title')) { function _lb5aa1068629_title($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v
+?>    	<h2>Prihlášení</h2>
+<?php
+}}
+
+//
 // block head
 //
 if (!function_exists($_b->blocks['head'][] = '_lb841e155f9f_head')) { function _lb841e155f9f_head($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v
@@ -104,9 +105,7 @@ if (empty($_l->extends) && !empty($_control->snippetMode)) {
 // ?>
 
 <?php if ($_l->extends) { ob_end_clean(); return $template->renderChildTemplate($_l->extends, get_defined_vars()); }
-call_user_func(reset($_b->blocks['title']), $_b, get_defined_vars())  ?>
-
-<?php call_user_func(reset($_b->blocks['content']), $_b, get_defined_vars())  ?>
+call_user_func(reset($_b->blocks['content']), $_b, get_defined_vars())  ?>
 
 <?php call_user_func(reset($_b->blocks['head']), $_b, get_defined_vars()) ; 
 }}

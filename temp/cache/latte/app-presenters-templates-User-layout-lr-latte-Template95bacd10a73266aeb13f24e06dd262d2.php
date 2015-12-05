@@ -22,6 +22,9 @@ if (!function_exists($_b->blocks['scripts'][] = '_lbd379feaa7d_scripts')) { func
 ?>	<!-- jQuery -->
     <script src="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>/assets/js/jquery.js"></script>
 
+    <!-- My Custome JavaScript -->
+    <script src="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>/js/dp-js-functions.js"></script>
+
     <!-- Bootstrap Core JavaScript -->
     <script src="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>/assets/js/bootstrap.min.js"></script>
 

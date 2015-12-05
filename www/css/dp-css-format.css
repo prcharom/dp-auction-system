@@ -14,6 +14,12 @@ body {
     padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
 }
 
+h2 {
+    font-size: 21px;
+    margin: 0;
+    margin-bottom: 1em;
+}
+
 /* --- --- FLASH MSG --- --- */
 div.flash {
     padding: 1em;

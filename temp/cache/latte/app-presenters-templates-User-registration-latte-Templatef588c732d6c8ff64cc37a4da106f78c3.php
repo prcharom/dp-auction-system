@@ -9,19 +9,12 @@ list($_b, $_g, $_l) = $template->initialize('39b946b71d', 'html')
 ;
 // prolog Latte\Macros\BlockMacros
 //
-// block title
-//
-if (!function_exists($_b->blocks['title'][] = '_lb90961faf2e_title')) { function _lb90961faf2e_title($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v
-?>Registrace
-<?php
-}}
-
-//
 // block content
 //
 if (!function_exists($_b->blocks['content'][] = '_lba80d47a2f8_content')) { function _lba80d47a2f8_content($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v
 ?>    <?php echo Nette\Bridges\FormsLatte\Runtime::renderFormBegin($form = $_form = $_control["registrationForm"], array()) ?>
 
+<?php call_user_func(reset($_b->blocks['title']), $_b, get_defined_vars())  ?>
         <div class="col-xs-9 col-md-6">
         	<div>
 	            <!-- vykreslení chyb -->
@@ -55,11 +48,11 @@ if (!function_exists($_b->blocks['content'][] = '_lba80d47a2f8_content')) { func
 	            <div class="mar-input-2x row">
 <?php $iterations = 0; foreach ($form['id_gender']->items as $key => $label) { ?>
 		            <div class="col-xs-6">
-			            <div class="input-group">
+			            <div class="reg-radio input-group">
 			              	<span class="input-group-addon">
 			                	<input<?php $_input = $_form["id_gender"]; echo $_input->getControlPart($key)->attributes() ?>>
 			              	</span>
-			              	<input type="text" value="<?php echo Latte\Runtime\Filters::escapeHtml($label, ENT_COMPAT) ?>" class="form-control">
+			              	<input type="text" value="<?php echo Latte\Runtime\Filters::escapeHtml($label, ENT_COMPAT) ?>" class="form-control" readonly>
 			            </div>
 			        </div>
 <?php $iterations++; } ?>
@@ -92,6 +85,14 @@ if (!function_exists($_b->blocks['content'][] = '_lba80d47a2f8_content')) { func
 }}
 
 //
+// block title
+//
+if (!function_exists($_b->blocks['title'][] = '_lb90961faf2e_title')) { function _lb90961faf2e_title($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v
+?>    	<h2>Registrace</h2>
+<?php
+}}
+
+//
 // block head
 //
 if (!function_exists($_b->blocks['head'][] = '_lb78b0d38cc5_head')) { function _lb78b0d38cc5_head($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v
@@ -99,9 +100,6 @@ if (!function_exists($_b->blocks['head'][] = '_lb78b0d38cc5_head')) { function _
 	div.mar-input { margin-bottom: 1em;}
 	div.mar-input-2x { margin-bottom: 2.5em;}
 	div.pad-input { padding: 0 0 5px 0;}
-	label > input { float: left;}
-	label { color: #555; font-weight: normal;}
-	label > input[type="radio"] { margin: 0; margin-left: 1em; float: left;}
 	.btn { width: 100%;}
 </style>
 <?php
@@ -129,9 +127,7 @@ if (empty($_l->extends) && !empty($_control->snippetMode)) {
 // ?>
 
 <?php if ($_l->extends) { ob_end_clean(); return $template->renderChildTemplate($_l->extends, get_defined_vars()); }
-call_user_func(reset($_b->blocks['title']), $_b, get_defined_vars())  ?>
-
-<?php call_user_func(reset($_b->blocks['content']), $_b, get_defined_vars())  ?>
+call_user_func(reset($_b->blocks['content']), $_b, get_defined_vars())  ?>
 
 <?php call_user_func(reset($_b->blocks['head']), $_b, get_defined_vars()) ; 
 }}

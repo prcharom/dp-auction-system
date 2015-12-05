@@ -16,15 +16,18 @@ class UserManager {
 		private $database;
 
 		// ostatni parametry
-		private $table = "user";
-		private $user_salt = "$2a$07$";
-		private $now = date('Y-m-d H:i:s');
+		private $table;
+		private $user_salt;
+		private $now;
 
 
     public function __construct(Nette\Security\User $user, Nette\Database\Context $database) {
 
         $this->user = $user;
         $this->database = $database;
+       	$this->table = 'user';
+		$this->user_salt = '$2a$07$';
+        $this->now = date('Y-m-d H:i:s');
     }
 
 
@@ -69,6 +72,7 @@ class UserManager {
 	    unset($data['password2']);
 	    $data['password'] = $this->generateHash($data['password']);
 	    $data['registered_since'] = $this->now;
+	    $data['id_role'] = 2;
 	    return $this->findTable()->insert($data);
 	}
 

@@ -44,7 +44,7 @@ class RegistrationFormFactory extends Nette\Object {
 			->setAttribute('placeholder', 'Nevyplněno')
 	      	->setRequired('Zadejte prosím znovu heslo pro kontrolu.')
 	      	->addConditionOn($form['password'], Form::VALID)
-	      	->addRule(Form::EQUAL, 'Hesla se neshodují. Zkontrolujte si prosím zda jste správně zadali a zopakovali heslo.', $form['password']);
+	      	->addRule(Form::EQUAL, 'Hesla se neshodují. Zadejte a ověřte heslo znovu.', $form['password']);
 	      
 	    $form->addText('name', 'Celé jméno')
 	    	->setAttribute('class', 'form-control')
@@ -60,7 +60,7 @@ class RegistrationFormFactory extends Nette\Object {
 	    $form->addText('address', 'Adresa')
 	    	->setAttribute('class', 'form-control')
 			->setAttribute('placeholder', 'Nevyplněno')
-	      	->setRequired('Zadejte prosím adresu Vašeho trvalého bydliště.');
+	      	->setRequired('Zadejte prosím adresu trvalého bydliště.');
 
 	    $form->addText('email', 'E-mail', 35)
 		    ->setType('email')
@@ -78,11 +78,6 @@ class RegistrationFormFactory extends Nette\Object {
 		$form->addSubmit('send', 'Registrovat')
 		->setAttribute('class', 'btn btn-primary');
 
-		$form->addSubmit('cancel', 'Zrušit')
-			->setAttribute('class', 'btn btn-default')
-			->setValidationScope(FALSE)
-			->onClick[] = array($this, 'formCancel');
-
 		$form->onSuccess[] = array($this, 'formSucceeded');
 		return $form;
 	}
@@ -90,20 +85,8 @@ class RegistrationFormFactory extends Nette\Object {
 
 	public function formSucceeded(Form $form, $values) {
 		try {
-			$user = "ahoj";
-			//$userManager = new Model\UserManager($this->user, $this->database); 
-			//$userManager->login($values->username, $values->password);
-		} catch (Nette\Security\AuthenticationException $e) {
-			$form->addError($e->getMessage());
-		}
-	}
-
-
-	public function formCancel(Form $form, $values) {
-		try {
-			$user = "ahoj";
-			//$userManager = new Model\UserManager($this->user, $this->database); 
-			//$userManager->login($values->username, $values->password);
+			$userManager = new Model\UserManager($this->user, $this->database); 
+			$userManager->register($values);
 		} catch (Nette\Security\AuthenticationException $e) {
 			$form->addError($e->getMessage());
 		}
