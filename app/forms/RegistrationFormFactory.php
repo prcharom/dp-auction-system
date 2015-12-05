@@ -86,7 +86,19 @@ class RegistrationFormFactory extends Nette\Object {
 	public function formSucceeded(Form $form, $values) {
 		try {
 			$userManager = new Model\UserManager($this->user, $this->database); 
-			$userManager->register($values);
+			try {
+	 			$new_user = $userManager->register($values);
+              	if(!$new_user) {
+                	$form->addError('Registrace z neznámého důvodu selhala. Zkuste se prosím registrovat znovu a pokud problémy přetrvají, kontaktujete helpdesk.');
+              	}
+            }
+            catch(\PDOException $e) {
+                if($e->getCode()==23000) {
+                  	$form->addError('Zájemce s tímto nickem už je zaregistrován, zvolte prosím jiný nick.');
+                } else {
+                  	$form->addError($e->getMessage());
+                }
+            }
 		} catch (Nette\Security\AuthenticationException $e) {
 			$form->addError($e->getMessage());
 		}

@@ -57,6 +57,12 @@ class UserPresenter extends BasePresenter {
 	protected function createComponentRegistrationForm() {		
 		$form = $this->registrationFactory->create();
 		$form->onSuccess[] = function ($form) {
+			$values = $form->getValues();
+			if($values->id_gender == 1) {
+				$this->flashMessage('Byl jste úspěšně zaregistrován.');
+			} else {
+				$this->flashMessage('Byla jste úspěšně zaregistrována.');
+			} 
 			$this->redirect('Homepage:default');
 		};
 		return $form;

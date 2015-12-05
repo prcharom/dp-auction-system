@@ -32,6 +32,19 @@ div.flash {
     cursor: pointer;
 }
 
+/* --- --- Errors --- --- */
+ul.errors {
+    padding: 1em;
+    margin: 0;
+    margin-bottom: 19px;
+    border-radius: 4px;
+    background: #fff;
+    color: #555;
+    border: 1px solid #eee;
+    cursor: pointer;
+    list-style-type: none;
+}
+
 /* --- --- NAVBAR --- --- */
 .navbar {
     background: #3a5795;

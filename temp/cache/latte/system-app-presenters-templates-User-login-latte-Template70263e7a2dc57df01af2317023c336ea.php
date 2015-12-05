@@ -63,7 +63,7 @@ if (!function_exists($_b->blocks['content'][] = '_lb980562ddc4_content')) { func
 // block title
 //
 if (!function_exists($_b->blocks['title'][] = '_lb5aa1068629_title')) { function _lb5aa1068629_title($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v
-?>    	<h2>Prihlášení</h2>
+?>    	<h2>Přihlášení</h2>
 <?php
 }}
 

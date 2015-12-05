@@ -18,7 +18,7 @@ if (!function_exists($_b->blocks['content'][] = '_lba80d47a2f8_content')) { func
         <div class="col-xs-9 col-md-6">
         	<div>
 	            <!-- vykreslení chyb -->
-<?php if ($form->hasErrors()) { ?>	            <ul class="errors">
+<?php if ($form->hasErrors()) { ?>	            <ul class="flash errors">
 <?php $iterations = 0; foreach ($form->errors as $error) { ?>	                <li><?php echo Latte\Runtime\Filters::escapeHtml($error, ENT_NOQUOTES) ?></li>
 <?php $iterations++; } ?>
 	            </ul> 
@@ -101,6 +101,7 @@ if (!function_exists($_b->blocks['head'][] = '_lb78b0d38cc5_head')) { function _
 	div.mar-input-2x { margin-bottom: 2.5em;}
 	div.pad-input { padding: 0 0 5px 0;}
 	.btn { width: 100%;}
+	.reg-radio .input-group-addon { padding: 9px 12px 5px 12px;}
 </style>
 <?php
 }}
