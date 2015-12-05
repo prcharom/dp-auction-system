@@ -18,7 +18,7 @@ if (!function_exists($_b->blocks['content'][] = '_lba80d47a2f8_content')) { func
         <div class="col-xs-9 col-md-6">
         	<div>
 	            <!-- vykreslení chyb -->
-<?php if ($form->hasErrors()) { ?>	            <ul class="flash errors">
+<?php if ($form->hasErrors()) { ?>	            <ul class="errors">
 <?php $iterations = 0; foreach ($form->errors as $error) { ?>	                <li><?php echo Latte\Runtime\Filters::escapeHtml($error, ENT_NOQUOTES) ?></li>
 <?php $iterations++; } ?>
 	            </ul> 

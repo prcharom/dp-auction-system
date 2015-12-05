@@ -6,7 +6,7 @@
         <div class="col-xs-9 col-md-6">
         	<div>
 	            <!-- vykreslení chyb -->
-	            <ul class="flash errors" n:if="$form->hasErrors()">
+	            <ul class="errors" n:if="$form->hasErrors()">
 	                <li n:foreach="$form->errors as $error">{$error}</li>
 	            </ul> 
 	            <!-- vykresleni formu -->

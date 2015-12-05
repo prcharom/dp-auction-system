@@ -110,7 +110,10 @@ call_user_func(reset($_b->blocks['head']), $_b, get_defined_vars())  ?>
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?php echo Latte\Runtime\Filters::escapeHtml($user->identity->name, ENT_NOQUOTES) ?> <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
+                            <a data-toggle="modal" data-target="#profile_modal" href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("User:profile"), ENT_COMPAT) ?>
+">
+                                <i class="fa fa-fw fa-user"></i> Profile
+                            </a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-fw fa-info"></i> Přehled</a>
@@ -192,6 +195,14 @@ call_user_func(reset($_b->blocks['head']), $_b, get_defined_vars())  ?>
 
     </div>
     <!-- /.container -->
+
+    <!-- PopUp pomoci bootstrap, pro profile.latte -->
+    <div id="profile_modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
 
 
 <?php call_user_func(reset($_b->blocks['scripts']), $_b, get_defined_vars())  ?>
