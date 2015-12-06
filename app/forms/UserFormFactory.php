@@ -8,13 +8,16 @@ use Nette\Application\UI\Form;
 use Nette\Security\User;
 
 
-class RegistrationFormFactory extends Nette\Object {
+class UserFormFactory extends Nette\Object {
 	
 		/** @var User */
 		private $user;
 
 		/** @var Nette\Database\Context */
 		private $database;
+
+		/* Edit User Id */
+		private $id;
 
 
 	public function __construct(User $user, Nette\Database\Context $database) {
@@ -26,25 +29,28 @@ class RegistrationFormFactory extends Nette\Object {
 	/**
 	 * @return Form
 	 */
-  	public function create() {
+  	public function create($id = null) {
+  		$this->id = $id;
 	    $form = new Form;
 	    $form->addText('nick', 'Nick')
 			->setAttribute('class', 'form-control')
 			->setAttribute('placeholder', 'Nevyplněno')
 			->setRequired('Prosím vyplňte Váš nick.');
-	      
-	    $form->addPassword('password', 'Heslo', 20)
-	    	->setAttribute('class', 'form-control')
-			->setAttribute('placeholder', 'Nevyplněno')
-	      	->setRequired('Vyplňte prosím heslo.')
-	      	->addRule(Form::MIN_LENGTH, 'Zadejte prosím heslo obsahující alespoň %d znaků.', 6);
-	      
-	    $form->addPassword('password2', 'Heslo znovu', 20)
-	    	->setAttribute('class', 'form-control')
-			->setAttribute('placeholder', 'Nevyplněno')
-	      	->setRequired('Zadejte prosím znovu heslo pro kontrolu.')
-	      	->addConditionOn($form['password'], Form::VALID)
-	      	->addRule(Form::EQUAL, 'Hesla se neshodují. Zadejte a ověřte heslo znovu.', $form['password']);
+	    
+	    if($this->id == null) {  
+		    $form->addPassword('password', 'Heslo', 20)
+		    	->setAttribute('class', 'form-control')
+				->setAttribute('placeholder', 'Nevyplněno')
+		      	->setRequired('Vyplňte prosím heslo.')
+		      	->addRule(Form::MIN_LENGTH, 'Zadejte prosím heslo obsahující alespoň %d znaků.', 6);
+		      
+		    $form->addPassword('password2', 'Heslo znovu', 20)
+		    	->setAttribute('class', 'form-control')
+				->setAttribute('placeholder', 'Nevyplněno')
+		      	->setRequired('Zadejte prosím znovu heslo pro kontrolu.')
+		      	->addConditionOn($form['password'], Form::VALID)
+		      	->addRule(Form::EQUAL, 'Hesla se neshodují. Zadejte a ověřte heslo znovu.', $form['password']);
+	    }
 	      
 	    $form->addText('name', 'Celé jméno')
 	    	->setAttribute('class', 'form-control')
@@ -84,23 +90,29 @@ class RegistrationFormFactory extends Nette\Object {
 
 
 	public function formSucceeded(Form $form, $values) {
-		try {
-			$userManager = new Model\UserManager($this->user, $this->database); 
+		if($this->id == null) {
 			try {
-	 			$new_user = $userManager->register($values);
-              	if(!$new_user) {
-                	$form->addError('Registrace z neznámého důvodu selhala. Zkuste se prosím registrovat znovu a pokud problémy přetrvají, kontaktujete helpdesk.');
-              	}
-            }
-            catch(\PDOException $e) {
-                if($e->getCode()==23000) {
-                  	$form->addError('Zájemce s tímto nickem už je zaregistrován, zvolte prosím jiný nick.');
-                } else {
-                  	$form->addError($e->getMessage());
-                }
-            }
-		} catch (Nette\Security\AuthenticationException $e) {
-			$form->addError($e->getMessage());
+				$userManager = new Model\UserManager($this->user, $this->database); 
+				try {
+		 			$new_user = $userManager->register($values);
+	              	if(!$new_user) {
+	                	$form->addError('Registrace z neznámého důvodu selhala. Zkuste se prosím zaregistrovat znovu a pokud problémy přetrvají, kontaktujete helpdesk.');
+	              	}
+	            }
+	            catch(\PDOException $e) {
+	                if($e->getCode()==23000) {
+	                  	$form->addError('Zájemce s tímto nickem už je zaregistrován, zvolte prosím jiný nick.');
+	                } else {
+	                  	$form->addError($e->getMessage());
+	                }
+	            }
+			} catch (Nette\Security\AuthenticationException $e) {
+				$form->addError($e->getMessage());
+			}
+		} else {
+			foreach($values as $value) {
+				$form->addError($value);
+			}
 		}
 	}
 

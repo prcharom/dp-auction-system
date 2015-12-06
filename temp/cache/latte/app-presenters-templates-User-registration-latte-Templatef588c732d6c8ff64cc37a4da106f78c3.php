@@ -12,7 +12,7 @@ list($_b, $_g, $_l) = $template->initialize('39b946b71d', 'html')
 // block content
 //
 if (!function_exists($_b->blocks['content'][] = '_lba80d47a2f8_content')) { function _lba80d47a2f8_content($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v
-?>    <?php echo Nette\Bridges\FormsLatte\Runtime::renderFormBegin($form = $_form = $_control["registrationForm"], array()) ?>
+?>    <?php echo Nette\Bridges\FormsLatte\Runtime::renderFormBegin($form = $_form = $_control["userForm"], array()) ?>
 
 <?php call_user_func(reset($_b->blocks['title']), $_b, get_defined_vars())  ?>
         <div class="col-xs-9 col-md-6">

@@ -20,6 +20,12 @@ h2 {
     margin-bottom: 1em;
 }
 
+/* --- --- BTN --- --- */
+.btn-responsive {
+    display: block;
+    width: 100%;
+}
+
 /* --- --- FLASH MSG --- --- */
 div.flash {
     padding: 1em;
@@ -43,6 +49,23 @@ ul.errors {
     border: 1px solid #eee;
     cursor: pointer;
     list-style-type: none;
+}
+
+/* --- --- Modal window --- --- */
+.modal-content {
+    background-color: #fff;
+    border: 1px solid #bce8f1;
+}
+
+.panel-heading {
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+}
+
+.table-user-information > tbody > tr:first-child,
+.table-user-information > tbody > tr:first-child > td {
+    border-top: 0;
 }
 
 /* --- --- NAVBAR --- --- */

@@ -4,20 +4,31 @@ namespace App\Presenters;
 
 use Nette;
 use App\Forms\SignFormFactory;
-use App\Forms\RegistrationFormFactory;
+use App\Forms\UserFormFactory;
 
 
 class UserPresenter extends BasePresenter {
 	
-	/** @var SignFormFactory @inject */
-	public $signFactory;
+		/** @var SignFormFactory @inject */
+		public $signFactory;
 
-	/** @var RegistrationFormFactory @inject */
-	public $registrationFactory;
+		/** @var UserFormFactory @inject */
+		public $userFactory;
 
 
-	/* --- --- Render functions --- --- */
+	/* --- --- Edit Profile --- --- */
+	public function actionProfile() {
+		if (!$this->user->loggedIn)
+            throw new Nette\Application\ForbiddenRequestException();
+	}
 
+	public function renderProfile() {
+		$form = $this['userForm'];
+		$form->setDefaults($this->user->identity->data);
+	}
+
+
+	/* --- --- Logout --- --- */
 	public function actionLogout() {
 		$gender_id = $this->user->identity->id_gender;
 		$this->getUser()->logout();
@@ -49,13 +60,12 @@ class UserPresenter extends BasePresenter {
 		return $form;
 	}
 
-
 	/**
-	 * Registration form factory.
+	 * User form factory.
 	 * @return Nette\Application\UI\Form
 	 */
-	protected function createComponentRegistrationForm() {		
-		$form = $this->registrationFactory->create();
+	protected function createComponentUserForm() {		
+		$form = $this->userFactory->create($this->user->id);
 		$form->onSuccess[] = function ($form) {
 			$values = $form->getValues();
 			if($values->id_gender == 1) {
