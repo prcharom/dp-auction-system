@@ -32,12 +32,12 @@ class UserFormFactory extends Nette\Object {
   	public function create($id = null) {
   		$this->id = $id;
 	    $form = new Form;
-	    $form->addText('nick', 'Nick')
-			->setAttribute('class', 'form-control')
-			->setAttribute('placeholder', 'Nevyplněno')
-			->setRequired('Prosím vyplňte Váš nick.');
-	    
-	    if($this->id == null) {  
+	   	if($this->id == null) { 
+		    $form->addText('nick', 'Nick')
+				->setAttribute('class', 'form-control')
+				->setAttribute('placeholder', 'Nevyplněno')
+				->setRequired('Prosím vyplňte Váš nick.');
+	     
 		    $form->addPassword('password', 'Heslo', 20)
 		    	->setAttribute('class', 'form-control')
 				->setAttribute('placeholder', 'Nevyplněno')
@@ -53,7 +53,7 @@ class UserFormFactory extends Nette\Object {
 	    }
 	      
 	    $form->addText('name', 'Celé jméno')
-	    	->setAttribute('class', 'form-control')
+	    	->setAttribute('class', 'form-control form-control-active')
 			->setAttribute('placeholder', 'Nevyplněno')
 	      	->setRequired('Zadejte prosím celé jméno i s tituly.');
 
@@ -64,20 +64,20 @@ class UserFormFactory extends Nette\Object {
 	      	->setRequired('Vyberte prosím pohlaví.');
 
 	    $form->addText('address', 'Adresa')
-	    	->setAttribute('class', 'form-control')
+	    	->setAttribute('class', 'form-control form-control-active')
 			->setAttribute('placeholder', 'Nevyplněno')
 	      	->setRequired('Zadejte prosím adresu trvalého bydliště.');
 
 	    $form->addText('email', 'E-mail', 35)
 		    ->setType('email')
-	    	->setAttribute('class', 'form-control')
+	    	->setAttribute('class', 'form-control form-control-active')
 			->setAttribute('placeholder', 'Nevyplněno')
 		    ->setRequired('Vložte prosím vaši emailovou adresu.')
 		    ->addCondition(Form::FILLED)
 		    ->addRule(Form::EMAIL, 'Vložte prosím platnou emailovou adresu.');
 	      
 	    $form->addText('phone', 'Telefon')
-			->setAttribute('class', 'form-control')
+			->setAttribute('class', 'form-control form-control-active')
 			->setAttribute('placeholder', 'Nevyplněno')
 			->setRequired('Prosím vyplňte Váš nick.');     
 	      
@@ -110,8 +110,13 @@ class UserFormFactory extends Nette\Object {
 				$form->addError($e->getMessage());
 			}
 		} else {
-			foreach($values as $value) {
-				$form->addError($value);
+			$database = new Model\Database($this->database);
+			$user = $database->findById('user', $this->id);
+			if($user){
+				$user->update($values);
+				$this->user->identity->name = $values->name;
+			} else {
+				$form->addError('Uživatel, kterého se snažíte upravit, neexistuje. Je možné, že ho někdo smazal.');
 			}
 		}
 	}

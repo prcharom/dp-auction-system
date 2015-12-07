@@ -63,9 +63,83 @@ ul.errors {
     border-color: #bce8f1;
 }
 
+/* --- --- Modal > Profile --- --- */
+.table-user-information > tbody > tr > td:first-child {
+    width: 50%;
+}
+
 .table-user-information > tbody > tr:first-child,
 .table-user-information > tbody > tr:first-child > td {
     border-top: 0;
+}
+
+.table-user-information > tbody > tr > td .form-control, .modal-header .form-control,
+.table-user-information > tbody > tr > td .form-control[readonly], 
+.table-user-information > tbody > tr > td .input-group-addon {
+    height: 20px;
+    padding: 3px 6px;
+    border: 0;
+    border-radius: 3px;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    background: transparent;
+}
+
+.modal-header .form-control {
+    max-width: 90%;
+    color: #31708f;
+    font-size: 16px;
+    height: 23px;
+}
+
+.table-user-information > tbody > tr > td .input-group-addon > input {
+    margin-top: 1px;
+}
+
+.table-user-information > tbody > tr > td .form-control[readonly] {
+    padding-left: 3px;
+}
+
+.table-user-information > tbody > tr > td div {
+    padding: 0;
+}
+
+.table-user-information > tbody > tr > td input.form-control-active,
+.table-user-information > tbody > tr > td > div.col-xs-6 {
+    background: rgb(250, 255, 189);
+    height: 20px;
+    padding: 3px 6px;
+    border: 0;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+
+.table-user-information > tbody > tr > td > div.col-xs-6:first-child {
+    -webkit-border-top-left-radius: 3px;
+    -webkit-border-bottom-left-radius: 3px;
+    -moz-border-radius-topleft: 3px;
+    -moz-border-radius-bottomleft: 3px;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.table-user-information > tbody > tr > td > div.col-xs-6:last-child {
+    -webkit-border-top-right-radius: 3px;
+    -webkit-border-bottom-right-radius: 3px;
+    -moz-border-radius-topright: 3px;
+    -moz-border-radius-bottomright: 3px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.modal-header input.form-control {
+    background: rgb(250, 255, 189);  
+}
+
+.table-user-information > tbody > tr > td > div.col-xs-6 > .input-group {
+    margin-top: -3px;
 }
 
 /* --- --- NAVBAR --- --- */

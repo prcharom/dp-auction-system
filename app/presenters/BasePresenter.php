@@ -12,7 +12,7 @@ use App\Model;
 abstract class BasePresenter extends Nette\Application\UI\Presenter {
 
 		/** @var Model\Database */
-		private $database;
+		protected $database;
 
 
 	public function __construct(Model\Database $database) {

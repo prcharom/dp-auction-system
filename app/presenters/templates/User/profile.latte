@@ -1,100 +1,71 @@
+{form userForm}  	
   	<!--- Modal-header -->
 	<div class="modal-header panel-heading">
 		<button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h3 class="panel-title">{$user->identity->name}</h3>
+        {input name}
 	</div>
 	<!-- Modal-body -->
 	<div class="modal-body panel-body">
 		<div class="row">
             <div class="col-md-3 col-lg-3 " align="center"> 
-            	<img alt="{$user->identity->nick}" src="images/web/icons/user_{if $user->identity->id_gender == 2}fe{/if}male.png" class="img-circle img-responsive"> 
+            	<img alt="{$profile->nick}" src="images/web/icons/user_{if $profile->id_gender == 2}fe{/if}male.png" class="img-circle img-responsive"> 
             </div>
+            	<!-- vykreslení chyb -->
+	            <ul class="errors" n:if="$form->hasErrors()">
+	                <li n:foreach="$form->errors as $error">{$error}</li>
+	            </ul> 
             <div class=" col-md-9 col-lg-9 "> 
                	<table class="table table-user-information">
 	                <tbody>
 	                    <tr>
 	                        <td>Nick:</td>
-	                        <td>{$user->identity->nick}</td>
+	                        <td>
+	                        	<input type="text" class="form-control" value="{$profile->nick}" readonly>
+	                        </td>
 	                    </tr>
 	                    <tr>
 	                        <td>Datum registrace:</td>
-	                        <td>{$user->identity->registered_since|date:'d/m/Y  H:i'}</td>
+	                        <td><input type="text" class="form-control" value="{$profile->registered_since|date:'d/m/Y  H:i'}" readonly></td>
 	                    </tr>
 	                    <tr>
 	                        <td>Datum posl. přihlášení:</td>
-	                        <td>{$user->identity->last_login|date:'d/m/Y  H:i'}</td>
+	                        <td><input type="text" class="form-control" value="{$profile->last_login|date:'d/m/Y  H:i'}" readonly></td>
 	                    </tr>
 	                    <tr>
 	                        <td>Pohlaví:</td>
-	                        <td>{if $user->identity->id_gender == 1}Muž{else}Žena{/if}</td>
+	                        <td>
+	                       	{foreach $form[id_gender]->items as $key => $label}
+					            <div class="col-xs-6">
+						            <div class="reg-radio input-group">
+						              	<span class="input-group-addon">
+						                	<input n:name="id_gender:$key">
+						              	</span>
+						              	<input type="text" value="{$label}" class="form-control" readonly>
+						            </div>
+						        </div>
+						    {/foreach}
+	                        </td>
 	                    </tr>
 	                    <tr>
 	                        <td>Adresa bydliště:</td>
-	                        <td>{$user->identity->address}</td>
+	                        <td>{input address}</td>
 	                    </tr>
 	                    <tr>
 	                        <td>E-mail:</td>
-	                        <td><a href="mailto:{$user->identity->email}">{$user->identity->email}</a></td>
+	                        <td>{input email}</td>
 	                    </tr>
 	                    <tr>
 	                        <td>Telefonní číslo:</td>
-	                        <td>{$user->identity->phone}</td>
+	                        <td>{input phone}</td>
 	                    </tr>
 	                </tbody>
                 </table>
             </div>
        	</div>
-       	{form userForm}
-       	<div class="col-xs-9 col-md-6">
-        	<div>
-	            <!-- vykreslení chyb -->
-	            <ul class="errors" n:if="$form->hasErrors()">
-	                <li n:foreach="$form->errors as $error">{$error}</li>
-	            </ul> 
-	            <!-- vykresleni formu -->
-	            <div class="mar-input input-group col-xs-12">
-	                <span class="input-group-addon" id="reg-nick" style="width: 8em">Nick</span>
-	                {input nick}
-	            </div>
-	           	<div class="mar-input input-group col-xs-12">
-	                <span class="input-group-addon" id="reg-name" style="width: 8em">Celé jméno</span>
-	                {input name}
-	            </div>
-	           	<!-- radio gender -->
-	            <div class="mar-input-2x row">
-	            {foreach $form[id_gender]->items as $key => $label}
-		            <div class="col-xs-6">
-			            <div class="reg-radio input-group">
-			              	<span class="input-group-addon">
-			                	<input n:name="id_gender:$key">
-			              	</span>
-			              	<input type="text" value="{$label}" class="form-control" readonly>
-			            </div>
-			        </div>
-			    {/foreach}
-		        </div>
-		        <!-- / radio gender -->
-	           	<div class="mar-input input-group col-xs-12">
-	                <span class="input-group-addon" id="reg-address" style="width: 8em">Adresa</span>
-	                {input address}
-	            </div>
-	           	<div class="mar-input input-group col-xs-12">
-	                <span class="input-group-addon" id="reg-phone" style="width: 8em">Telefon</span>
-	                {input phone}
-	            </div>
-	           	<div class="mar-input input-group col-xs-12">
-	                <span class="input-group-addon" id="reg-email" style="width: 8em">E-mail</span>
-	                {input email}
-	            </div>
-	        </div>
-	        <div class="input-group col-xs-6 col-xs-offset-6 col-md-4 col-md-offset-8">
-            	{input send}
-        	</div>
-        </div>
-       	{/form}
 	</div>
 	<!-- Modal footer -->
 	<div class="modal-footer panel-footer">
-		<input type="button" class="btn btn-primary" value="Editovat profil">
+		{input send}
 	  	<input type="button" class="btn btn-default" data-dismiss="modal" value="Zavřít">
 	</div>
+{/form}
