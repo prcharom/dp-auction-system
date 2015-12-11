@@ -32,6 +32,7 @@ class UserFormFactory extends Nette\Object {
   	public function create($id = null) {
   		$this->id = $id;
 	    $form = new Form;
+	    $form->getElementPrototype()->class('ajax form');
 	   	if($this->id == null) { 
 		    $form->addText('nick', 'Nick')
 				->setAttribute('class', 'form-control')

@@ -21,6 +21,8 @@ session:
 
 services:
 	- App\Model\Database
+	- App\Model\Photo
 	- App\Forms\SignFormFactory
 	- App\Forms\UserFormFactory
+	- App\Forms\UploadProfilePhotoFormFactory
 	router: App\RouterFactory::createRouter

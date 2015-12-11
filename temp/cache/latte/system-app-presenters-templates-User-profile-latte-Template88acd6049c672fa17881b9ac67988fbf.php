@@ -7,17 +7,21 @@ foreach ($this->params as $__k => $__v) $$__k = $__v; unset($__k, $__v);
 // prolog Latte\Macros\CoreMacros
 list($_b, $_g, $_l) = $template->initialize('3f3ef950a7', 'html')
 ;
-// prolog Nette\Bridges\ApplicationLatte\UIMacros
-
-// snippets support
-if (empty($_l->extends) && !empty($_control->snippetMode)) {
-	return Nette\Bridges\ApplicationLatte\UIRuntime::renderSnippets($_control, $_b, get_defined_vars());
-}
+// prolog Latte\Macros\BlockMacros
+//
+// block content
+//
+if (!function_exists($_b->blocks['content'][] = '_lbe2bde45101_content')) { function _lbe2bde45101_content($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v
+ ?>
+<div id="<?php echo $_control->getSnippetId('userForm') ?>"><?php call_user_func(reset($_b->blocks['_userForm']), $_b, $template->getParameters()) ?>
+</div><?php
+}}
 
 //
-// main template
+// block _userForm
 //
-echo Nette\Bridges\FormsLatte\Runtime::renderFormBegin($form = $_form = $_control["userForm"], array()) ?>
+if (!function_exists($_b->blocks['_userForm'][] = '_lbc3f1ef77d9__userForm')) { function _lbc3f1ef77d9__userForm($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v; $_control->redrawControl('userForm', FALSE)
+;echo Nette\Bridges\FormsLatte\Runtime::renderFormBegin($form = $_form = $_control["userForm"], array()) ?>
 
   	<!--- Modal-header -->
 	<div class="modal-header panel-heading">
@@ -29,8 +33,13 @@ echo Nette\Bridges\FormsLatte\Runtime::renderFormBegin($form = $_form = $_contro
 	<div class="modal-body panel-body">
 		<div class="row">
             <div class="col-md-3 col-lg-3 " align="center"> 
-            	<img alt="<?php echo Latte\Runtime\Filters::escapeHtml($profile->nick, ENT_COMPAT) ?>
+<?php if ($profile->photo == null) { ?>
+            		<img alt="<?php echo Latte\Runtime\Filters::escapeHtml($profile->nick, ENT_COMPAT) ?>
 " src="images/web/icons/user_<?php if ($profile->id_gender == 2) { ?>fe<?php } ?>male.png" class="img-circle img-responsive"> 
+<?php } else { ?>
+            		<img alt="<?php echo Latte\Runtime\Filters::escapeHtml($profile->nick, ENT_COMPAT) ?>
+" src="images/profiles/<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($profile->photo), ENT_COMPAT) ?>" class="img-circle img-responsive"> 
+<?php } ?>
             </div>
             	<!-- vykreslení chyb -->
 <?php if ($form->hasErrors()) { ?>	            <ul class="errors">
@@ -93,5 +102,32 @@ echo Nette\Bridges\FormsLatte\Runtime::renderFormBegin($form = $_form = $_contro
 
 	  	<input type="button" class="btn btn-default" data-dismiss="modal" value="Zavřít">
 	</div>
-<?php echo Nette\Bridges\FormsLatte\Runtime::renderFormEnd($_form) ;
+<?php echo Nette\Bridges\FormsLatte\Runtime::renderFormEnd($_form) ?>
+
+<?php
+}}
+
+//
+// end of blocks
+//
+
+// template extending
+
+$_l->extends = "../@layout-modal.latte"; $_g->extended = TRUE;
+
+if ($_l->extends) { ob_start();}
+
+// prolog Nette\Bridges\ApplicationLatte\UIMacros
+
+// snippets support
+if (empty($_l->extends) && !empty($_control->snippetMode)) {
+	return Nette\Bridges\ApplicationLatte\UIRuntime::renderSnippets($_control, $_b, get_defined_vars());
+}
+
+//
+// main template
+// ?>
+
+<?php if ($_l->extends) { ob_end_clean(); return $template->renderChildTemplate($_l->extends, get_defined_vars()); }
+call_user_func(reset($_b->blocks['content']), $_b, get_defined_vars()) ; 
 }}

@@ -78,8 +78,23 @@ if (!function_exists($_b->blocks['content'][] = '_lb13520a9f1b_content')) { func
                         <p>If you like this template, then check out <a target="_blank" href="http://maxoffsky.com/code-blog/laravel-shop-tutorial-1-building-a-review-system/">this tutorial</a> on how to build a working review system for your online store!</p>
                         <a class="btn btn-primary" target="_blank" href="http://maxoffsky.com/code-blog/laravel-shop-tutorial-1-building-a-review-system/">View Tutorial</a>
                     </div>
+                    <div class="col-sm-4 col-lg-4 col-md-4">
+<div id="<?php echo $_control->getSnippetId('ajaxChange') ?>"><?php call_user_func(reset($_b->blocks['_ajaxChange']), $_b, $template->getParameters()) ?>
+</div>
+                        <a class="ajax btn btn-primary" href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("changeVariable!"), ENT_COMPAT) ?>
+">Change variable!</a>
+                    </div>
 
                 </div>
+
+<?php
+}}
+
+//
+// block _ajaxChange
+//
+if (!function_exists($_b->blocks['_ajaxChange'][] = '_lb6657252863__ajaxChange')) { function _lb6657252863__ajaxChange($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v; $_control->redrawControl('ajaxChange', FALSE)
+?>                            <?php echo Latte\Runtime\Filters::escapeHtml($anyVariable, ENT_NOQUOTES) ?>
 
 <?php
 }}

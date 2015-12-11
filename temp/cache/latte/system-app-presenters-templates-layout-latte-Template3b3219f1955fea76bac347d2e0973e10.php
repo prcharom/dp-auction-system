@@ -22,7 +22,10 @@ if (!function_exists($_b->blocks['scripts'][] = '_lb40a8740310_scripts')) { func
 ?>	<!-- jQuery -->
     <script src="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>/assets/js/jquery.js"></script>
 
-     <!-- My Custome JavaScript -->
+    <!-- Nette Ajax -->
+    <script src="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>/js/nette.ajax.js"></script>
+
+    <!-- My Custome JavaScript -->
     <script src="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>/js/dp-js-functions.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
@@ -160,8 +163,8 @@ call_user_func(reset($_b->blocks['head']), $_b, get_defined_vars())  ?>
                 <p class="lead">Kategorie</p>
                 <div class="list-group">
 <?php $iterations = 0; foreach ($categories as $category) { ?>
-                    	<a href="Auctions:all, <?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($category->id), ENT_COMPAT) ?>
-" class="list-group-item"><?php echo Latte\Runtime\Filters::escapeHtml($category->value, ENT_NOQUOTES) ?></a>
+                    	<a class="list-group-item" href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("Homepage:category", array($category->id)), ENT_COMPAT) ?>
+"><?php echo Latte\Runtime\Filters::escapeHtml($category->value, ENT_NOQUOTES) ?></a>
 <?php $iterations++; } ?>
                 </div>
             </div>

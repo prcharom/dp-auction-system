@@ -1,4 +1,7 @@
 $(document).ready(function() {  
+
+  // inicializace nette ajaxu
+  $.nette.init();
   
 	// skryvani flash zprav
 	$( 'div.flash' ).click(function() {

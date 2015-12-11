@@ -101,7 +101,7 @@
                 <p class="lead">Kategorie</p>
                 <div class="list-group">
                 	{foreach $categories as $category}
-                    	<a href="Auctions:all, {$category->id}" class="list-group-item">{$category->value}</a>
+                    	<a n:href="Homepage:category, $category->id" class="list-group-item">{$category->value}</a>
                     {/foreach}
                 </div>
             </div>
@@ -147,7 +147,10 @@
 	<!-- jQuery -->
     <script src="{$basePath}/assets/js/jquery.js"></script>
 
-     <!-- My Custome JavaScript -->
+    <!-- Nette Ajax -->
+    <script src="{$basePath}/js/nette.ajax.js"></script>
+
+    <!-- My Custome JavaScript -->
     <script src="{$basePath}/js/dp-js-functions.js"></script>
 
     <!-- Bootstrap Core JavaScript -->

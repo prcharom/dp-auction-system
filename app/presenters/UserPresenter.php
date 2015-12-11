@@ -6,6 +6,7 @@ use Nette;
 use App\Model;
 use App\Forms\SignFormFactory;
 use App\Forms\UserFormFactory;
+use App\Forms\UploadProfilePhotoFormFactory;
 
 
 class UserPresenter extends BasePresenter {
@@ -15,6 +16,9 @@ class UserPresenter extends BasePresenter {
 
 		/** @var UserFormFactory @inject */
 		public $userFactory;
+
+		/** @var UploadProfilePhotoFormFactory @inject */
+		public $uploadProfilePhotoFactory;
 
 
 	/* --- --- Edit Profile --- --- */
@@ -74,7 +78,7 @@ class UserPresenter extends BasePresenter {
 			$form = $this->userFactory->create();	
 		}
 		$form->onSuccess[] = function ($form) {
-			$values = $form->getValues();
+			/* $values = $form->getValues();
 			if($this->user->loggedIn) {
 				$this->flashMessage('Váš profil byl úspěšně upraven.');
 			} else {
@@ -84,6 +88,26 @@ class UserPresenter extends BasePresenter {
 					$this->flashMessage('Byla jste úspěšně zaregistrována.');
 				} 
 			}
+			$this->redirect('Homepage:default'); */
+			$this->flashMessage('Vysledek byl ulozen/zpracovan.');
+		    if ($this->presenter->isAjax()) {
+		        $this->redrawControl('userForm');
+		        $this->invalidateControl('flashMsg');
+		    } else {
+		        $this->redirect('this');
+		    }
+		};
+		return $form;
+	}
+
+	/**
+	 * Upload profile img factory.
+	 * @return Nette\Application\UI\Form
+	 */
+	protected function createComponentUploadProfilePhotoForm() {		
+		$form = $this->uploadProfilePhotoFactory->create($this->user->id);
+		$form->onSuccess[] = function ($form) {
+			$this->flashMessage('Váše profilová fotografie byla upravena.');
 			$this->redirect('Homepage:default');
 		};
 		return $form;
