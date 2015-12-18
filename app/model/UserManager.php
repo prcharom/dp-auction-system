@@ -43,12 +43,14 @@ class UserManager {
 	    
 		$row = $this->findTable()->where('nick', $nick)->fetch();
 
+		$err_msg = 'Zadali jste špatné heslo a nebo zadaný uživatel neexistuje. Ujistěte se, že máte správně vyplněné přihlašovací údaje a akci opakujte.';
+
 		if (!$row) {
-			throw new Security\AuthenticationException('Zadejte prosím správný nick.');
+			throw new Security\AuthenticationException($err_msg);
 		}
 
 		if ($row->password !== $this->generateHash($password, $row->password)) {
-			throw new Security\AuthenticationException('Zadejte prosím správné heslo.');
+			throw new Security\AuthenticationException($err_msg);
 		}
 
 		$arr = $row->toArray();
@@ -75,6 +77,15 @@ class UserManager {
 	    $data['id_role'] = 2;
 	    return $this->findTable()->insert($data);
 	}
+
+
+	// fce pro zmenu hesla
+	public function changePassword($id, $password) {
+		$user = $this->findTable()->get($id);
+		$data['password'] = $this->generateHash($password);
+		return $user->insert($data);
+	}
+
 
 	/**
 	 * Generuje hash hesla i se solicim retezcem

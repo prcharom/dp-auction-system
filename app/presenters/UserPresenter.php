@@ -7,6 +7,7 @@ use App\Model;
 use App\Forms\SignFormFactory;
 use App\Forms\UserFormFactory;
 use App\Forms\UploadProfilePhotoFormFactory;
+use App\Forms\PasswordFormFactory;
 
 
 class UserPresenter extends BasePresenter {
@@ -20,8 +21,12 @@ class UserPresenter extends BasePresenter {
 		/** @var UploadProfilePhotoFormFactory @inject */
 		public $uploadProfilePhotoFactory;
 
+		/** @var PasswordFormFactory @inject */
+		public $passwordFactory;
 
-	/* --- --- Edit Profile --- --- */
+
+	/* --- --- Profile --- --- */
+	
 	public function actionProfile() {
 		if (!$this->user->loggedIn)
             throw new Nette\Application\ForbiddenRequestException();
@@ -35,7 +40,28 @@ class UserPresenter extends BasePresenter {
 	}
 
 
+	/* --- --- Profile Photo --- --- */
+	
+	public function actionProfilePhoto() {
+		if (!$this->user->loggedIn)
+            throw new Nette\Application\ForbiddenRequestException();
+	}
+
+	public function renderProfilePhoto() {
+		$this->template->profile = $this->database->findById('user', $this->user->id);	
+	}
+
+
+	/* --- --- Password --- --- */
+	
+	public function actionPassword() {
+		if (!$this->user->loggedIn)
+            throw new Nette\Application\ForbiddenRequestException();
+	}
+
+
 	/* --- --- Logout --- --- */
+
 	public function actionLogout() {
 		$gender_id = $this->user->identity->id_gender;
 		$this->getUser()->logout();
@@ -78,7 +104,7 @@ class UserPresenter extends BasePresenter {
 			$form = $this->userFactory->create();	
 		}
 		$form->onSuccess[] = function ($form) {
-			/* $values = $form->getValues();
+			$values = $form->getValues();
 			if($this->user->loggedIn) {
 				$this->flashMessage('Váš profil byl úspěšně upraven.');
 			} else {
@@ -88,14 +114,7 @@ class UserPresenter extends BasePresenter {
 					$this->flashMessage('Byla jste úspěšně zaregistrována.');
 				} 
 			}
-			$this->redirect('Homepage:default'); */
-			$this->flashMessage('Vysledek byl ulozen/zpracovan.');
-		    if ($this->presenter->isAjax()) {
-		        $this->redrawControl('userForm');
-		        $this->invalidateControl('flashMsg');
-		    } else {
-		        $this->redirect('this');
-		    }
+			$this->redirect('Homepage:default');
 		};
 		return $form;
 	}
@@ -108,6 +127,19 @@ class UserPresenter extends BasePresenter {
 		$form = $this->uploadProfilePhotoFactory->create($this->user->id);
 		$form->onSuccess[] = function ($form) {
 			$this->flashMessage('Váše profilová fotografie byla upravena.');
+			$this->redirect('Homepage:default');
+		};
+		return $form;
+	}
+
+	/**
+	 * Password form factory.
+	 * @return Nette\Application\UI\Form
+	 */
+	protected function createComponentPasswordForm() {		
+		$form = $this->passwordFactory->create($this->user->id);
+		$form->onSuccess[] = function ($form) {
+			$this->flashMessage('Vaše heslo bylo úspěšně změněno.');
 			$this->redirect('Homepage:default');
 		};
 		return $form;

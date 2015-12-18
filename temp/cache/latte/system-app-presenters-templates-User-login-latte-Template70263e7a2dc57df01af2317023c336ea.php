@@ -12,58 +12,64 @@ list($_b, $_g, $_l) = $template->initialize('d9db5f0ca4', 'html')
 // block content
 //
 if (!function_exists($_b->blocks['content'][] = '_lb980562ddc4_content')) { function _lb980562ddc4_content($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v
-?>    <?php echo Nette\Bridges\FormsLatte\Runtime::renderFormBegin($form = $_form = $_control["signInForm"], array()) ?>
-
-<?php call_user_func(reset($_b->blocks['title']), $_b, get_defined_vars())  ?>
-        <div class="left-panel col-md-6">
-        		<img class="col-md-4" src="../images/web/icons/user_success.png" style="max-width: 100%">
-        		<p class="col-md-8">
-        			Po úspěšném přihlášení do systému se budete moci účastnit jednotlivých aukcí, nové aukce zakládat a mnoho dalšího. 
-        		</p>
-        		<p class="col-md-8">
-        			Nemáte ještě účet? Založte si ho <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("User:registration"), ENT_COMPAT) ?>
-">zde</a>. 
-        		</p>
-        </div>
-        <div class="col-md-6">
-        	<div>
-	            <!-- vykreslení chyb -->
-<?php if ($form->hasErrors()) { ?>	            <ul class="errors">
-<?php $iterations = 0; foreach ($form->errors as $error) { ?>	                <li><?php echo Latte\Runtime\Filters::escapeHtml($error, ENT_NOQUOTES) ?></li>
-<?php $iterations++; } ?>
-	            </ul> 
-<?php } ?>
-	            <!-- vykresleni formu -->
-	            <div class="mar-input input-group col-xs-9">
-	                <span class="input-group-addon" id="login-username" style="width: 8em">Nick</span>
-	                <?php echo $_form["username"]->getControl() ?>
-
-	            </div>
-	            <div class="mar-input input-group col-xs-9">
-	                <span class="input-group-addon" id="login-password" style="width: 8em">Heslo</span>
-	                <?php echo $_form["password"]->getControl() ?>
-
-	            </div>
-	            <div class="input-group col-xs-9 pad-input">
-	                <?php echo $_form["remember"]->getControl() ?>
-
-	            </div>
-	        </div>
-	        <div class="input-group col-xs-9">
-            	<?php echo $_form["send"]->getControl() ?>
-
-        	</div>
-        </div>
-    <?php echo Nette\Bridges\FormsLatte\Runtime::renderFormEnd($_form) ?>
-
-<?php
+ ?>
+<div id="<?php echo $_control->getSnippetId('sign') ?>"><?php call_user_func(reset($_b->blocks['_sign']), $_b, $template->getParameters()) ?>
+</div><?php
 }}
 
 //
-// block title
+// block _sign
 //
-if (!function_exists($_b->blocks['title'][] = '_lb5aa1068629_title')) { function _lb5aa1068629_title($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v
-?>    	<h2>Přihlášení</h2>
+if (!function_exists($_b->blocks['_sign'][] = '_lb68cbcaaf7d__sign')) { function _lb68cbcaaf7d__sign($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v; $_control->redrawControl('sign', FALSE)
+?>    <?php echo Nette\Bridges\FormsLatte\Runtime::renderFormBegin($form = $_form = $_control["signInForm"], array()) ?>
+
+    	<!--- Modal-header -->
+		<div class="modal-header panel-heading">
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
+	    	<h2 class="modal-title">Přihlášení</h2>
+		</div>
+		<!-- Modal-body -->
+		<div class="modal-body panel-body">
+			<div class="row">
+		        <div class="left-panel col-md-12">
+		        	<!-- vykreslení chyb -->
+<?php if ($form->hasErrors()) { ?>				    <ul class="errors">
+<?php $iterations = 0; foreach ($form->errors as $error) { ?>				        <li><?php echo Latte\Runtime\Filters::escapeHtml($error, ENT_NOQUOTES) ?></li>
+<?php $iterations++; } ?>
+				    </ul> 
+<?php } ?>
+		        	<img class="col-md-4" src="images/web/icons/user_success.png" style="max-width: 100%">
+		        	<div class="col-md-8 mar-input">
+		        		Po úspěšném přihlášení do systému se budete moci účastnit jednotlivých aukcí, nové aukce zakládat a mnoho dalšího. 
+		        	</div>
+		        	<div class="col-md-8">
+					    <!-- vykresleni formu -->
+					    <div class="mar-input input-group col-xs-12">
+					       	<span class="input-group-addon" id="login-username" style="width: 8em">Nick</span>
+					        <?php echo $_form["username"]->getControl() ?>
+
+					    </div>
+					    <div class="mar-input input-group col-xs-12">
+					        <span class="input-group-addon" id="login-password" style="width: 8em">Heslo</span>
+					        <?php echo $_form["password"]->getControl() ?>
+
+					    </div>
+					    <div class="input-group col-xs-12">
+					    	<?php echo $_form["remember"]->getControl() ?>
+
+					    </div>
+			        </div>
+		        </div>
+	        </div>
+        </div>
+        <!-- Modal footer -->
+		<div class="modal-footer panel-footer">
+			<?php echo $_form["send"]->getControl() ?>
+
+		  	<input type="button" class="btn btn-default" data-dismiss="modal" value="Zavřít">
+		</div>
+    <?php echo Nette\Bridges\FormsLatte\Runtime::renderFormEnd($_form) ?>
+
 <?php
 }}
 
@@ -72,13 +78,9 @@ if (!function_exists($_b->blocks['title'][] = '_lb5aa1068629_title')) { function
 //
 if (!function_exists($_b->blocks['head'][] = '_lb841e155f9f_head')) { function _lb841e155f9f_head($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v
 ?><style>
-div.mar-input { margin-bottom: 1em;}
-div.pad-input { padding: 0 0 5px 0;}
-label > input { float: left;}
-label { color: #555; font-weight: normal;}
-div .btn-primary { width: 100%;}
-.left-panel img { height: 160px;}
-.left-panel p { padding: 1em;}
+	div.mar-input { margin-bottom: 1em;}
+	label { color: #555; font-weight: normal;}
+	input[type=checkbox] { float: left; margin-right: 5px;}
 </style>
 <?php
 }}
@@ -89,7 +91,7 @@ div .btn-primary { width: 100%;}
 
 // template extending
 
-$_l->extends = "../@layout-lr.latte"; $_g->extended = TRUE;
+$_l->extends = "../@layout-modal.latte"; $_g->extended = TRUE;
 
 if ($_l->extends) { ob_start();}
 

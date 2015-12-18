@@ -25,4 +25,5 @@ services:
 	- App\Forms\SignFormFactory
 	- App\Forms\UserFormFactory
 	- App\Forms\UploadProfilePhotoFormFactory
+	- App\Forms\PasswordFormFactory
 	router: App\RouterFactory::createRouter

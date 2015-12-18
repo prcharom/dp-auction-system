@@ -16,7 +16,7 @@ class UserFormFactory extends Nette\Object {
 		/** @var Nette\Database\Context */
 		private $database;
 
-		/* Edit User Id */
+		/* User Id */
 		private $id;
 
 
@@ -37,18 +37,18 @@ class UserFormFactory extends Nette\Object {
 		    $form->addText('nick', 'Nick')
 				->setAttribute('class', 'form-control')
 				->setAttribute('placeholder', 'Nevyplněno')
-				->setRequired('Prosím vyplňte Váš nick.');
+				->setRequired('Vyplňte prosím pole Nick.');
 	     
 		    $form->addPassword('password', 'Heslo', 20)
 		    	->setAttribute('class', 'form-control')
 				->setAttribute('placeholder', 'Nevyplněno')
-		      	->setRequired('Vyplňte prosím heslo.')
+		      	->setRequired('Vyplňte prosím pole Heslo.')
 		      	->addRule(Form::MIN_LENGTH, 'Zadejte prosím heslo obsahující alespoň %d znaků.', 6);
 		      
 		    $form->addPassword('password2', 'Heslo znovu', 20)
 		    	->setAttribute('class', 'form-control')
 				->setAttribute('placeholder', 'Nevyplněno')
-		      	->setRequired('Zadejte prosím znovu heslo pro kontrolu.')
+		      	->setRequired('Vyplňte prosím pole Heslo znovu.')
 		      	->addConditionOn($form['password'], Form::VALID)
 		      	->addRule(Form::EQUAL, 'Hesla se neshodují. Zadejte a ověřte heslo znovu.', $form['password']);
 	    }
@@ -56,7 +56,7 @@ class UserFormFactory extends Nette\Object {
 	    $form->addText('name', 'Celé jméno')
 	    	->setAttribute('class', 'form-control form-control-active')
 			->setAttribute('placeholder', 'Nevyplněno')
-	      	->setRequired('Zadejte prosím celé jméno i s tituly.');
+	      	->setRequired('Vyplňte prosím pole Celé jméno.');
 
 	    $sex = array('1' => 'muž', '2' => 'žena');
 	    $form->addRadioList('id_gender', 'Pohlaví', $sex)
@@ -67,31 +67,33 @@ class UserFormFactory extends Nette\Object {
 	    $form->addText('address', 'Adresa')
 	    	->setAttribute('class', 'form-control form-control-active')
 			->setAttribute('placeholder', 'Nevyplněno')
-	      	->setRequired('Zadejte prosím adresu trvalého bydliště.');
+	      	->setRequired('Vyplňte prosím pole Adresa.');
 
 	    $form->addText('email', 'E-mail', 35)
 		    ->setType('email')
 	    	->setAttribute('class', 'form-control form-control-active')
 			->setAttribute('placeholder', 'Nevyplněno')
-		    ->setRequired('Vložte prosím vaši emailovou adresu.')
+		    ->setRequired('Vyplňte prosím pole E-mail.')
 		    ->addCondition(Form::FILLED)
 		    ->addRule(Form::EMAIL, 'Vložte prosím platnou emailovou adresu.');
 	      
 	    $form->addText('phone', 'Telefon')
 			->setAttribute('class', 'form-control form-control-active')
 			->setAttribute('placeholder', 'Nevyplněno')
-			->setRequired('Prosím vyplňte Váš nick.');     
+			->setRequired('Vyplňte prosím pole Telefon.');     
 	      
 		$form->addSubmit('send', 'Registrovat')
 		->setAttribute('class', 'btn btn-primary');
 
 		$form->onSuccess[] = array($this, 'formSucceeded');
+		$form->onError[] = array($this, 'formNotSucceeded');
 		return $form;
 	}
 
 
 	public function formSucceeded(Form $form, $values) {
 		if($this->id == null) {
+			
 			try {
 				$userManager = new Model\UserManager($this->user, $this->database); 
 				try {
@@ -110,6 +112,9 @@ class UserFormFactory extends Nette\Object {
 			} catch (Nette\Security\AuthenticationException $e) {
 				$form->addError($e->getMessage());
 			}
+			if($form->getPresenter()->isAjax()) {
+				$form->getPresenter()->redrawControl('registration');
+			}
 		} else {
 			$database = new Model\Database($this->database);
 			$user = $database->findById('user', $this->id);
@@ -118,6 +123,21 @@ class UserFormFactory extends Nette\Object {
 				$this->user->identity->name = $values->name;
 			} else {
 				$form->addError('Uživatel, kterého se snažíte upravit, neexistuje. Je možné, že ho někdo smazal.');
+			}
+			if($form->getPresenter()->isAjax()) {
+				$form->getPresenter()->redrawControl('profile');
+			}
+		}
+	}
+
+	public function formNotSucceeded(Form $form) {
+		if($this->id == null) {
+			if($form->getPresenter()->isAjax()) {
+				$form->getPresenter()->redrawControl('registration');
+			}
+		} else {
+			if($form->getPresenter()->isAjax()) {
+				$form->getPresenter()->redrawControl('profile');
 			}
 		}
 	}

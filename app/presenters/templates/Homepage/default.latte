@@ -32,18 +32,20 @@
 
                 <div class="row">
 
-                    {for $i=0; $i<count($products['title']); $i++}
+                    {foreach $products as $p}
                     <div class="col-sm-4 col-lg-4 col-md-4">
                         <div class="thumbnail">
-                            <img src="images/products/{$products['photo'][$i]}" alt="{$products['title'][$i]}">
+                            <img src="images/products/" alt="{$p->name}">
                             <div class="caption">
-                                <h4 class="pull-right">{$products['prize'][$i]|number} CZK</h4>
+                                <h4 class="pull-right">{$p->cost|number} CZK</h4>
                                 <h4>
-                                    <a n:href="Homepage:product, $i+1">{$products['title'][$i]}</a>
+                                    <a n:href="Homepage:product, $p->id">{$p->name}</a>
                                 </h4>
-                                <p>{$products['body'][$i]}</p>
+                                <p>{$p->description}</p>
                             </div>
-                            <div class="ratings">
+                            
+                            <!--- HVEZDICKOVANI
+                            {*<div class="ratings">
                                 <p class="pull-right">{$products['reviews'][$i]} reviews</p>
                                 <p>
                                 {for $j=0; $j<$products['stars'][$i]; $j++}
@@ -53,17 +55,12 @@
                                     <span class="glyphicon glyphicon-star-empty"></span>
                                 {/for}
                                 </p>
-                            </div>
+                            </div>*} -->
+
                         </div>
                     </div>
-                    {/for}                        
+                    {/foreach}                        
 
-                    <div class="col-sm-4 col-lg-4 col-md-4">
-                        <h4><a href="#">Like this template?</a>
-                        </h4>
-                        <p>If you like this template, then check out <a target="_blank" href="http://maxoffsky.com/code-blog/laravel-shop-tutorial-1-building-a-review-system/">this tutorial</a> on how to build a working review system for your online store!</p>
-                        <a class="btn btn-primary" target="_blank" href="http://maxoffsky.com/code-blog/laravel-shop-tutorial-1-building-a-review-system/">View Tutorial</a>
-                    </div>
                     <div class="col-sm-4 col-lg-4 col-md-4">
                         {snippet ajaxChange}
                             {$anyVariable}

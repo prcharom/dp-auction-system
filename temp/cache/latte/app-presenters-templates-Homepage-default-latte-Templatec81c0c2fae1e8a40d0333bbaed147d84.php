@@ -45,39 +45,26 @@ if (!function_exists($_b->blocks['content'][] = '_lb13520a9f1b_content')) { func
 
                 <div class="row">
 
-<?php for ($i=0; $i<count($products['title']); $i++) { ?>
+<?php $iterations = 0; foreach ($products as $p) { ?>
                     <div class="col-sm-4 col-lg-4 col-md-4">
                         <div class="thumbnail">
-                            <img src="images/products/<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($products['photo'][$i]), ENT_COMPAT) ?>
-" alt="<?php echo Latte\Runtime\Filters::escapeHtml($products['title'][$i], ENT_COMPAT) ?>">
+                            <img src="images/products/" alt="<?php echo Latte\Runtime\Filters::escapeHtml($p->name, ENT_COMPAT) ?>">
                             <div class="caption">
-                                <h4 class="pull-right"><?php echo Latte\Runtime\Filters::escapeHtml($template->number($products['prize'][$i]), ENT_NOQUOTES) ?> CZK</h4>
+                                <h4 class="pull-right"><?php echo Latte\Runtime\Filters::escapeHtml($template->number($p->cost), ENT_NOQUOTES) ?> CZK</h4>
                                 <h4>
-                                    <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("Homepage:product", array($i+1)), ENT_COMPAT) ?>
-"><?php echo Latte\Runtime\Filters::escapeHtml($products['title'][$i], ENT_NOQUOTES) ?></a>
+                                    <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("Homepage:product", array($p->id)), ENT_COMPAT) ?>
+"><?php echo Latte\Runtime\Filters::escapeHtml($p->name, ENT_NOQUOTES) ?></a>
                                 </h4>
-                                <p><?php echo Latte\Runtime\Filters::escapeHtml($products['body'][$i], ENT_NOQUOTES) ?></p>
+                                <p><?php echo Latte\Runtime\Filters::escapeHtml($p->description, ENT_NOQUOTES) ?></p>
                             </div>
-                            <div class="ratings">
-                                <p class="pull-right"><?php echo Latte\Runtime\Filters::escapeHtml($products['reviews'][$i], ENT_NOQUOTES) ?> reviews</p>
-                                <p>
-<?php for ($j=0; $j<$products['stars'][$i]; $j++) { ?>
-                                    <span class="glyphicon glyphicon-star"></span>
-<?php } for ($j=5; $j>$products['stars'][$i]; $j--) { ?>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-<?php } ?>
-                                </p>
-                            </div>
+                            
+                            <!--- HVEZDICKOVANI
+                             -->
+
                         </div>
                     </div>
-<?php } ?>
+<?php $iterations++; } ?>
 
-                    <div class="col-sm-4 col-lg-4 col-md-4">
-                        <h4><a href="#">Like this template?</a>
-                        </h4>
-                        <p>If you like this template, then check out <a target="_blank" href="http://maxoffsky.com/code-blog/laravel-shop-tutorial-1-building-a-review-system/">this tutorial</a> on how to build a working review system for your online store!</p>
-                        <a class="btn btn-primary" target="_blank" href="http://maxoffsky.com/code-blog/laravel-shop-tutorial-1-building-a-review-system/">View Tutorial</a>
-                    </div>
                     <div class="col-sm-4 col-lg-4 col-md-4">
 <div id="<?php echo $_control->getSnippetId('ajaxChange') ?>"><?php call_user_func(reset($_b->blocks['_ajaxChange']), $_b, $template->getParameters()) ?>
 </div>

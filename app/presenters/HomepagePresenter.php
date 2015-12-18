@@ -13,8 +13,7 @@ class HomepagePresenter extends BasePresenter {
     private $anyVariable;
 
 
-    public function handleChangeVariable()
-    {
+    public function handleChangeVariable() {
         $this->anyVariable = $this->database->findById('user', 1)->name;
         if ($this->isAjax()) {
             $this->redrawControl('ajaxChange');
@@ -22,9 +21,9 @@ class HomepagePresenter extends BasePresenter {
     }
 
 	/* --- --- Default --- --- */	
+
 	public function renderDefault() {
-		$objProduct = new Model\Product; 
-		$this->template->products = $objProduct->getProducts();
+		$this->template->products = $this->database->findAll('product')->limit(9);
 		if ($this->anyVariable === NULL) {
             $this->anyVariable = 'default value';
         }
@@ -33,11 +32,13 @@ class HomepagePresenter extends BasePresenter {
 	}
 
 	/* --- --- Category --- --- */
+
 	public function renderCategory($id=null) {
 		$this->template->auctions = $this->database->findAll('auction')->where('id_category', $id);
 	}
 
 	/* --- --- Product --- --- */
+
 	public function renderProduct($id=null) {
 		$objProduct = new Model\Product; 
 		$this->template->products = $objProduct->getProducts();

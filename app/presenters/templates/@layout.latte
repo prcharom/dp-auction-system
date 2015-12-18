@@ -51,20 +51,32 @@
                 <a class="navbar-brand" n:href="Homepage:default">{$systemName->value}</a>
             </div>
             <!-- Top Menu Items -->
-            <ul class="nav navbar-right top-nav" n:if="$user->loggedIn">
+            <ul class="nav navbar-right top-nav">
+            {if $user->loggedIn}
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {$user->identity->name} <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>
                             <a data-toggle="modal" n:href="User:profile" data-target="#profile_modal">
-                                <i class="fa fa-fw fa-user"></i> Profile
+                                <i class="fa fa-fw fa-user"></i> Profil
                             </a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-fw fa-info"></i> Přehled</a>
+                            <a data-toggle="modal" n:href="User:profilePhoto" data-target="#password_modal">
+                                <i class="fa fa-fw fa-photo"></i> Změnit foto
+                            </a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-fw fa-gear"></i> Admin</a>
+                            <a data-toggle="modal" n:href="User:password" data-target="#profilePhoto_modal">
+                                <i class="fa fa-fw fa-edit"></i> Změnit heslo
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-plus"></i> Přidat aukci</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-dashboard"></i> Přehled aukcí</a>
                         </li>
                         <li class="divider"></li>
                         <li>
@@ -72,6 +84,14 @@
                         </li>
                     </ul>
                 </li>
+            {else}                   
+                <li>
+                    <a data-toggle="modal" data-target="#login_modal" n:href="User:login">Přihlásit</a>
+                </li>
+                <li>
+                    <a data-toggle="modal" data-target="#register_modal" n:href="User:registration">Registrovat</a>
+                </li>
+            {/if}
             </ul>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -81,9 +101,6 @@
                     </li>
                     <li>
                         <a href="#">Kontakt</a>
-                    </li>
-                    <li n:if="!$user->loggedIn">
-                        <a n:href="User:login">Přihlásit</a>
                     </li>
                 </ul>
             </div>
@@ -140,6 +157,38 @@
             <div class="modal-content">
             </div>
         </div>
+    </div>
+
+    <!-- PopUp pomoci bootstrap, pro profilePhoto.latte -->
+    <div id="profilePhoto_modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+
+    <!-- PopUp pomoci bootstrap, pro password.latte -->
+    <div id="password_modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+
+    <!-- PopUp pomoci bootstrap, pro login.latte -->
+    <div id="login_modal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+        </div>
+      </div>
+    </div>
+
+    <!-- PopUp pomoci bootstrap, pro register.latte -->
+    <div id="register_modal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+        </div>
+      </div>
     </div>
 
 	{block scripts}

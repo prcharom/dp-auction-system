@@ -108,21 +108,35 @@ call_user_func(reset($_b->blocks['head']), $_b, get_defined_vars())  ?>
 "><?php echo Latte\Runtime\Filters::escapeHtml($systemName->value, ENT_NOQUOTES) ?></a>
             </div>
             <!-- Top Menu Items -->
-<?php if ($user->loggedIn) { ?>            <ul class="nav navbar-right top-nav">
+            <ul class="nav navbar-right top-nav">
+<?php if ($user->loggedIn) { ?>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?php echo Latte\Runtime\Filters::escapeHtml($user->identity->name, ENT_NOQUOTES) ?> <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>
                             <a data-toggle="modal" data-target="#profile_modal" href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("User:profile"), ENT_COMPAT) ?>
 ">
-                                <i class="fa fa-fw fa-user"></i> Profile
+                                <i class="fa fa-fw fa-user"></i> Profil
                             </a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-fw fa-info"></i> Přehled</a>
+                            <a data-toggle="modal" data-target="#password_modal" href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("User:profilePhoto"), ENT_COMPAT) ?>
+">
+                                <i class="fa fa-fw fa-photo"></i> Změnit foto
+                            </a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-fw fa-gear"></i> Admin</a>
+                            <a data-toggle="modal" data-target="#profilePhoto_modal" href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("User:password"), ENT_COMPAT) ?>
+">
+                                <i class="fa fa-fw fa-edit"></i> Změnit heslo
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-plus"></i> Přidat aukci</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-dashboard"></i> Přehled aukcí</a>
                         </li>
                         <li class="divider"></li>
                         <li>
@@ -131,8 +145,17 @@ call_user_func(reset($_b->blocks['head']), $_b, get_defined_vars())  ?>
                         </li>
                     </ul>
                 </li>
-            </ul>
+<?php } else { ?>
+                <li>
+                    <a data-toggle="modal" data-target="#login_modal" href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("User:login"), ENT_COMPAT) ?>
+">Přihlásit</a>
+                </li>
+                <li>
+                    <a data-toggle="modal" data-target="#register_modal" href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("User:registration"), ENT_COMPAT) ?>
+">Registrovat</a>
+                </li>
 <?php } ?>
+            </ul>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
@@ -142,11 +165,6 @@ call_user_func(reset($_b->blocks['head']), $_b, get_defined_vars())  ?>
                     <li>
                         <a href="#">Kontakt</a>
                     </li>
-<?php if (!$user->loggedIn) { ?>                    <li>
-                        <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("User:login"), ENT_COMPAT) ?>
-">Přihlásit</a>
-                    </li>
-<?php } ?>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -205,6 +223,38 @@ call_user_func(reset($_b->blocks['head']), $_b, get_defined_vars())  ?>
             <div class="modal-content">
             </div>
         </div>
+    </div>
+
+    <!-- PopUp pomoci bootstrap, pro profilePhoto.latte -->
+    <div id="profilePhoto_modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+
+    <!-- PopUp pomoci bootstrap, pro password.latte -->
+    <div id="password_modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+
+    <!-- PopUp pomoci bootstrap, pro login.latte -->
+    <div id="login_modal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+        </div>
+      </div>
+    </div>
+
+    <!-- PopUp pomoci bootstrap, pro register.latte -->
+    <div id="register_modal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+        </div>
+      </div>
     </div>
 
 

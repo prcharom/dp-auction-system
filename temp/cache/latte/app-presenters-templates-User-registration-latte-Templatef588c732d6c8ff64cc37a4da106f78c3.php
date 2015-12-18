@@ -12,11 +12,25 @@ list($_b, $_g, $_l) = $template->initialize('39b946b71d', 'html')
 // block content
 //
 if (!function_exists($_b->blocks['content'][] = '_lba80d47a2f8_content')) { function _lba80d47a2f8_content($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v
+ ?>
+<div id="<?php echo $_control->getSnippetId('registration') ?>"><?php call_user_func(reset($_b->blocks['_registration']), $_b, $template->getParameters()) ?>
+</div><?php
+}}
+
+//
+// block _registration
+//
+if (!function_exists($_b->blocks['_registration'][] = '_lbe67f738358__registration')) { function _lbe67f738358__registration($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v; $_control->redrawControl('registration', FALSE)
 ?>    <?php echo Nette\Bridges\FormsLatte\Runtime::renderFormBegin($form = $_form = $_control["userForm"], array()) ?>
 
-<?php call_user_func(reset($_b->blocks['title']), $_b, get_defined_vars())  ?>
-        <div class="col-xs-9 col-md-6">
-        	<div>
+        <!--- Modal-header -->
+		<div class="modal-header panel-heading">
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
+	    	<h2 class="modal-title">Registrace</h2>
+		</div>
+		<!-- Modal-body -->
+		<div class="modal-body panel-body">
+			<div class="row pad-input-2s">
 	            <!-- vykreslení chyb -->
 <?php if ($form->hasErrors()) { ?>	            <ul class="errors">
 <?php $iterations = 0; foreach ($form->errors as $error) { ?>	                <li><?php echo Latte\Runtime\Filters::escapeHtml($error, ENT_NOQUOTES) ?></li>
@@ -68,27 +82,21 @@ if (!function_exists($_b->blocks['content'][] = '_lba80d47a2f8_content')) { func
 	                <?php echo $_form["phone"]->getControl() ?>
 
 	            </div>
-	           	<div class="mar-input input-group col-xs-12">
+	           	<div class="input-group col-xs-12">
 	                <span class="input-group-addon" id="reg-email" style="width: 8em">E-mail</span>
 	                <?php echo $_form["email"]->getControl() ?>
 
 	            </div>
 	        </div>
-	        <div class="input-group col-xs-6 col-xs-offset-6 col-md-4 col-md-offset-8">
-            	<?php echo $_form["send"]->getControl() ?>
+	    </div>
+        <!-- Modal footer -->
+		<div class="modal-footer panel-footer">
+			<?php echo $_form["send"]->getControl() ?>
 
-        	</div>
-        </div>
+		  	<input type="button" class="btn btn-default" data-dismiss="modal" value="Zavřít">
+		</div>
     <?php echo Nette\Bridges\FormsLatte\Runtime::renderFormEnd($_form) ?>
 
-<?php
-}}
-
-//
-// block title
-//
-if (!function_exists($_b->blocks['title'][] = '_lb90961faf2e_title')) { function _lb90961faf2e_title($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v
-?>    	<h2>Registrace</h2>
 <?php
 }}
 
@@ -99,8 +107,8 @@ if (!function_exists($_b->blocks['head'][] = '_lb78b0d38cc5_head')) { function _
 ?><style>
 	div.mar-input { margin-bottom: 1em;}
 	div.mar-input-2x { margin-bottom: 2.5em;}
+	div.pad-input-2s { padding: 0 1em;}
 	div.pad-input { padding: 0 0 5px 0;}
-	.btn { width: 100%;}
 	.reg-radio .input-group-addon { padding: 9px 12px 5px 12px;}
 </style>
 <?php
@@ -112,7 +120,7 @@ if (!function_exists($_b->blocks['head'][] = '_lb78b0d38cc5_head')) { function _
 
 // template extending
 
-$_l->extends = "../@layout-lr.latte"; $_g->extended = TRUE;
+$_l->extends = "../@layout-modal.latte"; $_g->extended = TRUE;
 
 if ($_l->extends) { ob_start();}
 

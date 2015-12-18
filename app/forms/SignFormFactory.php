@@ -28,15 +28,16 @@ class SignFormFactory extends Nette\Object {
 	 */
 	public function create() {
 		$form = new Form;
+		$form->getElementPrototype()->class('ajax form');
 		$form->addText('username', 'Username:')
 			->setAttribute('class', 'form-control')
 			->setAttribute('placeholder', 'Nevyplněno')
-			->setRequired('Prosím vyplňte Váš nick.');
+			->setRequired('Prosím vyplňte pole Nick.');
 
 		$form->addPassword('password', 'Password:')
 			->setAttribute('class', 'form-control')
 			->setAttribute('placeholder', 'Nevyplněno')
-			->setRequired('Prosím vyplňte Vaše heslo.');
+			->setRequired('Prosím vyplňte pole Heslo.');
 
 		$form->addCheckbox('remember', 'Chcete zůstat přihlášen?');
 
@@ -44,6 +45,7 @@ class SignFormFactory extends Nette\Object {
 		->setAttribute('class', 'btn btn-primary');
 
 		$form->onSuccess[] = array($this, 'formSucceeded');
+		$form->onError[] = array($this, 'formNotSucceeded');
 		return $form;
 	}
 
@@ -60,6 +62,15 @@ class SignFormFactory extends Nette\Object {
 			$userManager->login($values->username, $values->password);
 		} catch (Nette\Security\AuthenticationException $e) {
 			$form->addError($e->getMessage());
+		}
+		if($form->getPresenter()->isAjax()) {
+			$form->getPresenter()->redrawControl('sign');
+		}
+	}
+
+	public function formNotSucceeded(Form $form) {
+		if($form->getPresenter()->isAjax()) {
+			$form->getPresenter()->redrawControl('sign');
 		}
 	}
 
