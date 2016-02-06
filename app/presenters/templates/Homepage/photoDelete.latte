@@ -1,0 +1,66 @@
+{layout "../@layout-modal.latte"}
+
+{block content}
+    {snippet photoDelete}
+        {form photoDeleteForm}
+ 		  	<!--- Modal-header -->
+			<div class="modal-header panel-heading">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+		        <h2 class="modal-title">Mazání fotografií</h2>
+			</div>
+			<!-- Modal-body -->
+			<div class="modal-body panel-body">
+				<div class="row" id="content">
+				    <!-- vykreslení chyb -->
+			        <ul class="errors" n:if="$form->hasErrors()">
+			            <li n:foreach="$form->errors as $error">{$error}</li>
+			        </ul> 
+		            <div class="col-md-12 col-lg-12"> 
+		               	<table id="photos_delete">
+							{foreach $photos as $photo}
+								<tr class="required">
+								    <td>{input $photo->id}</td>
+								    <td style="background-image: url(../../images/products/{$product->id}_{$photo->id}_{$photo->name}.{$photo->extension});  background-position: 50% 0%; background-size: auto 120px; background-repeat: no-repeat;">
+								    	<img class="icon-selected" src="../../images/icons/blue//118.png">
+								    </td>
+								</tr>
+							{/foreach}
+						</table>
+						<div class="hidden">
+							{input id_product}
+						</div>
+		            </div>
+		       	</div>
+			</div>
+			<!-- Modal footer -->
+			<div class="modal-footer panel-footer">
+				{input send}
+			  	<input type="button" class="btn btn-default" data-dismiss="modal" value="Zavřít">
+			</div>       
+        {/form}     
+    {/snippet}
+{/block}
+
+{block head}
+<style>
+    div.flash, ul.errors { margin: 0 1em 1em 1em;}
+    div.hidden { display: none;}
+    {if isset($product)}
+    .panel-heading { background: #{$product->category->color}; }
+    {/if}
+    h2.modal-title { color: #222;}
+
+    #content table { margin: 1em auto;}
+    #content td img { width: 120px; margin: 0; padding: 0; border: 0;}
+    #content tr td:first-child { display:none; border-radius: 10px 0 0 10px;}
+    #content input { cursor: pointer;}
+    #content table tr { display: inline-block; margin: 2px; }
+    #content table tr td { vertical-align: middle; text-align: center; padding: 0; width: 137px; height: 137px; }
+    #content table tr.required { cursor: pointer; }
+    #content table tr.required td input { vertical-align: middle; }
+    #content img.icon-selected {
+    	width: 50px;
+    	display: none;
+    }
+</style>
+{/block}

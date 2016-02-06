@@ -20,7 +20,7 @@ if (!function_exists($_b->blocks['head'][] = '_lb681d77e7dd_head')) { function _
 //
 if (!function_exists($_b->blocks['scripts'][] = '_lb40a8740310_scripts')) { function _lb40a8740310_scripts($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v
 ?>	<!-- jQuery -->
-    <script src="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>/assets/js/jquery.js"></script>
+    <script type="text/javascript" src="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>/assets/js/jquery-1.11.3.min.js"></script>
 
     <!-- Nette Ajax -->
     <script src="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>/js/nette.ajax.js"></script>
@@ -30,6 +30,10 @@ if (!function_exists($_b->blocks['scripts'][] = '_lb40a8740310_scripts')) { func
 
     <!-- Bootstrap Core JavaScript -->
     <script src="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>/assets/js/bootstrap.min.js"></script>
+
+    <!-- Bootstrap Galleries -->
+    <script src="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>/assets/js/jquery.blueimp-gallery.min.js"></script>
+    <script src="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>/assets/js/bootstrap-image-gallery.js"></script>
 
 <?php
 }}
@@ -87,6 +91,13 @@ if (empty($_l->extends) && !empty($_control->snippetMode)) {
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <style>
+<?php $iterations = 0; foreach ($categories as $c) { ?>
+            .product-category-<?php echo Latte\Runtime\Filters::escapeCss($c->id) ?>
+ { background-color: #<?php echo Latte\Runtime\Filters::escapeCss($c->color) ?>;}
+<?php $iterations++; } ?>
+    </style>
+
 	<?php if ($_l->extends) { ob_end_clean(); return $template->renderChildTemplate($_l->extends, get_defined_vars()); }
 call_user_func(reset($_b->blocks['head']), $_b, get_defined_vars())  ?>
 
@@ -133,10 +144,13 @@ call_user_func(reset($_b->blocks['head']), $_b, get_defined_vars())  ?>
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="#"><i class="fa fa-fw fa-plus"></i> Přidat aukci</a>
+                            <a data-toggle="modal" data-target="#addProduct_modal" href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("Homepage:productAddEdit"), ENT_COMPAT) ?>
+">
+                                <i class="fa fa-fw fa-plus"></i> Přidat aukci
+                            </a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-fw fa-dashboard"></i> Přehled aukcí</a>
+                            <a href="#"><i class="fa fa-fw fa-dashboard"></i> Moje aukce</a>
                         </li>
                         <li class="divider"></li>
                         <li>
@@ -182,7 +196,7 @@ call_user_func(reset($_b->blocks['head']), $_b, get_defined_vars())  ?>
                 <div class="list-group">
 <?php $iterations = 0; foreach ($categories as $category) { ?>
                     	<a class="list-group-item" href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("Homepage:category", array($category->id)), ENT_COMPAT) ?>
-"><?php echo Latte\Runtime\Filters::escapeHtml($category->value, ENT_NOQUOTES) ?></a>
+"><?php echo Latte\Runtime\Filters::escapeHtml($category->name, ENT_NOQUOTES) ?></a>
 <?php $iterations++; } ?>
                 </div>
             </div>
@@ -255,6 +269,44 @@ call_user_func(reset($_b->blocks['head']), $_b, get_defined_vars())  ?>
         <div class="modal-content">
         </div>
       </div>
+    </div>
+
+    <!-- PopUp pomoci bootstrap, pro product.latte -->
+    <div id="addProduct_modal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+        </div>
+      </div>
+    </div>
+
+    <!-- PopUp pomoci bootstrap, pro product.latte -->
+    <div id="product_modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+          <p>Some text in the modal.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
     </div>
 
 

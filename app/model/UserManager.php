@@ -80,10 +80,20 @@ class UserManager {
 
 
 	// fce pro zmenu hesla
-	public function changePassword($id, $password) {
+	public function changePassword($id, $values) {
+		$error = null;
 		$user = $this->findTable()->get($id);
-		$data['password'] = $this->generateHash($password);
-		return $user->insert($data);
+		if ($user->password !== $this->generateHash($values->oldpassword, $user->password)) {
+			$error = 'Heslo nebylo změněno. Zadejte prosím správně současné heslo.';
+		} elseif ($values->password != $values->password2) {
+			$error = 'Heslo nebylo změněno. Zadejte prosím nové heslo a pro kontrolu ho znovu zopakujte.';
+		} else {
+			unset($values->oldpassword);
+			unset($values->password2);
+			$values->password = $this->generateHash($values->password);
+			$user->update($values);
+		}
+		return $error;
 	}
 
 

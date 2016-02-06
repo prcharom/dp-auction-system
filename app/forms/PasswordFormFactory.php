@@ -35,15 +35,18 @@ class PasswordFormFactory extends Nette\Object {
 		$form->getElementPrototype()->class('ajax form');
 		$form->addPassword('oldpassword', 'Současné heslo:')
       		->setRequired('Prosím zadejte vaše současné heslo.')
-      		->setAttribute('class', 'text');
+      		->setAttribute('class', 'form-control')
+      		->setAttribute('placeholder', 'Nevyplněno');
     	
     	$form->addPassword('password', 'Nové heslo:')
       		->setRequired('Prosím zadejte nové heslo.')
-      		->setAttribute('class', 'text');
+      		->setAttribute('class', 'form-control')
+      		->setAttribute('placeholder', 'Nevyplněno');
     	
     	$form->addPassword('password2', 'Nové heslo znovu:')
       		->setRequired('Zadejte prosím znovu heslo pro kontrolu.')
-      		->setAttribute('class', 'text');
+      		->setAttribute('class', 'form-control')
+      		->setAttribute('placeholder', 'Nevyplněno');
 
 		$form->addSubmit('send', 'Změnit heslo')
 		->setAttribute('class', 'btn btn-primary');
@@ -56,7 +59,10 @@ class PasswordFormFactory extends Nette\Object {
 
 	public function formSucceeded(Form $form, $values) {
 		$userManager = new Model\UserManager($this->user, $this->database); 
-		$userManager->changePassword($this->id, $values->password);
+		$error = $userManager->changePassword($this->id, $values);
+		if ($error != null) {
+			$form->addError($error);
+		}
 		if($form->getPresenter()->isAjax()) {
 			$form->getPresenter()->redrawControl('password');
 		}

@@ -38,20 +38,20 @@ if (!function_exists($_b->blocks['_password'][] = '_lbdbdeb250ac__password')) { 
 <?php $iterations++; } ?>
 				    </ul> 
 <?php } ?>
-		        	<div class="col-md-8">
+		        	<div class="col-md-12">
 					    <!-- vykresleni formu -->
 					    <div class="mar-input input-group col-xs-12">
-					       	<span class="input-group-addon" id="login-oldpassword" style="width: 8em">Současné heslo</span>
+					       	<span class="input-group-addon" id="pw-oldpassword" style="width: 10em">Současné heslo</span>
 					        <?php echo $_form["oldpassword"]->getControl() ?>
 
 					    </div>
 					    <div class="mar-input input-group col-xs-12">
-					        <span class="input-group-addon" id="login-password" style="width: 8em">Nové heslo</span>
+					        <span class="input-group-addon" id="pw-password" style="width: 10em">Nové heslo</span>
 					        <?php echo $_form["password"]->getControl() ?>
 
 					    </div>
 					    <div class="input-group col-xs-12">
-					    	<span class="input-group-addon" id="login-password2" style="width: 8em">Nové heslo znovu</span>
+					    	<span class="input-group-addon" id="pw-password2" style="width: 10em">Nové heslo znovu</span>
 					    	<?php echo $_form["password2"]->getControl() ?>
 
 					    </div>

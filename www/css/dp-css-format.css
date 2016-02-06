@@ -61,6 +61,8 @@ ul.errors {
     color: #31708f;
     background-color: #d9edf7;
     border-color: #bce8f1;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
 }
 
 /* --- --- Modal > Profile --- --- */
@@ -142,11 +144,43 @@ ul.errors {
     margin-top: -3px;
 }
 
+/* --- --- Modal > Product --- --- */
+.table-prod-information > tbody > tr > td:first-child {
+    width: 50%;
+}
+
+.table-prod-information > tbody > tr:first-child,
+.table-prod-information > tbody > tr:first-child > td {
+    border-top: 0;
+}
+
+.table-prod-information > tbody > tr > td > div.col-xs-6:first-child {
+    -webkit-border-top-left-radius: 3px;
+    -webkit-border-bottom-left-radius: 3px;
+    -moz-border-radius-topleft: 3px;
+    -moz-border-radius-bottomleft: 3px;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.table-prod-information > tbody > tr > td > div.col-xs-6:last-child {
+    -webkit-border-top-right-radius: 3px;
+    -webkit-border-bottom-right-radius: 3px;
+    -moz-border-radius-topright: 3px;
+    -moz-border-radius-bottomright: 3px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.table-prod-information > tbody > tr > td > div.col-xs-6 > .input-group {
+    margin-top: -3px;
+}
+
 /* --- --- NAVBAR --- --- */
 .navbar {
-    background: #3a5795;
+    background: #444;
     border: 0;
-    border-bottom: 1px solid #133783;
+    border-bottom: 1px solid #222;
     box-shadow: 0 2px 2px -2px rgba(0, 0, 0, .52);
 }
 
@@ -226,7 +260,7 @@ footer {
 .top-nav>.open>a:hover,
 .top-nav>.open>a:focus {
     color: #fff;
-    background-color: darkblue;
+    background-color: #222;
 }
 
 .top-nav>.open>.dropdown-menu {

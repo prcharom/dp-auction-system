@@ -77,6 +77,13 @@ if (empty($_l->extends) && !empty($_control->snippetMode)) {
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <style>
+<?php $iterations = 0; foreach ($categories as $c) { ?>
+            .product-category-<?php echo Latte\Runtime\Filters::escapeCss($c->id) ?>
+ { background-color: #<?php echo Latte\Runtime\Filters::escapeCss($c->color) ?>;}
+<?php $iterations++; } ?>
+    </style>
+
 	<?php if ($_l->extends) { ob_end_clean(); return $template->renderChildTemplate($_l->extends, get_defined_vars()); }
 call_user_func(reset($_b->blocks['head']), $_b, get_defined_vars())  ?>
 

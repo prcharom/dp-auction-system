@@ -1,0 +1,77 @@
+{layout "../@layout-modal.latte"}
+
+{block content}
+    {snippet product}
+        {form productForm}
+ 		  	<!--- Modal-header -->
+			<div class="modal-header panel-heading">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+		        <h2 class="modal-title">Produkt</h2>
+			</div>
+			<!-- Modal-body -->
+			<div class="modal-body panel-body">
+				<div class="row">
+				    <!-- vykreslení chyb -->
+			        <ul class="errors" n:if="$form->hasErrors()">
+			            <li n:foreach="$form->errors as $error">{$error}</li>
+			        </ul> 
+		            <div class="col-md-12 col-lg-12"> 
+		               	<table class="table table-prod-information">
+			                <tbody>
+			                 	<tr>
+			                        <td>Název:</td>
+			                        <td>
+			                        	{input name}
+			                        </td>
+			                    </tr>
+			                    <tr>
+			                        <td>Kategorie:</td>
+			                        <td>
+			                        	{input id_category}
+			                        </td>
+			                    </tr>
+			                    <tr>
+			                        <td>Fotografie:</td>
+			                        <td>
+			                        	{input img}
+			                        </td>
+			                    </tr>
+			                    <tr>
+			                        <td>Popis:</td>
+			                        <td>
+			                        	{input description}
+			                        </td>
+			                    </tr>
+			                    <tr>
+			                        <td>Cena:</td>
+			                        <td>
+			                        	{input cost}
+			                        </td>
+			                    </tr>
+			                </tbody>
+		                </table>
+		            </div>
+		       	</div>
+			</div>
+			<div class="hidden">
+				{input id}
+			</div>
+			<!-- Modal footer -->
+			<div class="modal-footer panel-footer">
+				{input send}
+			  	<input type="button" class="btn btn-default" data-dismiss="modal" value="Zavřít">
+			</div>       
+        {/form}     
+    {/snippet}
+{/block}
+
+{block head}
+<style>
+    div.flash, ul.errors { margin: 0 1em 1em 1em;}
+    div.hidden { display: none;}
+    {if isset($product)}
+    .panel-heading { background: #{$product->category->color}; }
+    {/if}
+    h2.modal-title { color: #222;}
+</style>
+{/block}
