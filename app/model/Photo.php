@@ -145,6 +145,17 @@ class Photo extends Nette\Object {
         }
 	}
 
+	// mazani fotografii
+	public function deletePhotos($values, $photos) 
+	{
+		foreach($photos as $p) {
+            if($values["$p->id"] == true) {
+                unlink($this->root_img_dir . 'products/' . $p->id_product . '_' . $p->id . '_' . $p->name . '.' . $p->extension); // smazu ve slozce
+                $p->delete(); // smazu v db
+            }
+        }
+	}
+
 	// moje hashovaci fce
 	public function generateHash() 
 	{	

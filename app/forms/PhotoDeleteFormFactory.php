@@ -55,7 +55,7 @@ class PhotoDeleteFormFactory extends Nette\Object {
 	public function formSucceeded(Form $form, $values) {
 		if ($this->photos != null) {
 			$photo_manager = new Model\Photo($this->database);
-			//$photo_manager->deletePhotos();
+			$photo_manager->deletePhotos($values, $this->photos);
 		}
 	}
 

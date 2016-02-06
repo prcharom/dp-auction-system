@@ -21,7 +21,10 @@ if (!function_exists($_b->blocks['content'][] = '_lb18920efd08_content')) { func
 
                                     <a data-toggle="modal" data-target="#product_edit_modal" href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("Homepage:productAddEdit", array($product->id)), ENT_COMPAT) ?>
 ">
-                                        Upravit
+                                        Upravit produkt
+                                    </a>
+                                    <a data-toggle="modal" href="#" data-target="#product_delete_modal">
+                                        Smazat produkt
                                     </a>
                             	</h2>
                                 <div class="pub">

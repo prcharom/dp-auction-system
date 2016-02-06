@@ -92,7 +92,6 @@ if (!function_exists($_b->blocks['head'][] = '_lbce0f97ef7a_head')) { function _
     #content table { margin: 1em auto; }
     #content td img { width: 120px; margin: 0; padding: 0; border: 0;}
     #content tr td:first-child { display:none; border-radius: 10px 0 0 10px;}
-    #content tr.active td { background: #DDD;}
     #content input { cursor: pointer;}
     #content table tr { display: inline-block; margin: 2px; }
     #content table tr td { vertical-align: middle; text-align: center; padding: 0; width: 137px; height: 137px; }
