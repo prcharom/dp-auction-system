@@ -5,6 +5,7 @@ namespace App\Presenters;
 use Nette;
 use App\Model;
 use App\Forms\ProductFormFactory;
+use App\Forms\ProductDeleteFormFactory;
 use App\Forms\PhotoEditFormFactory;
 use App\Forms\PhotoDeleteFormFactory;
 
@@ -13,6 +14,9 @@ class HomepagePresenter extends BasePresenter {
 
 		/** @var ProductFormFactory @inject */
 		public $productFactory;
+
+		/** @var ProductDeleteFormFactory @inject */
+		public $productDeleteFactory;
 
 		/** @var PhotoEditFormFactory @inject */
 		public $photoEditFactory;
@@ -58,6 +62,17 @@ class HomepagePresenter extends BasePresenter {
 				$this->flashMessage('Produkt se nepodařilo nalézt. Je možné, že ho někdo smazal.');
 				$this->redirect('Homepage:default');
 			}
+		}
+	}
+
+	// product delete
+	public function renderProductDelete($id = null) {
+		$form = $this['productDeleteForm'];
+		$form['send']->caption = 'Smazat produkt';
+		$this->template->product = $this->database->findById('product', $id);
+		if (!$this->template->product) {
+			$this->flashMessage('Produkt se nepodařilo nalézt. Je možné, že ho někdo smazal.');
+			$this->redirect('Homepage:default');
 		}
 	}
 
@@ -121,6 +136,20 @@ class HomepagePresenter extends BasePresenter {
 				$this->flashMessage('Produkt byl úspěšně upraven.');
 				$this->redirect('Homepage:product', $values['id']);
 			}
+		};
+		return $form;
+	}
+
+	/**
+	 * ProductDelete form factory.
+	 * @return Nette\Application\UI\Form
+	 */
+	protected function createComponentProductDeleteForm() {
+		$id = (int) $this->getParameter('id'); 		
+		$form = $this->productDeleteFactory->create($id);
+		$form->onSuccess[] = function ($form) {
+	        $this->flashMessage('Produkt byl úspěšně smazán.');
+	        $this->redirect('Homepage:default');
 		};
 		return $form;
 	}

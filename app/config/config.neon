@@ -27,6 +27,7 @@ services:
 	- App\Forms\UploadProfilePhotoFormFactory
 	- App\Forms\PasswordFormFactory
 	- App\Forms\ProductFormFactory
+	- App\Forms\ProductDeleteFormFactory
 	- App\Forms\PhotoEditFormFactory
 	- App\Forms\PhotoDeleteFormFactory
 	router: App\RouterFactory::createRouter

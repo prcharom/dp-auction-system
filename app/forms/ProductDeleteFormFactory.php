@@ -7,16 +7,13 @@ use App\Model;
 use Nette\Application\UI\Form;
 
 
-class PhotoDeleteFormFactory extends Nette\Object {
+class ProductDeleteFormFactory extends Nette\Object {
 
 		/** @var Model\Database */
 		private $database;
 
 		/* User ID */
 		private $id_product;
-
-		/* Photos */
-		private $photos = null;
 
 
 	public function __construct(Model\Database $database) {
@@ -35,15 +32,6 @@ class PhotoDeleteFormFactory extends Nette\Object {
 		$form = new Form;
 		$form->getElementPrototype()->class('ajax form');
 
-		// uchovani kvuli pozdejsimu presmerovani
-		$form->addText('id_product')->setValue($this->id_product);
-
-        $this->photos = $this->database->findAll('image')->where('id_product', $this->id_product);
-
-        foreach($this->photos as $photo) {
-            $form->addCheckbox($photo->id); 
-        }
-
 		$form->addSubmit('send', 'Odeslat formulář')
 		->setAttribute('class', 'btn btn-primary');
 
@@ -53,15 +41,17 @@ class PhotoDeleteFormFactory extends Nette\Object {
 	}
 
 	public function formSucceeded(Form $form, $values) {
-		if ($this->photos != null) {
+		$product = $this->database->findById('product', $this->id_product);
+		if ($product) {
 			$photo_manager = new Model\Photo($this->database);
-			$photo_manager->deleteProductPhotos($values, $this->photos);
-		}
+			$photo_manager->deleteAllProductPhotos($this->id_product); // smazu fotky produktu
+			$product->delete(); // smazu produkt
+		} 
 	}
 
 	public function formNotSucceeded(Form $form) {
 		if($form->getPresenter()->isAjax()) {
-			$form->getPresenter()->redrawControl('photoDelete');
+			$form->getPresenter()->redrawControl('productDelete');
 		}
 	}
 

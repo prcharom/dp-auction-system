@@ -9,7 +9,7 @@
                                     <a data-toggle="modal" n:href="Homepage:productAddEdit, $product->id" data-target="#product_edit_modal">
                                         Upravit produkt
                                     </a>
-                                    <a data-toggle="modal" href="#" data-target="#product_delete_modal">
+                                    <a data-toggle="modal" n:href="Homepage:productDelete, $product->id" data-target="#product_delete_modal">
                                         Smazat produkt
                                     </a>
                             	</h2>
@@ -65,6 +65,14 @@
 
                 <!-- PopUp pomoci bootstrap, pro productAddEdit.latte -->
                 <div id="product_edit_modal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PopUp pomoci bootstrap, pro productDelete.latte -->
+                <div id="product_delete_modal" class="modal fade" role="dialog">
                     <div class="modal-dialog">
                         <div class="modal-content">
                         </div>

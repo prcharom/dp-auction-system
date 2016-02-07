@@ -145,14 +145,24 @@ class Photo extends Nette\Object {
         }
 	}
 
-	// mazani fotografii
-	public function deletePhotos($values, $photos) 
+	// mazani vybranych fotografii u produktu
+	public function deleteProductPhotos($values, $photos) 
 	{
 		foreach($photos as $p) {
             if($values["$p->id"] == true) {
                 unlink($this->root_img_dir . 'products/' . $p->id_product . '_' . $p->id . '_' . $p->name . '.' . $p->extension); // smazu ve slozce
                 $p->delete(); // smazu v db
             }
+        }
+	}
+
+	// mazani vsech fotografii u produktu
+	public function deleteAllProductPhotos($id_product) 
+	{
+		$photos = $this->database->findAll('image')->where('id_product', $id_product);
+		foreach($photos as $p) {
+            unlink($this->root_img_dir . 'products/' . $p->id_product . '_' . $p->id . '_' . $p->name . '.' . $p->extension); // smazu ve slozce
+            $p->delete(); // smazu v db
         }
 	}
 

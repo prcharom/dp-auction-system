@@ -23,7 +23,8 @@ if (!function_exists($_b->blocks['content'][] = '_lb18920efd08_content')) { func
 ">
                                         Upravit produkt
                                     </a>
-                                    <a data-toggle="modal" href="#" data-target="#product_delete_modal">
+                                    <a data-toggle="modal" data-target="#product_delete_modal" href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("Homepage:productDelete", array($product->id)), ENT_COMPAT) ?>
+">
                                         Smazat produkt
                                     </a>
                             	</h2>
@@ -91,6 +92,14 @@ _<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($im
 
                 <!-- PopUp pomoci bootstrap, pro productAddEdit.latte -->
                 <div id="product_edit_modal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PopUp pomoci bootstrap, pro productDelete.latte -->
+                <div id="product_delete_modal" class="modal fade" role="dialog">
                     <div class="modal-dialog">
                         <div class="modal-content">
                         </div>
