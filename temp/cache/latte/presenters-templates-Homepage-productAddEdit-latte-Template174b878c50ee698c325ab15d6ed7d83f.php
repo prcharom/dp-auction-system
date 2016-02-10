@@ -38,7 +38,7 @@ if (!function_exists($_b->blocks['_product'][] = '_lb89cc03a1d3__product')) { fu
 			        </ul> 
 <?php } ?>
 		            <div class="col-md-12 col-lg-12"> 
-		               	<table class="table table-prod-information">
+		               	<table class="table table-prod-information table-my-grid">
 			                <tbody>
 			                 	<tr>
 			                        <td>Název:</td>

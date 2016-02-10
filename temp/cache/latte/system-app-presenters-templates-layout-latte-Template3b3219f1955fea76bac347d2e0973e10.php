@@ -127,7 +127,7 @@ call_user_func(reset($_b->blocks['head']), $_b, get_defined_vars())  ?>
                         <li>
                             <a data-toggle="modal" data-target="#profile_modal" href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("User:profile"), ENT_COMPAT) ?>
 ">
-                                <i class="fa fa-fw fa-user"></i> Profil
+                                <i class="fa fa-fw fa-user"></i> Můj profil
                             </a>
                         </li>
                         <li>
@@ -194,10 +194,13 @@ call_user_func(reset($_b->blocks['head']), $_b, get_defined_vars())  ?>
             <div class="col-md-3">
                 <p class="lead">Kategorie</p>
                 <div class="list-group">
-<?php $iterations = 0; foreach ($categories as $category) { ?>
-                    	<a class="list-group-item" href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("Homepage:category", array($category->id)), ENT_COMPAT) ?>
+<?php $iterations = 0; foreach ($categories as $category) { if ($category->id == $id_category) { ?>
+                    	    <a class="list-group-item active" href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("Homepage:default", array($category->id)), ENT_COMPAT) ?>
 "><?php echo Latte\Runtime\Filters::escapeHtml($category->name, ENT_NOQUOTES) ?></a>
-<?php $iterations++; } ?>
+<?php } else { ?>
+                            <a class="list-group-item" href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("Homepage:default", array($category->id)), ENT_COMPAT) ?>
+"><?php echo Latte\Runtime\Filters::escapeHtml($category->name, ENT_NOQUOTES) ?></a>
+<?php } $iterations++; } ?>
                 </div>
             </div>
 

@@ -24,5 +24,6 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter {
 		
 		$this->template->systemName = $this->database->findAll('setings')->where('id_parameter', 1)->fetch();
         $this->template->categories = $this->database->findAll('category');
+        $this->template->id_category = (int) $this->getParameter('kat'); 
     }
 }

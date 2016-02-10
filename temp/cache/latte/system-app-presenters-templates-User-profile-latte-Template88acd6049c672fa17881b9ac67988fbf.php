@@ -26,8 +26,7 @@ if (!function_exists($_b->blocks['_profile'][] = '_lb14066de27c__profile')) { fu
 		  	<!--- Modal-header -->
 			<div class="modal-header panel-heading">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
-		        <?php echo $_form["name"]->getControl() ?>
-
+		        <h2 class="modal-title">Můj profil</h2>
 			</div>
 			<!-- Modal-body -->
 			<div class="modal-body panel-body">
@@ -49,12 +48,19 @@ _<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($pr
 <?php } ?>
 		            </div>
 		            <div class=" col-md-9 col-lg-9 "> 
-		               	<table class="table table-user-information">
+		               	<table class="table table-my-grid">
 			                <tbody>
 			                    <tr>
 			                        <td>Nick:</td>
 			                        <td>
 			                        	<input type="text" class="form-control" value="<?php echo Latte\Runtime\Filters::escapeHtml($profile->nick, ENT_COMPAT) ?>" readonly>
+			                        </td>
+			                    </tr>
+			                    <tr>
+			                        <td>Celé jméno:</td>
+			                        <td>
+			                        	<?php echo $_form["name"]->getControl() ?>
+
 			                        </td>
 			                    </tr>
 			                    <tr>

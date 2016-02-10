@@ -21,51 +21,61 @@ if (!function_exists($_b->blocks['content'][] = '_lb37d1c883e0_content')) { func
 // block _password
 //
 if (!function_exists($_b->blocks['_password'][] = '_lbdbdeb250ac__password')) { function _lbdbdeb250ac__password($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v; $_control->redrawControl('password', FALSE)
-?>    <?php echo Nette\Bridges\FormsLatte\Runtime::renderFormBegin($form = $_form = $_control["passwordForm"], array()) ?>
+?>	    <?php echo Nette\Bridges\FormsLatte\Runtime::renderFormBegin($form = $_form = $_control["passwordForm"], array()) ?>
 
-    	<!--- Modal-header -->
-		<div class="modal-header panel-heading">
-			<button type="button" class="close" data-dismiss="modal">&times;</button>
-	    	<h2 class="modal-title">Změna hesla</h2>
-		</div>
-		<!-- Modal-body -->
-		<div class="modal-body panel-body">
-			<div class="row">
-		        <div class="left-panel col-md-12">
-		        	<!-- vykreslení chyb -->
-<?php if ($form->hasErrors()) { ?>				    <ul class="errors">
-<?php $iterations = 0; foreach ($form->errors as $error) { ?>				        <li><?php echo Latte\Runtime\Filters::escapeHtml($error, ENT_NOQUOTES) ?></li>
+	    	<!--- Modal-header -->
+			<div class="modal-header panel-heading">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+		    	<h2 class="modal-title">Změna hesla</h2>
+			</div>
+			<!-- Modal-body -->
+			<div class="modal-body panel-body">
+				<div class="row">
+			        <div class="left-panel col-md-12">
+			        	<!-- vykreslení chyb -->
+<?php if ($form->hasErrors()) { ?>					    <ul class="errors">
+<?php $iterations = 0; foreach ($form->errors as $error) { ?>					        <li><?php echo Latte\Runtime\Filters::escapeHtml($error, ENT_NOQUOTES) ?></li>
 <?php $iterations++; } ?>
-				    </ul> 
+					    </ul> 
 <?php } ?>
-		        	<div class="col-md-12">
-					    <!-- vykresleni formu -->
-					    <div class="mar-input input-group col-xs-12">
-					       	<span class="input-group-addon" id="pw-oldpassword" style="width: 10em">Současné heslo</span>
-					        <?php echo $_form["oldpassword"]->getControl() ?>
+			        	<div class="col-md-12">
+						    <!-- vykresleni formu -->
+						    <table class="table table-my-grid">
+				                <tbody>
+				                    <tr>
+				                        <td>Současné heslo:</td>
+				                        <td>
+				                        	<?php echo $_form["oldpassword"]->getControl() ?>
 
-					    </div>
-					    <div class="mar-input input-group col-xs-12">
-					        <span class="input-group-addon" id="pw-password" style="width: 10em">Nové heslo</span>
-					        <?php echo $_form["password"]->getControl() ?>
+				                        </td>
+				                    </tr>
+				                    <tr>
+				                        <td>Nové heslo:</td>
+				                        <td>
+				                        	<?php echo $_form["password"]->getControl() ?>
 
-					    </div>
-					    <div class="input-group col-xs-12">
-					    	<span class="input-group-addon" id="pw-password2" style="width: 10em">Nové heslo znovu</span>
-					    	<?php echo $_form["password2"]->getControl() ?>
+				                        </td>
+				                    </tr>
+				                    <tr>
+				                        <td>Nové heslo znovu:</td>
+				                        <td>
+				                        	<?php echo $_form["password2"]->getControl() ?>
 
-					    </div>
+				                        </td>
+				                    </tr>
+				                </tbody>
+				            </table>
+				        </div>
 			        </div>
 		        </div>
 	        </div>
-        </div>
-        <!-- Modal footer -->
-		<div class="modal-footer panel-footer">
-			<?php echo $_form["send"]->getControl() ?>
+	        <!-- Modal footer -->
+			<div class="modal-footer panel-footer">
+				<?php echo $_form["send"]->getControl() ?>
 
-		  	<input type="button" class="btn btn-default" data-dismiss="modal" value="Zavřít">
-		</div>
-    <?php echo Nette\Bridges\FormsLatte\Runtime::renderFormEnd($_form) ?>
+			  	<input type="button" class="btn btn-default" data-dismiss="modal" value="Zavřít">
+			</div>
+	    <?php echo Nette\Bridges\FormsLatte\Runtime::renderFormEnd($_form) ?>
 
 <?php
 }}

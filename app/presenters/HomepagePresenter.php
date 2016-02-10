@@ -27,8 +27,23 @@ class HomepagePresenter extends BasePresenter {
 
 	/* --- --- Default --- --- */	
 
-	public function renderDefault() {
-		$this->template->products = $this->database->findAll('product')->where('NOW() <= expire')->order('added DESC')->limit(9);		
+	public function renderDefault($kat = null, $page = null) {
+
+		// nastaveni paginatoru
+		$this->template->paginator = new Nette\Utils\Paginator;
+        $this->template->paginator->setItemsPerPage(12); // def počtu položek na stránce
+        $this->template->paginator->setPage($page); // def stranky
+
+        // selekce produktu
+		$products = $this->database->findAll('product')->where('NOW() <= expire');
+		if ($kat != null) { // pokud mam zadany filtr, tak filtruji produkty
+			$products = $products->where('id_category', $kat);
+		}
+		$products = $products->order('added DESC');
+
+		// prideleni produktu na stranku
+		$this->template->paginator->setItemCount($products->count('*'));
+        $this->template->products = $products->limit($this->template->paginator->getLength(), $this->template->paginator->getOffset());	
 	}
 
 	/* --- --- Category --- --- */

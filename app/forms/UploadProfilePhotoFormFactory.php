@@ -27,6 +27,7 @@ class UploadProfilePhotoFormFactory extends Nette\Object {
 	public function create($id = null) {
 		$this->id = $id;
 		$form = new Form;
+		$form->getElementPrototype()->class('ajax form');
 		$form->addUpload('img', 'Fotografie:', FALSE)
 	        ->setRequired('Vyberte prosím fotografii, kterou chcete nahrát.')
 	        ->addRule(Form::IMAGE, 'Fotografie musí být ve formátu JPEG, PNG nebo GIF.')
@@ -36,6 +37,7 @@ class UploadProfilePhotoFormFactory extends Nette\Object {
 			->setAttribute('class', 'btn btn-primary');
 
 		$form->onSuccess[] = array($this, 'formSucceeded');
+		$form->onError[] = array($this, 'formNotSucceeded');
 		return $form;
 	}
 
@@ -45,6 +47,15 @@ class UploadProfilePhotoFormFactory extends Nette\Object {
 		$error = $photo->uploadProfileImage($values->img, $this->id);
 		if($error) {
 			$form->addError($error);
+		}
+		if($form->getPresenter()->isAjax()) {
+			$form->getPresenter()->redrawControl('profileImage');
+		}
+	}
+
+	public function formNotSucceeded(Form $form) {
+		if($form->getPresenter()->isAjax()) {
+			$form->getPresenter()->redrawControl('profileImage');
 		}
 	}
 

@@ -1,6 +1,7 @@
 {layout "../@layout-modal.latte"}
 
 {block content}
+	{snippet profileImage}
 		{form uploadProfilePhotoForm}  	
 		  	<!--- Modal-header -->
 			<div class="modal-header panel-heading">
@@ -31,7 +32,8 @@
 				{input send}
 			  	<input type="button" class="btn btn-default" data-dismiss="modal" value="Zavřít">
 			</div>
-		{/form}               	
+		{/form}   
+	{/snippet}            	
 {/block}
 
 {block head}

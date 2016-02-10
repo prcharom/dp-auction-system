@@ -64,7 +64,7 @@
                     <ul class="dropdown-menu">
                         <li>
                             <a data-toggle="modal" n:href="User:profile" data-target="#profile_modal">
-                                <i class="fa fa-fw fa-user"></i> Profil
+                                <i class="fa fa-fw fa-user"></i> Můj profil
                             </a>
                         </li>
                         <li>
@@ -126,7 +126,11 @@
                 <p class="lead">Kategorie</p>
                 <div class="list-group">
                 	{foreach $categories as $category}
-                    	<a n:href="Homepage:category, $category->id" class="list-group-item">{$category->name}</a>
+                        {if $category->id == $id_category}
+                    	    <a n:href="Homepage:default, $category->id" class="list-group-item active">{$category->name}</a>
+                        {else}
+                            <a n:href="Homepage:default, $category->id" class="list-group-item">{$category->name}</a>
+                        {/if}
                     {/foreach}
                 </div>
             </div>

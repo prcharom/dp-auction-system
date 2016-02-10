@@ -12,6 +12,15 @@ list($_b, $_g, $_l) = $template->initialize('6d59d80b63', 'html')
 // block content
 //
 if (!function_exists($_b->blocks['content'][] = '_lb3a9e44849c_content')) { function _lb3a9e44849c_content($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v
+ ?>
+<div id="<?php echo $_control->getSnippetId('profileImage') ?>"><?php call_user_func(reset($_b->blocks['_profileImage']), $_b, $template->getParameters()) ?>
+</div><?php
+}}
+
+//
+// block _profileImage
+//
+if (!function_exists($_b->blocks['_profileImage'][] = '_lb68231fdbb0__profileImage')) { function _lb68231fdbb0__profileImage($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v; $_control->redrawControl('profileImage', FALSE)
 ?>		<?php echo Nette\Bridges\FormsLatte\Runtime::renderFormBegin($form = $_form = $_control["uploadProfilePhotoForm"], array()) ?>
 
 		  	<!--- Modal-header -->

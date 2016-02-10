@@ -12,34 +12,72 @@ list($_b, $_g, $_l) = $template->initialize('7dbc37fb9e', 'html')
 // block content
 //
 if (!function_exists($_b->blocks['content'][] = '_lb13520a9f1b_content')) { function _lb13520a9f1b_content($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v
-?>                <div class="row">
-
+?>    
+<?php ob_start() ?>
+        <div class="row">
 <?php $iterations = 0; foreach ($products as $p) { ?>
-                    <div class="col-sm-4 col-lg-4 col-md-4">
-                        <div class="product product-category-<?php echo Latte\Runtime\Filters::escapeHtml($p->id_category, ENT_COMPAT) ?>">
-                        	<h4 class="pull-right"><?php echo Latte\Runtime\Filters::escapeHtml($template->number($p->cost), ENT_NOQUOTES) ?> Kč</h4>
-                            <div class="image">
+                <div class="col-sm-4 col-lg-4 col-md-4">
+                    <div class="product product-category-<?php echo Latte\Runtime\Filters::escapeHtml($p->id_category, ENT_COMPAT) ?>">
+                        <h4 class="pull-right"><?php echo Latte\Runtime\Filters::escapeHtml($template->number($p->cost), ENT_NOQUOTES) ?> Kč</h4>
 <?php if ($img = $p->related('image.id_product')->fetch()) { $img = $p->related('image.id_product')->order('order DESC')->fetch() ?>
-                                    <img src="images/products/<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($p->id), ENT_COMPAT) ?>
-_<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($img->id), ENT_COMPAT) ?>
-_<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($img->name), ENT_COMPAT) ?>
-.<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($img->extension), ENT_COMPAT) ?>
-" alt="<?php echo Latte\Runtime\Filters::escapeHtml($p->name, ENT_COMPAT) ?>">
+                            <div class="image" style="background-image: url(images/products/<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::escapeCss($p->id), ENT_COMPAT) ?>
+_<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::escapeCss($img->id), ENT_COMPAT) ?>
+_<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::escapeCss($img->name), ENT_COMPAT) ?>
+.<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::escapeCss($img->extension), ENT_COMPAT) ?>);  background-position: 50% 0%; background-size: 242px auto; background-repeat: no-repeat;"></div>
 <?php } else { ?>
-                                    <img src="images/products/default.png" alt="<?php echo Latte\Runtime\Filters::escapeHtml($p->name, ENT_COMPAT) ?>">
+                            <div class="image">
+                                <img src="images/products/default.png" alt="<?php echo Latte\Runtime\Filters::escapeHtml($p->name, ENT_COMPAT) ?>">
+                            </div>
 <?php } ?>
-                            </div>
-                            <div class="caption">
-                                <h4>
-                                    <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("Homepage:product", array($p->id)), ENT_COMPAT) ?>
+                        <div class="caption">
+                            <h4>
+                                <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("Homepage:product", array($p->id)), ENT_COMPAT) ?>
 "><?php echo Latte\Runtime\Filters::escapeHtml($p->name, ENT_NOQUOTES) ?></a>
-                                </h4>
-                                <p><?php echo Latte\Runtime\Filters::escapeHtml($template->truncate($p->description, 85), ENT_NOQUOTES) ?></p>
-                            </div>
+                            </h4>
+                            <p><?php echo Latte\Runtime\Filters::escapeHtml($template->truncate($p->description, 85), ENT_NOQUOTES) ?></p>
                         </div>
                     </div>
-<?php $iterations++; } ?>
                 </div>
+<?php $iterations++; } ?>
+        </div>
+        <!-- Pagination -->
+        <div class="row row-center">
+            <ul class="pagination">
+                <li>
+                    <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("Homepage:default", array($id_category, 1)), ENT_COMPAT) ?>
+">&laquo;</a>
+                </li>
+<?php for ($i = max(1,$paginator->page-2); $i <= $paginator->page-1; $i++) { ?>
+                    <li>
+                        <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("Homepage:default", array($id_category, $i)), ENT_COMPAT) ?>
+"><?php echo Latte\Runtime\Filters::escapeHtml($i, ENT_NOQUOTES) ?></a>
+                    </li>
+<?php } ?>
+                <li class="active">
+                    <a href="#"><?php echo Latte\Runtime\Filters::escapeHtml($paginator->page, ENT_NOQUOTES) ?></a>
+                </li>
+<?php for ($i = $paginator->page+1; $i <= min($paginator->page+2,$paginator->getPageCount()); $i++) { ?>
+                    <li>
+                        <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("Homepage:default", array($id_category, $i)), ENT_COMPAT) ?>
+"><?php echo Latte\Runtime\Filters::escapeHtml($i, ENT_NOQUOTES) ?></a>
+                    </li>
+<?php } ?>
+                <li>
+                    <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("Homepage:default", array($id_category, $paginator->getLastPage())), ENT_COMPAT) ?>
+">&raquo;</a>
+                </li>
+            </ul>
+        </div>
+<?php ob_start() ?>
+        <div class="row row-center">
+<?php if ($id_category == null) { ?>
+                Nebyly nalezeny žádné produkty.
+<?php } else { ?>
+                V této kategorii nejsou zatím žádné produkty.
+<?php } ?>
+        </div>
+    <?php if (isset($p)) { ob_end_clean(); ob_end_flush(); } else { $_l->else = ob_get_contents(); ob_end_clean(); ob_end_clean(); echo $_l->else; } ?>
+
 
 <?php
 }}
@@ -64,7 +102,8 @@ if (!function_exists($_b->blocks['head'][] = '_lb02f68c6ec3_head')) { function _
             text-align: left;
         }
         .product .image { width: 100%; height: 100px; margin: 0; padding: 0; margin-top: 1.2em; overflow-y: hidden;}
-        .product .image img { width: 100%; margin-left: auto; margin-right: auto;}
+        .product .image img { width: 100%; margin: 0; padding: 0; border: 0;}
+        .row-center { text-align: center; padding: 1em;}
 	</style>
 <?php
 }}
@@ -89,9 +128,7 @@ if (empty($_l->extends) && !empty($_control->snippetMode)) {
 //
 // main template
 //
-?>
-
-<?php if ($_l->extends) { ob_end_clean(); return $template->renderChildTemplate($_l->extends, get_defined_vars()); }
+if ($_l->extends) { ob_end_clean(); return $template->renderChildTemplate($_l->extends, get_defined_vars()); }
 call_user_func(reset($_b->blocks['content']), $_b, get_defined_vars()) ; call_user_func(reset($_b->blocks['head']), $_b, get_defined_vars())  ?>
 
 <?php

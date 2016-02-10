@@ -65,83 +65,36 @@ ul.errors {
     border-top-right-radius: 6px;
 }
 
-/* --- --- Modal > Profile --- --- */
-.table-user-information > tbody > tr > td:first-child {
-    width: 50%;
+.table {
+    margin: 0;
 }
 
-.table-user-information > tbody > tr:first-child,
-.table-user-information > tbody > tr:first-child > td {
+.table > tbody > tr:first-child,
+.table > tbody > tr:first-child > td {
     border-top: 0;
 }
 
-.table-user-information > tbody > tr > td .form-control, .modal-header .form-control,
-.table-user-information > tbody > tr > td .form-control[readonly], 
-.table-user-information > tbody > tr > td .input-group-addon {
-    height: 20px;
-    padding: 3px 6px;
-    border: 0;
-    border-radius: 3px;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
-    background: transparent;
+h2.modal-title {
+    color: #222;
 }
 
-.modal-header .form-control {
-    max-width: 90%;
-    color: #31708f;
-    font-size: 16px;
-    height: 23px;
+/* --- --- Paginator & Filter --- --- */
+.list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover, .pagination>.active>a, 
+.pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, 
+.pagination>.active>span:hover {
+    z-index: 2;
+    color: #fff;
+    cursor: default;
+    background-color: #444;
+    border-color: #222;
 }
 
-.table-user-information > tbody > tr > td .input-group-addon > input {
-    margin-top: 1px;
+/* --- --- Modal > My Grid --- --- */
+.table-my-grid > tbody > tr > td:first-child {
+    width: 30%;
 }
-
-.table-user-information > tbody > tr > td .form-control[readonly] {
-    padding-left: 3px;
-}
-
-.table-user-information > tbody > tr > td div {
-    padding: 0;
-}
-
-.table-user-information > tbody > tr > td input.form-control-active,
-.table-user-information > tbody > tr > td > div.col-xs-6 {
-    background: rgb(250, 255, 189);
-    height: 20px;
-    padding: 3px 6px;
-    border: 0;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
-}
-
-.table-user-information > tbody > tr > td > div.col-xs-6:first-child {
-    -webkit-border-top-left-radius: 3px;
-    -webkit-border-bottom-left-radius: 3px;
-    -moz-border-radius-topleft: 3px;
-    -moz-border-radius-bottomleft: 3px;
-    border-top-left-radius: 3px;
-    border-bottom-left-radius: 3px;
-}
-
-.table-user-information > tbody > tr > td > div.col-xs-6:last-child {
-    -webkit-border-top-right-radius: 3px;
-    -webkit-border-bottom-right-radius: 3px;
-    -moz-border-radius-topright: 3px;
-    -moz-border-radius-bottomright: 3px;
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px;
-}
-
-.modal-header input.form-control {
-    background: rgb(250, 255, 189);  
-}
-
-.table-user-information > tbody > tr > td > div.col-xs-6 > .input-group {
-    margin-top: -3px;
+.table-my-grid > tbody > tr > td {
+    vertical-align: middle;
 }
 
 /* --- --- Modal > Product --- --- */
