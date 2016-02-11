@@ -47,9 +47,8 @@ class BidFormFactory extends Nette\Object {
 		$product = $this->database->findById('product', $this->id_product);
 		if ($product) {
 			$auction_manager = new Model\Auction($this->database);
-			$error = $auction_manager->bid($this->id_product); // pokus o prihoz
-			if($form->getPresenter()->isAjax()) {
-				$form->getPresenter()->redrawControl('bid');
+			if ($product->id_type_auction == 1) {
+				$auction_manager->bidBuyNow($product); // pokus o prihoz
 			}
 		} 
 	}
