@@ -28,8 +28,9 @@ class Container_57160c6847 extends Nette\DI\Container
 					'31_App_Forms_SignFormFactory',
 					'32_App_Forms_UploadProfilePhotoFormFactory',
 					'33_App_Forms_UserFormFactory',
-					'34_App_Model_Database',
-					'35_App_Model_Photo',
+					'34_App_Model_Auction',
+					'35_App_Model_Database',
+					'36_App_Model_Photo',
 					'application.1',
 					'application.2',
 					'application.3',
@@ -109,8 +110,9 @@ class Container_57160c6847 extends Nette\DI\Container
 			'App\Forms\UserFormFactory' => array(
 				1 => array('33_App_Forms_UserFormFactory'),
 			),
-			'App\Model\Database' => array(1 => array('34_App_Model_Database')),
-			'App\Model\Photo' => array(1 => array('35_App_Model_Photo')),
+			'App\Model\Auction' => array(1 => array('34_App_Model_Auction')),
+			'App\Model\Database' => array(1 => array('35_App_Model_Database')),
+			'App\Model\Photo' => array(1 => array('36_App_Model_Photo')),
 			'App\Presenters\BasePresenter' => array(
 				array(
 					'application.1',
@@ -223,8 +225,9 @@ class Container_57160c6847 extends Nette\DI\Container
 			'31_App_Forms_SignFormFactory' => 'App\Forms\SignFormFactory',
 			'32_App_Forms_UploadProfilePhotoFormFactory' => 'App\Forms\UploadProfilePhotoFormFactory',
 			'33_App_Forms_UserFormFactory' => 'App\Forms\UserFormFactory',
-			'34_App_Model_Database' => 'App\Model\Database',
-			'35_App_Model_Photo' => 'App\Model\Photo',
+			'34_App_Model_Auction' => 'App\Model\Auction',
+			'35_App_Model_Database' => 'App\Model\Database',
+			'36_App_Model_Photo' => 'App\Model\Photo',
 			'application.1' => 'App\Presenters\Error4xxPresenter',
 			'application.2' => 'App\Presenters\ErrorPresenter',
 			'application.3' => 'App\Presenters\HomepagePresenter',
@@ -318,7 +321,7 @@ class Container_57160c6847 extends Nette\DI\Container
 	 */
 	public function createService__25_App_Forms_BidFormFactory()
 	{
-		$service = new App\Forms\BidFormFactory($this->getService('34_App_Model_Database'));
+		$service = new App\Forms\BidFormFactory($this->getService('35_App_Model_Database'));
 		return $service;
 	}
 
@@ -338,7 +341,7 @@ class Container_57160c6847 extends Nette\DI\Container
 	 */
 	public function createService__27_App_Forms_PhotoDeleteFormFactory()
 	{
-		$service = new App\Forms\PhotoDeleteFormFactory($this->getService('34_App_Model_Database'));
+		$service = new App\Forms\PhotoDeleteFormFactory($this->getService('35_App_Model_Database'));
 		return $service;
 	}
 
@@ -348,7 +351,7 @@ class Container_57160c6847 extends Nette\DI\Container
 	 */
 	public function createService__28_App_Forms_PhotoEditFormFactory()
 	{
-		$service = new App\Forms\PhotoEditFormFactory($this->getService('34_App_Model_Database'));
+		$service = new App\Forms\PhotoEditFormFactory($this->getService('35_App_Model_Database'));
 		return $service;
 	}
 
@@ -358,7 +361,7 @@ class Container_57160c6847 extends Nette\DI\Container
 	 */
 	public function createService__29_App_Forms_ProductDeleteFormFactory()
 	{
-		$service = new App\Forms\ProductDeleteFormFactory($this->getService('34_App_Model_Database'));
+		$service = new App\Forms\ProductDeleteFormFactory($this->getService('35_App_Model_Database'));
 		return $service;
 	}
 
@@ -368,7 +371,7 @@ class Container_57160c6847 extends Nette\DI\Container
 	 */
 	public function createService__30_App_Forms_ProductFormFactory()
 	{
-		$service = new App\Forms\ProductFormFactory($this->getService('34_App_Model_Database'));
+		$service = new App\Forms\ProductFormFactory($this->getService('35_App_Model_Database'));
 		return $service;
 	}
 
@@ -388,7 +391,7 @@ class Container_57160c6847 extends Nette\DI\Container
 	 */
 	public function createService__32_App_Forms_UploadProfilePhotoFormFactory()
 	{
-		$service = new App\Forms\UploadProfilePhotoFormFactory($this->getService('34_App_Model_Database'));
+		$service = new App\Forms\UploadProfilePhotoFormFactory($this->getService('35_App_Model_Database'));
 		return $service;
 	}
 
@@ -404,9 +407,19 @@ class Container_57160c6847 extends Nette\DI\Container
 
 
 	/**
+	 * @return App\Model\Auction
+	 */
+	public function createService__34_App_Model_Auction()
+	{
+		$service = new App\Model\Auction($this->getService('35_App_Model_Database'));
+		return $service;
+	}
+
+
+	/**
 	 * @return App\Model\Database
 	 */
-	public function createService__34_App_Model_Database()
+	public function createService__35_App_Model_Database()
 	{
 		$service = new App\Model\Database($this->getService('database.default.context'));
 		return $service;
@@ -416,9 +429,9 @@ class Container_57160c6847 extends Nette\DI\Container
 	/**
 	 * @return App\Model\Photo
 	 */
-	public function createService__35_App_Model_Photo()
+	public function createService__36_App_Model_Photo()
 	{
-		$service = new App\Model\Photo($this->getService('34_App_Model_Database'));
+		$service = new App\Model\Photo($this->getService('35_App_Model_Database'));
 		return $service;
 	}
 
@@ -428,7 +441,7 @@ class Container_57160c6847 extends Nette\DI\Container
 	 */
 	public function createServiceApplication__1()
 	{
-		$service = new App\Presenters\Error4xxPresenter($this->getService('34_App_Model_Database'));
+		$service = new App\Presenters\Error4xxPresenter($this->getService('35_App_Model_Database'));
 		$service->injectPrimary($this, $this->getService('application.presenterFactory'), $this->getService('routing.router'),
 			$this->getService('http.request'), $this->getService('http.response'), $this->getService('session.session'),
 			$this->getService('security.user'), $this->getService('latte.templateFactory'));
@@ -452,7 +465,7 @@ class Container_57160c6847 extends Nette\DI\Container
 	 */
 	public function createServiceApplication__3()
 	{
-		$service = new App\Presenters\HomepagePresenter($this->getService('34_App_Model_Database'));
+		$service = new App\Presenters\HomepagePresenter($this->getService('35_App_Model_Database'));
 		$service->injectPrimary($this, $this->getService('application.presenterFactory'), $this->getService('routing.router'),
 			$this->getService('http.request'), $this->getService('http.response'), $this->getService('session.session'),
 			$this->getService('security.user'), $this->getService('latte.templateFactory'));
@@ -471,7 +484,7 @@ class Container_57160c6847 extends Nette\DI\Container
 	 */
 	public function createServiceApplication__4()
 	{
-		$service = new App\Presenters\UserPresenter($this->getService('34_App_Model_Database'));
+		$service = new App\Presenters\UserPresenter($this->getService('35_App_Model_Database'));
 		$service->injectPrimary($this, $this->getService('application.presenterFactory'), $this->getService('routing.router'),
 			$this->getService('http.request'), $this->getService('http.response'), $this->getService('session.session'),
 			$this->getService('security.user'), $this->getService('latte.templateFactory'));

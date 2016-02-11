@@ -60,6 +60,7 @@ class HomepagePresenter extends BasePresenter {
 
 	// product detail
 	public function renderProduct($id = null) {
+		$this->template->now = date('Y-m-d H:i:s');
 		$this->template->product = $this->database->findById('product', $id);
 		if (!$this->template->product) {
 			$this->flashMessage('Produkt se nepodařilo nalézt. Je možné, že ho někdo smazal.');
@@ -208,13 +209,8 @@ class HomepagePresenter extends BasePresenter {
 	 * @return Nette\Application\UI\Form
 	 */
 	protected function createComponentBidForm() {
-		$id = (int) $this->getParameter('id'); 		
-		$form = $this->bidFactory->create($id);
-		$form->onSuccess[] = function ($form) {
-			$values = $form->getValues();
-	        $this->flashMessage('Vybrané fotografie byly smazány.');
-	        $this->redirect('Homepage:product', $values['id_product']);
-		};
+		$id_product = (int) $this->getParameter('id'); 		
+		$form = $this->bidFactory->create($id_product, $this->user->id);
 		return $form;
 	}
 

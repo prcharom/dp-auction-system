@@ -19,6 +19,9 @@ if (!function_exists($_b->blocks['content'][] = '_lb18920efd08_content')) { func
                                 <h2>
                         			<?php echo Latte\Runtime\Filters::escapeHtml($product->name, ENT_NOQUOTES) ?>
 
+<?php if (($product->expire <= $now) && ($product->related('bid.id_product')->count() > 0)) { ?>
+                                        / PRODÁNO
+<?php } ?>
                                     <a data-toggle="modal" data-target="#product_edit_modal" href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("Homepage:productAddEdit", array($product->id)), ENT_COMPAT) ?>
 ">
                                         Upravit produkt
@@ -90,6 +93,20 @@ _<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($im
                                             <td>Konec aukce:</td>
                                             <td><?php echo Latte\Runtime\Filters::escapeHtml($template->date($product->expire, 'd/m/Y, h:i \h\o\d.'), ENT_NOQUOTES) ?></td>
                                         </tr> 
+<?php if ($product->expire <= $now) { ?>                                        <tr>
+                                            <td>Kupec:</td>
+                                            <td>
+<?php if ($product->related('bid.id_product')->count() > 0) { ?>
+                                                    <a href="#">
+                                                        <?php echo Latte\Runtime\Filters::escapeHtml($product->related('bid.id_product')->fetch()->user->name, ENT_NOQUOTES) ?>
+
+                                                    </a>
+<?php } else { ?>
+                                                    -
+<?php } ?>
+                                            </td>
+                                        </tr> 
+<?php } ?>
                                     </table>
                                 </div>
                                 <div class="col-sm-6 col-md-7">
@@ -105,19 +122,8 @@ _<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($im
                             <div class="product-description">
 
                             </div>
-                            <?php echo Nette\Bridges\FormsLatte\Runtime::renderFormBegin($form = $_form = $_control["bidForm"], array()) ?>
-
-                            <div class="product-prize">
-                                <?php echo $_form["send"]->getControl() ?>
-
-                                <div class="input-group">
-                                    <span class="input-group-addon">Cena</span>
-                                        <input readonly="" type="text" class="form-control" name="value" value="<?php echo Latte\Runtime\Filters::escapeHtml($template->number($product->cost), ENT_COMPAT) ?> Kč"> 
-                                </div>
-                            </div>
-                            <?php echo Nette\Bridges\FormsLatte\Runtime::renderFormEnd($_form) ?>
-
-                        </div>
+<div id="<?php echo $_control->getSnippetId('bid') ?>"><?php call_user_func(reset($_b->blocks['_bid']), $_b, $template->getParameters()) ?>
+</div>                        </div>
                     </div>                       
                 </div>
 
@@ -192,6 +198,37 @@ _<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($im
 }}
 
 //
+// block _bid
+//
+if (!function_exists($_b->blocks['_bid'][] = '_lb96c678b3de__bid')) { function _lb96c678b3de__bid($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v; $_control->redrawControl('bid', FALSE)
+?>                                <?php echo Nette\Bridges\FormsLatte\Runtime::renderFormBegin($form = $_form = $_control["bidForm"], array()) ?>
+
+                                <!-- vykreslení chyb -->
+<?php if ($form->hasErrors()) { ?>                                <ul class="errors">
+<?php $iterations = 0; foreach ($form->errors as $error) { ?>                                    <li><?php echo Latte\Runtime\Filters::escapeHtml($error, ENT_NOQUOTES) ?></li>
+<?php $iterations++; } ?>
+                                </ul> 
+<?php } ?>
+                                <div class="product-prize">
+<?php if ($product->expire > $now) { ?>
+                                        <?php echo $_form["send"]->getControl() ?>
+
+<?php } ?>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Cena</span>
+                                            <input readonly="" type="text" class="form-control" name="value" value="<?php echo Latte\Runtime\Filters::escapeHtml($template->number($product->cost), ENT_COMPAT) ?> Kč"> 
+                                    </div>
+                                </div>
+                                <div class="hidden">
+                                    <?php echo $_form["id_product"]->getControl() ?>
+
+                                </div>
+                                <?php echo Nette\Bridges\FormsLatte\Runtime::renderFormEnd($_form) ?>
+
+<?php
+}}
+
+//
 // block head
 //
 if (!function_exists($_b->blocks['head'][] = '_lb1af9f19163_head')) { function _lb1af9f19163_head($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v
@@ -214,7 +251,9 @@ if (!function_exists($_b->blocks['head'][] = '_lb1af9f19163_head')) { function _
         .product-prize input[type=text], .product-prize input[type=submit] { background: transparent; color: #333; border-color: #333;}
         .product-prize input[type=submit] { font-weight: 700;}
         .product-prize input[type=submit]:hover { background: #eee;}
-        .product-prize .input-group { float: left; margin: 0 .5em 0 0;}
+<?php if ($product->expire > $now) { ?>
+            .product-prize .input-group { float: left; margin: 0 .5em 0 0;}
+<?php } ?>
         .product-prize { padding: 0 0 1em 0;}
         .product-header { border-bottom: 1px solid #666;}
         .product-header, .product-galery, .product-description { 
@@ -224,6 +263,7 @@ if (!function_exists($_b->blocks['head'][] = '_lb1af9f19163_head')) { function _
         #links { margin: 0;}
         #links a, #links a:hover { display: inline-block; }
         #links img { max-height: 100px; margin-top: 1em; width: auto;}
+        div.hidden { display: none;}
 	</style>
 <?php
 }}

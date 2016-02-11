@@ -12,9 +12,14 @@ class BidFormFactory extends Nette\Object {
 		/** @var Model\Database */
 		private $database;
 
-		/* User ID */
+		/* Product ID */
 		private $id_product;
 
+		/* User ID */
+		private $id_user;
+
+		/* Error */
+		private $error = null;
 
 	public function __construct(Model\Database $database) {
 		$this->database = $database;
@@ -23,10 +28,11 @@ class BidFormFactory extends Nette\Object {
 	/**
 	 * @return Form
 	 */
-	public function create($id_product = null) {
+	public function create($id_product = null, $id_user = null) {
 
-		// nacteni id produktu
+		// nacteni id produktu a uzivatele
 		$this->id_product = $id_product;
+		$this->id_user = $id_user;
 
 		// form
 		$form = new Form;
@@ -44,13 +50,25 @@ class BidFormFactory extends Nette\Object {
 	}
 
 	public function formSucceeded(Form $form, $values) {
+
+		// provedu prihoz 
 		$product = $this->database->findById('product', $this->id_product);
 		if ($product) {
 			$auction_manager = new Model\Auction($this->database);
-			if ($product->id_type_auction == 1) {
-				$auction_manager->bidBuyNow($product); // pokus o prihoz
+			if ($product->id_type_auction == 1) { // aukce "kup hned"
+				$this->error = $auction_manager->bidBuyNow($product, $this->id_user); 
 			}
 		} 
+
+		// zjistim, zda vse probehlo v poradku
+		if ($this->error != null) {
+			$form->getPresenter()->flashMessage($this->error);
+		} else {
+			$form->getPresenter()->flashMessage('Zakoupili jste si produkt '. $product->name .'.');
+		}
+
+		// presmeruji
+		$form->getPresenter()->redirect('Homepage:product', $this->id_product);
 	}
 
 	public function formNotSucceeded(Form $form) {

@@ -6,6 +6,9 @@
                             <div class="product-header">
                                 <h2>
                         			{$product->name}
+                                    {if ($product->expire <= $now) && ($product->related('bid.id_product')->count() > 0)}
+                                        / PRODÁNO
+                                    {/if}
                                     <a data-toggle="modal" n:href="Homepage:productAddEdit, $product->id" data-target="#product_edit_modal">
                                         Upravit produkt
                                     </a>
@@ -63,6 +66,18 @@
                                             <td>Konec aukce:</td>
                                             <td>{$product->expire|date:'d/m/Y, h:i \h\o\d.'}</td>
                                         </tr> 
+                                        <tr n:if="$product->expire <= $now">
+                                            <td>Kupec:</td>
+                                            <td>
+                                                {if $product->related('bid.id_product')->count() > 0}
+                                                    <a href="#">
+                                                        {$product->related('bid.id_product')->fetch()->user->name}
+                                                    </a>
+                                                {else}
+                                                    -
+                                                {/if}
+                                            </td>
+                                        </tr> 
                                     </table>
                                 </div>
                                 <div class="col-sm-6 col-md-7">
@@ -77,15 +92,26 @@
                             <div class="product-description">
 
                             </div>
-                            {form bidForm}
-                            <div class="product-prize">
-                                {input send}
-                                <div class="input-group">
-                                    <span class="input-group-addon">Cena</span>
-                                        <input readonly="" type="text" class="form-control" name="value" value="{$product->cost|number} Kč"> 
+                            {snippet bid}
+                                {form bidForm}
+                                <!-- vykreslení chyb -->
+                                <ul class="errors" n:if="$form->hasErrors()">
+                                    <li n:foreach="$form->errors as $error">{$error}</li>
+                                </ul> 
+                                <div class="product-prize">
+                                    {if $product->expire > $now}
+                                        {input send}
+                                    {/if}
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Cena</span>
+                                            <input readonly="" type="text" class="form-control" name="value" value="{$product->cost|number} Kč"> 
+                                    </div>
                                 </div>
-                            </div>
-                            {/form}
+                                <div class="hidden">
+                                    {input id_product}
+                                </div>
+                                {/form}
+                            {/snippet}
                         </div>
                     </div>                       
                 </div>
@@ -178,7 +204,9 @@
         .product-prize input[type=text], .product-prize input[type=submit] { background: transparent; color: #333; border-color: #333;}
         .product-prize input[type=submit] { font-weight: 700;}
         .product-prize input[type=submit]:hover { background: #eee;}
-        .product-prize .input-group { float: left; margin: 0 .5em 0 0;}
+        {if $product->expire > $now}
+            .product-prize .input-group { float: left; margin: 0 .5em 0 0;}
+        {/if}
         .product-prize { padding: 0 0 1em 0;}
         .product-header { border-bottom: 1px solid #666;}
         .product-header, .product-galery, .product-description { 
@@ -188,6 +216,7 @@
         #links { margin: 0;}
         #links a, #links a:hover { display: inline-block; }
         #links img { max-height: 100px; margin-top: 1em; width: auto;}
+        div.hidden { display: none;}
 	</style>
 {/block}
 
