@@ -125,7 +125,7 @@ call_user_func(reset($_b->blocks['head']), $_b, get_defined_vars())  ?>
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?php echo Latte\Runtime\Filters::escapeHtml($user->identity->name, ENT_NOQUOTES) ?> <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a data-toggle="modal" data-target="#profile_modal" href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("User:profile"), ENT_COMPAT) ?>
+                            <a data-toggle="modal" data-target="#profile_modal" href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("User:myProfile"), ENT_COMPAT) ?>
 ">
                                 <i class="fa fa-fw fa-user"></i> Můj profil
                             </a>

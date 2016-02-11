@@ -32,7 +32,8 @@ if (!function_exists($_b->blocks['content'][] = '_lb18920efd08_content')) { func
                                     </a>
                             	</h2>
                                 <div class="pub">
-                                    Publikoval: <a href="#"><?php echo Latte\Runtime\Filters::escapeHtml($product->user->name, ENT_NOQUOTES) ?></a>
+                                    Publikoval: <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("User:profile", array($product->id_user)), ENT_COMPAT) ?>
+"><?php echo Latte\Runtime\Filters::escapeHtml($product->user->name, ENT_NOQUOTES) ?></a>
                                 </div>
                             </div>
                             <div class="product-category">
@@ -96,9 +97,10 @@ _<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($im
 <?php if ($product->expire <= $now) { ?>                                        <tr>
                                             <td>Kupec:</td>
                                             <td>
-<?php if ($product->related('bid.id_product')->count() > 0) { ?>
-                                                    <a href="#">
-                                                        <?php echo Latte\Runtime\Filters::escapeHtml($product->related('bid.id_product')->fetch()->user->name, ENT_NOQUOTES) ?>
+<?php if ($product->related('bid.id_product')->count() > 0) { $bid = $product->related('bid.id_product')->fetch() ?>
+                                                    <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("User:profile", array($bid->id_user)), ENT_COMPAT) ?>
+">
+                                                        <?php echo Latte\Runtime\Filters::escapeHtml($bid->user->name, ENT_NOQUOTES) ?>
 
                                                     </a>
 <?php } else { ?>
@@ -210,7 +212,7 @@ if (!function_exists($_b->blocks['_bid'][] = '_lb96c678b3de__bid')) { function _
                                 </ul> 
 <?php } ?>
                                 <div class="product-prize">
-<?php if ($product->expire > $now) { ?>
+<?php if (($product->expire > $now) && ($product->id_user != $user->id)) { ?>
                                         <?php echo $_form["send"]->getControl() ?>
 
 <?php } ?>
@@ -251,7 +253,7 @@ if (!function_exists($_b->blocks['head'][] = '_lb1af9f19163_head')) { function _
         .product-prize input[type=text], .product-prize input[type=submit] { background: transparent; color: #333; border-color: #333;}
         .product-prize input[type=submit] { font-weight: 700;}
         .product-prize input[type=submit]:hover { background: #eee;}
-<?php if ($product->expire > $now) { ?>
+<?php if (($product->expire > $now) && ($product->id_user != $user->id)) { ?>
             .product-prize .input-group { float: left; margin: 0 .5em 0 0;}
 <?php } ?>
         .product-prize { padding: 0 0 1em 0;}

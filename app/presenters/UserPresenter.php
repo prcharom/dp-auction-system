@@ -25,18 +25,27 @@ class UserPresenter extends BasePresenter {
 		public $passwordFactory;
 
 
-	/* --- --- Profile --- --- */
+	/* --- --- myProfile --- --- */
 	
-	public function actionProfile() {
+	public function actionMyProfile() {
 		if (!$this->user->loggedIn)
             throw new Nette\Application\ForbiddenRequestException();
 	}
 
-	public function renderProfile() {
+	public function renderMyProfile() {
 		$form = $this['userForm'];
 		$form['send']->caption = 'Upravit profil';
 		$this->template->profile = $this->database->findById('user', $this->user->id);
 		$form->setDefaults($this->template->profile);
+	}
+
+	/* --- --- Profile --- --- */
+	public function renderProfile($id = null) {
+		$this->template->profile = $this->database->findById('user', $id);
+		if (!$this->template->profile) {
+			$this->flashMessage('Hledaného uživatele nelze zobrazit.');
+			$this->redirect('Homepage:default');
+		}
 	}
 
 

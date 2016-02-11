@@ -22,8 +22,10 @@ class Auction extends Nette\Object {
 	} 
 
 	public function bidBuyNow($product, $id_user) { // aukce "kup hned"
-		if($product->related('bid.id_product')->count() > 0) {
+		if($product->related('bid.id_product')->count() > 0) { // pokud je prodana -> chyba
 			$this->error = 'Je nám líto, ale produkt byl již prodán.';
+		} elseif ($id_user == $product->id_user) { // nelze koupit svuj produkt -> chyba
+			$this->error = 'Je nám líto, ale produkt nelze koupit.';
 		} else {
 			// uprava prihozu
 			$values['id_product'] = $product->id;

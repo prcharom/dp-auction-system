@@ -1,20 +1,7 @@
-{layout "../@layout-modal.latte"}
-
 {block content}
 	{snippet profile}
 		{form userForm}  	
-		  	<!--- Modal-header -->
-			<div class="modal-header panel-heading">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-		        <h2 class="modal-title">Můj profil</h2>
-			</div>
-			<!-- Modal-body -->
-			<div class="modal-body panel-body">
 				<div class="row">
-				    <!-- vykreslení chyb -->
-			        <ul class="errors" n:if="$form->hasErrors()">
-			            <li n:foreach="$form->errors as $error">{$error}</li>
-			        </ul> 
 		            <div class="col-md-3 col-lg-3 " align="center"> 
 		            	{if $profile->photo == null}
 		            		<img alt="{$profile->nick}" src="{$basePath}/images/web/icons/user_{if $profile->id_gender == 2}fe{/if}male.png" class="img-circle img-responsive"> 
@@ -23,65 +10,48 @@
 		            	{/if}
 		            </div>
 		            <div class=" col-md-9 col-lg-9 "> 
-		               	<table class="table table-my-grid">
+		               	<table class="table table-my-grid profile-table">
 			                <tbody>
-			                    <tr>
-			                        <td>Nick:</td>
-			                        <td>
-			                        	<input type="text" class="form-control" value="{$profile->nick}" readonly>
-			                        </td>
-			                    </tr>
 			                    <tr>
 			                        <td>Celé jméno:</td>
 			                        <td>
-			                        	{input name}
+			                        	{$profile->name}
 			                        </td>
 			                    </tr>
 			                    <tr>
 			                        <td>Datum registrace:</td>
-			                        <td><input type="text" class="form-control" value="{$profile->registered_since|date:'d/m/Y  H:i'}" readonly></td>
+			                        <td>
+			                        	{$profile->registered_since|date:'d/m/Y,  H:i \h\o\d.'}
+			                        </td>
 			                    </tr>
 			                    <tr>
 			                        <td>Datum posl. přihlášení:</td>
-			                        <td><input type="text" class="form-control" value="{$profile->last_login|date:'d/m/Y  H:i'}" readonly></td>
+			                        <td>
+			                        	{$profile->last_login|date:'d/m/Y,  H:i \h\o\d.'}
+			                        </td>
 			                    </tr>
 			                    <tr>
 			                        <td>Pohlaví:</td>
 			                        <td>
-			                       	{foreach $form[id_gender]->items as $key => $label}
-							            <div class="col-xs-6">
-								            <div class="reg-radio input-group">
-								              	<span class="input-group-addon">
-								                	<input n:name="id_gender:$key">
-								              	</span>
-								              	<input type="text" value="{$label}" class="form-control" readonly>
-								            </div>
-								        </div>
-								    {/foreach}
+			          					{$profile->gender->name}
 			                        </td>
 			                    </tr>
 			                    <tr>
 			                        <td>Adresa bydliště:</td>
-			                        <td>{input address}</td>
+			                        <td>{$profile->address}</td>
 			                    </tr>
 			                    <tr>
 			                        <td>E-mail:</td>
-			                        <td>{input email}</td>
+			                        <td>{$profile->email}</td>
 			                    </tr>
 			                    <tr>
 			                        <td>Telefonní číslo:</td>
-			                        <td>{input phone}</td>
+			                        <td>{$profile->phone}</td>
 			                    </tr>
 			                </tbody>
 		                </table>
 		            </div>
 		       	</div>
-			</div>
-			<!-- Modal footer -->
-			<div class="modal-footer panel-footer">
-				{input send}
-			  	<input type="button" class="btn btn-default" data-dismiss="modal" value="Zavřít">
-			</div>
 		{/form}
 	{/snippet}
 {/block}
@@ -89,5 +59,6 @@
 {block head}
 <style>
 	div.flash, ul.errors { margin: 0 1em 1em 1em;}
+	.profile-table td:nth-child(2) { font-weight: 700;}
 </style>
 {/block}

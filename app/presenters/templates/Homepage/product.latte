@@ -17,7 +17,7 @@
                                     </a>
                             	</h2>
                                 <div class="pub">
-                                    Publikoval: <a href="#">{$product->user->name}</a>
+                                    Publikoval: <a n:href="User:profile, $product->id_user">{$product->user->name}</a>
                                 </div>
                             </div>
                             <div class="product-category">
@@ -70,8 +70,9 @@
                                             <td>Kupec:</td>
                                             <td>
                                                 {if $product->related('bid.id_product')->count() > 0}
-                                                    <a href="#">
-                                                        {$product->related('bid.id_product')->fetch()->user->name}
+                                                    {var $bid = $product->related('bid.id_product')->fetch()}
+                                                    <a n:href="User:profile, $bid->id_user">
+                                                        {$bid->user->name}
                                                     </a>
                                                 {else}
                                                     -
@@ -99,8 +100,8 @@
                                     <li n:foreach="$form->errors as $error">{$error}</li>
                                 </ul> 
                                 <div class="product-prize">
-                                    {if $product->expire > $now}
-                                        {input send}
+                                    {if ($product->expire > $now) && ($product->id_user != $user->id)}
+                                        {input send} 
                                     {/if}
                                     <div class="input-group">
                                         <span class="input-group-addon">Cena</span>
@@ -204,7 +205,7 @@
         .product-prize input[type=text], .product-prize input[type=submit] { background: transparent; color: #333; border-color: #333;}
         .product-prize input[type=submit] { font-weight: 700;}
         .product-prize input[type=submit]:hover { background: #eee;}
-        {if $product->expire > $now}
+        {if ($product->expire > $now) && ($product->id_user != $user->id)}
             .product-prize .input-group { float: left; margin: 0 .5em 0 0;}
         {/if}
         .product-prize { padding: 0 0 1em 0;}
