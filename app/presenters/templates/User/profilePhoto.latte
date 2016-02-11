@@ -17,9 +17,9 @@
 			        </ul> 
 		            <div class="col-md-3 col-lg-3 " align="center"> 
 		            	{if $profile->photo == null}
-		            		<img alt="{$profile->nick}" src="images/web/icons/user_{if $profile->id_gender == 2}fe{/if}male.png" class="img-circle img-responsive"> 
+		            		<img alt="{$profile->nick}" src="{$basePath}/images/web/icons/user_{if $profile->id_gender == 2}fe{/if}male.png" class="img-circle img-responsive"> 
 		            	{else}
-		            		<img alt="{$profile->nick}" src="images/profiles/{$profile->id}_{$profile->photo}" class="img-circle img-responsive"> 
+		            		<img alt="{$profile->nick}" src="{$basePath}/images/profiles/{$profile->id}_{$profile->photo}" class="img-circle img-responsive"> 
 		            	{/if}
 		            </div>
 		            <div class=" col-md-9 col-lg-9 "> 

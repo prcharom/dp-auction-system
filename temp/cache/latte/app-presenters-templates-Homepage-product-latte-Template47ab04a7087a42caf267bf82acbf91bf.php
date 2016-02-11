@@ -71,21 +71,52 @@ _<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($im
                                 <?php if (isset($img)) { ob_end_clean(); ob_end_flush(); } else { $_l->else = ob_get_contents(); ob_end_clean(); ob_end_clean(); echo $_l->else; } ?>
 
                             </div>
-                            <div class="product-description">
-                                <h3>
-                                    Popis
-                                </h3>
-                                <p>
-                                    <?php echo Latte\Runtime\Filters::escapeHtml($product->description, ENT_NOQUOTES) ?>
+                            <div class="row product-info">
+                                <div class="col-sm-6 col-md-5">
+                                    <h3>
+                                        Informace
+                                    </h3>
+                                    <table>
+                                        <tr>
+                                            <td>Typ aukce:</td>
+                                            <td title="<?php echo Latte\Runtime\Filters::escapeHtml($product->type_auction->description, ENT_COMPAT) ?>
+"><?php echo Latte\Runtime\Filters::escapeHtml($product->type_auction->name, ENT_NOQUOTES) ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Začátek aukce:</td>
+                                            <td><?php echo Latte\Runtime\Filters::escapeHtml($template->date($product->added, 'd/m/Y, h:i \h\o\d.'), ENT_NOQUOTES) ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Konec aukce:</td>
+                                            <td><?php echo Latte\Runtime\Filters::escapeHtml($template->date($product->expire, 'd/m/Y, h:i \h\o\d.'), ENT_NOQUOTES) ?></td>
+                                        </tr> 
+                                    </table>
+                                </div>
+                                <div class="col-sm-6 col-md-7">
+                                    <h3>
+                                        Popis
+                                    </h3>
+                                    <p>
+                                        <?php echo Latte\Runtime\Filters::escapeHtml($product->description, ENT_NOQUOTES) ?>
 
-                                </p>
-                            </div>
-                            <div class="product-prize">
-                                <div class="input-group">
-                                    <span class="input-group-addon">Cena</span>
-                                        <input readonly="" type="text" class="form-control" name="value" value="<?php echo Latte\Runtime\Filters::escapeHtml($template->number($product->cost), ENT_COMPAT) ?> Kč">
+                                    </p>
                                 </div>
                             </div>
+                            <div class="product-description">
+
+                            </div>
+                            <?php echo Nette\Bridges\FormsLatte\Runtime::renderFormBegin($form = $_form = $_control["bidForm"], array()) ?>
+
+                            <div class="product-prize">
+                                <?php echo $_form["send"]->getControl() ?>
+
+                                <div class="input-group">
+                                    <span class="input-group-addon">Cena</span>
+                                        <input readonly="" type="text" class="form-control" name="value" value="<?php echo Latte\Runtime\Filters::escapeHtml($template->number($product->cost), ENT_COMPAT) ?> Kč"> 
+                                </div>
+                            </div>
+                            <?php echo Nette\Bridges\FormsLatte\Runtime::renderFormEnd($_form) ?>
+
                         </div>
                     </div>                       
                 </div>
@@ -167,7 +198,11 @@ if (!function_exists($_b->blocks['head'][] = '_lb1af9f19163_head')) { function _
 ?>    <link rel="stylesheet" href="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>/assets/css/blueimp-gallery.min.css">
     <link rel="stylesheet" href="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>/assets/css/bootstrap-image-gallery.css">
 	<style>
-		.product-description p { overflow: hidden; padding: 1em 0 0 0; margin: 0;}
+        .product-info .col-md-5, .product-info .col-md-7 { margin: 0; padding: 0;}
+        .product-info table { margin: .5em 0 0 0; }
+        .product-info table td { padding: 3px 6px;}
+        .product-info table td:first-child { padding-left: 0;}
+		.product-info p { overflow: hidden; padding: .5em 0 0 0; margin: 0;}
 		h2, h3 { white-space: nowrap; color: #222;}
         .product-detail { height: auto; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.7); border: none; font-size: 15px; padding: 1em; border-radius: 0px;}
         .product-detail h2 { font-size: 25px; font-weight: 700; margin: 0.5em 0 0 0;}
@@ -176,7 +211,11 @@ if (!function_exists($_b->blocks['head'][] = '_lb1af9f19163_head')) { function _
         .product-detail h3 { font-size: 20px; font-weight: 700; padding: 0; margin: 1em 0 0 0;}
         .product-detail div { margin: 0.5em 0 0 0; }
         .product-prize div.input-group span.input-group-addon { width: 7em; font-weight: 700; background: #EEE; border-color: #333;}
-        .product-prize input[type=text] { background: transparent; color: #333; border-color: #333}
+        .product-prize input[type=text], .product-prize input[type=submit] { background: transparent; color: #333; border-color: #333;}
+        .product-prize input[type=submit] { font-weight: 700;}
+        .product-prize input[type=submit]:hover { background: #eee;}
+        .product-prize .input-group { float: left; margin: 0 .5em 0 0;}
+        .product-prize { padding: 0 0 1em 0;}
         .product-header { border-bottom: 1px solid #666;}
         .product-header, .product-galery, .product-description { 
             padding: 0 0 1em 0; 

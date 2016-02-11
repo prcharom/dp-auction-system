@@ -40,10 +40,12 @@ if (!function_exists($_b->blocks['_profileImage'][] = '_lb68231fdbb0__profileIma
 		            <div class="col-md-3 col-lg-3 " align="center"> 
 <?php if ($profile->photo == null) { ?>
 		            		<img alt="<?php echo Latte\Runtime\Filters::escapeHtml($profile->nick, ENT_COMPAT) ?>
-" src="images/web/icons/user_<?php if ($profile->id_gender == 2) { ?>fe<?php } ?>male.png" class="img-circle img-responsive"> 
+" src="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>
+/images/web/icons/user_<?php if ($profile->id_gender == 2) { ?>fe<?php } ?>male.png" class="img-circle img-responsive"> 
 <?php } else { ?>
 		            		<img alt="<?php echo Latte\Runtime\Filters::escapeHtml($profile->nick, ENT_COMPAT) ?>
-" src="images/profiles/<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($profile->id), ENT_COMPAT) ?>
+" src="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>
+/images/profiles/<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($profile->id), ENT_COMPAT) ?>
 _<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($profile->photo), ENT_COMPAT) ?>" class="img-circle img-responsive"> 
 <?php } ?>
 		            </div>
