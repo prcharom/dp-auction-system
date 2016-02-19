@@ -121,11 +121,23 @@ _<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($im
                                     </p>
                                 </div>
                             </div>
-                            <div class="product-description">
-
+                            <div class="product-prize">
+<?php if (($product->expire > $now) && ($product->id_user != $user->id)) { ?>
+                                    <a data-toggle="modal" class="btn" data-target="#auction_bid" href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("Auction:bid", array($product->id)), ENT_COMPAT) ?>
+">
+<?php if ($product->id_type_auction == 1) { ?>
+                                            Koupit
+<?php } else { ?>
+                                            Přihodit
+<?php } ?>
+                                    </a>  
+<?php } ?>
+                                <div class="input-group">
+                                    <span class="input-group-addon">Cena</span>
+                                    <input readonly="" type="text" class="form-control" name="value" value="<?php echo Latte\Runtime\Filters::escapeHtml($template->number($product->cost), ENT_COMPAT) ?> Kč"> 
+                                </div>
                             </div>
-<div id="<?php echo $_control->getSnippetId('bid') ?>"><?php call_user_func(reset($_b->blocks['_bid']), $_b, $template->getParameters()) ?>
-</div>                        </div>
+                        </div>
                     </div>                       
                 </div>
 
@@ -155,6 +167,14 @@ _<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($im
 
                 <!-- PopUp pomoci bootstrap, pro photoDelete.latte -->
                 <div id="photo_delete_modal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PopUp pomoci bootstrap, pro bid.latte -->
+                <div id="auction_bid" class="modal fade" role="dialog">
                     <div class="modal-dialog">
                         <div class="modal-content">
                         </div>
@@ -200,37 +220,6 @@ _<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($im
 }}
 
 //
-// block _bid
-//
-if (!function_exists($_b->blocks['_bid'][] = '_lb96c678b3de__bid')) { function _lb96c678b3de__bid($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v; $_control->redrawControl('bid', FALSE)
-?>                                <?php echo Nette\Bridges\FormsLatte\Runtime::renderFormBegin($form = $_form = $_control["bidForm"], array()) ?>
-
-                                <!-- vykreslení chyb -->
-<?php if ($form->hasErrors()) { ?>                                <ul class="errors">
-<?php $iterations = 0; foreach ($form->errors as $error) { ?>                                    <li><?php echo Latte\Runtime\Filters::escapeHtml($error, ENT_NOQUOTES) ?></li>
-<?php $iterations++; } ?>
-                                </ul> 
-<?php } ?>
-                                <div class="product-prize">
-<?php if (($product->expire > $now) && ($product->id_user != $user->id)) { ?>
-                                        <?php echo $_form["send"]->getControl() ?>
-
-<?php } ?>
-                                    <div class="input-group">
-                                        <span class="input-group-addon">Cena</span>
-                                            <input readonly="" type="text" class="form-control" name="value" value="<?php echo Latte\Runtime\Filters::escapeHtml($template->number($product->cost), ENT_COMPAT) ?> Kč"> 
-                                    </div>
-                                </div>
-                                <div class="hidden">
-                                    <?php echo $_form["id_product"]->getControl() ?>
-
-                                </div>
-                                <?php echo Nette\Bridges\FormsLatte\Runtime::renderFormEnd($_form) ?>
-
-<?php
-}}
-
-//
 // block head
 //
 if (!function_exists($_b->blocks['head'][] = '_lb1af9f19163_head')) { function _lb1af9f19163_head($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v
@@ -250,9 +239,14 @@ if (!function_exists($_b->blocks['head'][] = '_lb1af9f19163_head')) { function _
         .product-detail h3 { font-size: 20px; font-weight: 700; padding: 0; margin: 1em 0 0 0;}
         .product-detail div { margin: 0.5em 0 0 0; }
         .product-prize div.input-group span.input-group-addon { width: 7em; font-weight: 700; background: #EEE; border-color: #333;}
-        .product-prize input[type=text], .product-prize input[type=submit] { background: transparent; color: #333; border-color: #333;}
-        .product-prize input[type=submit] { font-weight: 700;}
-        .product-prize input[type=submit]:hover { background: #eee;}
+        .product-prize input[type=text], .product-prize input[type=submit], .product-prize a{ background: transparent; color: #333; border-color: #333;}
+        .product-prize input[type=submit], .product-prize a {
+            font-weight: 700;
+        }
+        .product-prize input[type=submit]:hover, .product-prize a:hover { 
+            background: #eee;
+            text-decoration: none;
+        }
 <?php if (($product->expire > $now) && ($product->id_user != $user->id)) { ?>
             .product-prize .input-group { float: left; margin: 0 .5em 0 0;}
 <?php } ?>

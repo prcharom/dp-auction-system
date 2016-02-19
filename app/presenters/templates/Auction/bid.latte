@@ -1,0 +1,49 @@
+{layout "../@layout-modal.latte"}
+
+{block content}
+    {snippet bid}
+        {form bidForm}
+ 		  	<!--- Modal-header -->
+			<div class="modal-header panel-heading">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+		        <h2 class="modal-title">Aukce</h2>
+			</div>
+			<!-- Modal-body -->
+			<div class="modal-body panel-body">
+				<div class="row">
+				    <!-- vykreslení chyb -->
+			        <ul class="errors" n:if="$form->hasErrors()">
+			            <li n:foreach="$form->errors as $error">{$error}</li>
+			        </ul> 
+		            <div class="col-md-12 col-lg-12"> 
+		            	Jste si jist{if $user->identity->id_gender == 1}ý{else}á{/if}, 
+		            	{if $product->id_type_auction == 1}
+		            		že chcete produkt "{$product->name}" koupit?
+		            	{else}
+		            		že chcete k produktu "{$product->name}" přihodit?
+		            	{/if}
+		            </div>
+		       	</div>
+			</div>
+			<div class="hidden">
+				{input id_product}
+			</div>
+			<!-- Modal footer -->
+			<div class="modal-footer panel-footer">
+				{input send}
+			  	<input type="button" class="btn btn-default" data-dismiss="modal" value="Zavřít">
+			</div>       
+        {/form}     
+    {/snippet}
+{/block}
+
+{block head}
+<style>
+    div.flash, ul.errors { margin: 0 1em 1em 1em;}
+    div.hidden { display: none;}
+    {if isset($product)}
+    .panel-heading { background: #{$product->category->color}; }
+    {/if}
+    h2.modal-title { color: #222;}
+</style>
+{/block}

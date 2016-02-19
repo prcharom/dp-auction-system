@@ -68,6 +68,13 @@ if (!function_exists($_b->blocks['_product'][] = '_lb89cc03a1d3__product')) { fu
 
 			                        </td>
 			                    </tr>
+			                 	<tr>
+			                        <td>Typ aukce:</td>
+			                        <td>
+			                        	<?php echo $_form["id_type_auction"]->getControl() ?>
+
+			                        </td>
+			                    </tr>
 			                    <tr>
 			                        <td>Cena:</td>
 			                        <td>

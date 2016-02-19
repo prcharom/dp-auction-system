@@ -8,7 +8,6 @@ use App\Forms\ProductFormFactory;
 use App\Forms\ProductDeleteFormFactory;
 use App\Forms\PhotoEditFormFactory;
 use App\Forms\PhotoDeleteFormFactory;
-use App\Forms\BidFormFactory;
 
 
 class HomepagePresenter extends BasePresenter {
@@ -24,9 +23,6 @@ class HomepagePresenter extends BasePresenter {
 
 		/** @var PhotoDeleteFormFactory @inject */
 		public $photoDeleteFactory;
-
-		/** @var BidFormFactory @inject */
-		public $bidFactory;
 
 
 	/* --- --- Default --- --- */	
@@ -201,16 +197,6 @@ class HomepagePresenter extends BasePresenter {
 	        $this->flashMessage('Vybrané fotografie byly smazány.');
 	        $this->redirect('Homepage:product', $values['id_product']);
 		};
-		return $form;
-	}
-
-	/**
-	 * Bid form factory.
-	 * @return Nette\Application\UI\Form
-	 */
-	protected function createComponentBidForm() {
-		$id_product = (int) $this->getParameter('id'); 		
-		$form = $this->bidFactory->create($id_product, $this->user->id);
 		return $form;
 	}
 

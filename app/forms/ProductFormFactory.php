@@ -50,6 +50,11 @@ class ProductFormFactory extends Nette\Object {
 			->setAttribute('placeholder', 'Nevyplněno')
 			->setRequired('Prosím vyplňte pole Popis.');
 
+		$auct_type = $this->database->arrayColumn('type_auction', 'name');
+		$form->addSelect('id_type_auction', 'Typ aukce:', $auct_type)
+      		->setAttribute('class', 'form-control')
+      		->setRequired('Prosím vyberte kategorii.');
+
 		$form->addText('cost', 'Cena:')
 			->setType('number')
 			->setAttribute('class', 'form-control')
