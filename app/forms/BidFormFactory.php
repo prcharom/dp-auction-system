@@ -38,6 +38,14 @@ class BidFormFactory extends Nette\Object {
 		$form = new Form;
 		$form->getElementPrototype()->class('ajax form');
 
+        $form->addText('deposit', 'Přihazovaná částka:')
+	        ->setType('number')
+	        ->setRequired('Prosím vložte částku, o kterou chcete navýšit současnou cenu.')
+	        ->setAttribute('placeholder', 'Nevyplněno')
+	        ->setAttribute('class', 'form-control')
+	        ->setAttribute('step', '1')
+	        ->addRule(Form::RANGE, 'Přihazovaná částka musí být vyšší než 0.', array(1, null));
+
 		// uchovani kvuli pozdejsimu presmerovani
 		$form->addText('id_product')->setValue($this->id_product);
 

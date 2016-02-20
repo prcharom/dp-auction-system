@@ -38,12 +38,34 @@ if (!function_exists($_b->blocks['_bid'][] = '_lb1635280e77__bid')) { function _
 			        </ul> 
 <?php } ?>
 		            <div class="col-md-12 col-lg-12"> 
-		            	Jste si jist<?php if ($user->identity->id_gender == 1) { ?>ý<?php } else { ?>
-á<?php } ?>, 
 <?php if ($product->id_type_auction == 1) { ?>
-		            		že chcete produkt "<?php echo Latte\Runtime\Filters::escapeHtml($product->name, ENT_NOQUOTES) ?>" koupit?
+		            		<div>Jste si jist<?php if ($user->identity->id_gender == 1) { ?>
+ý<?php } else { ?>á<?php } ?>, že chcete koupit tento produkt?</div>
+		            		<table class="auction">
+		            			<tr>
+		            				<td>Název produktu:</td>
+		            				<td><b><?php echo Latte\Runtime\Filters::escapeHtml($product->name, ENT_NOQUOTES) ?></b></td>
+		            			</tr>
+		            			<tr>
+		            				<td>Cena produktu:</td>
+		            				<td><b><?php echo Latte\Runtime\Filters::escapeHtml($template->number($product->cost), ENT_NOQUOTES) ?> Kč</b></td>
+		            			</tr>
+		            		</table>
 <?php } else { ?>
-		            		že chcete k produktu "<?php echo Latte\Runtime\Filters::escapeHtml($product->name, ENT_NOQUOTES) ?>" přihodit?
+		            		<table class="auction">
+		            			<tr>
+		            				<td>Název produktu:</td>
+		            				<td><input type="text" class="form-control" value="<?php echo Latte\Runtime\Filters::escapeHtml($product->name, ENT_COMPAT) ?>" readonly=""></td>
+		            			</tr>
+		            			<tr>
+		            				<td>Současná cena:</td>
+		            				<td><input type="text" class="form-control" value="<?php echo Latte\Runtime\Filters::escapeHtml($template->number($product->cost + $product->related('bid.id_product')->sum('deposit')), ENT_COMPAT) ?>" readonly=""> Kč</td>
+		            			</tr>
+		            			<tr>
+		            				<td>Navýšit cenu o:</td>
+		            				<td><?php echo $_form["deposit"]->getControl() ?> Kč</td>
+		            			</tr>
+		            		</table>
 <?php } ?>
 		            </div>
 		       	</div>
@@ -68,12 +90,18 @@ if (!function_exists($_b->blocks['_bid'][] = '_lb1635280e77__bid')) { function _
 //
 if (!function_exists($_b->blocks['head'][] = '_lba9fdbe0beb_head')) { function _lba9fdbe0beb_head($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v
 ?><style>
+	b { margin: 0; padding: 0; font-weight: 700;} 
     div.flash, ul.errors { margin: 0 1em 1em 1em;}
     div.hidden { display: none;}
 <?php if (isset($product)) { ?>
     .panel-heading { background: #<?php echo Latte\Runtime\Filters::escapeCss($product->category->color) ?>; }
 <?php } ?>
     h2.modal-title { color: #222;}
+    table.auction { margin: 1em 0 0 0;}
+    table.auction input { width: 240px;}
+    table.auction td { padding: 3px 6px;}
+    table.auction td:first-child { padding-left: 0;}
+    table.auction td:nth-child(2) input { display: inline-block;}
 </style>
 <?php
 }}

@@ -16,11 +16,33 @@
 			            <li n:foreach="$form->errors as $error">{$error}</li>
 			        </ul> 
 		            <div class="col-md-12 col-lg-12"> 
-		            	Jste si jist{if $user->identity->id_gender == 1}ý{else}á{/if}, 
 		            	{if $product->id_type_auction == 1}
-		            		že chcete produkt "{$product->name}" koupit?
+		            		<div>Jste si jist{if $user->identity->id_gender == 1}ý{else}á{/if}, že chcete koupit tento produkt?</div>
+		            		<table class="auction">
+		            			<tr>
+		            				<td>Název produktu:</td>
+		            				<td><b>{$product->name}</b></td>
+		            			</tr>
+		            			<tr>
+		            				<td>Cena produktu:</td>
+		            				<td><b>{$product->cost|number} Kč</b></td>
+		            			</tr>
+		            		</table>
 		            	{else}
-		            		že chcete k produktu "{$product->name}" přihodit?
+		            		<table class="auction">
+		            			<tr>
+		            				<td>Název produktu:</td>
+		            				<td><input type="text" class="form-control" value="{$product->name}" readonly=""></td>
+		            			</tr>
+		            			<tr>
+		            				<td>Současná cena:</td>
+		            				<td><input type="text" class="form-control" value="{$product->cost + $product->related('bid.id_product')->sum('deposit')|number}" readonly=""> Kč</td>
+		            			</tr>
+		            			<tr>
+		            				<td>Navýšit cenu o:</td>
+		            				<td>{input deposit} Kč</td>
+		            			</tr>
+		            		</table>
 		            	{/if}
 		            </div>
 		       	</div>
@@ -39,11 +61,17 @@
 
 {block head}
 <style>
+	b { margin: 0; padding: 0; font-weight: 700;} 
     div.flash, ul.errors { margin: 0 1em 1em 1em;}
     div.hidden { display: none;}
     {if isset($product)}
     .panel-heading { background: #{$product->category->color}; }
     {/if}
     h2.modal-title { color: #222;}
+    table.auction { margin: 1em 0 0 0;}
+    table.auction input { width: 240px;}
+    table.auction td { padding: 3px 6px;}
+    table.auction td:first-child { padding-left: 0;}
+    table.auction td:nth-child(2) input { display: inline-block;}
 </style>
 {/block}

@@ -25,7 +25,7 @@ class AuctionPresenter extends BasePresenter {
 		if ($this->template->product->id_type_auction == 1) {
 			$form['send']->caption = 'Koupit'; 
 		} else {
-			$form['send']->caption = 'Přihodit';
+			$form['send']->caption = 'Navýšit';
 		}
 	}
 
