@@ -5,7 +5,7 @@
             {foreach $products as $p}
                 <div class="col-sm-4 col-lg-4 col-md-4">
                     <div class="product product-category-{$p->id_category}">
-                        <h4 class="pull-right">{$p->cost|number} Kč</h4>
+                        <h4 class="pull-right">{$p->cost + $p->related('bid.id_product')->sum('deposit')|number} Kč</h4>
                         {if $img = $p->related('image.id_product')->fetch()}
                             {var $img = $p->related('image.id_product')->order('order DESC')->fetch()}
                             <div class="image" style="background-image: url(images/products/{$p->id}_{$img->id}_{$img->name}.{$img->extension});  background-position: 50% 0%; background-size: 242px auto; background-repeat: no-repeat;"></div>

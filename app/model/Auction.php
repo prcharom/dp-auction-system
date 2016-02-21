@@ -24,6 +24,8 @@ class Auction extends Nette\Object {
 	public function bidBuyNow($product, $id_user) { // aukce "kup hned"
 		if($product->related('bid.id_product')->count() > 0) { // pokud je prodana -> chyba
 			$this->error = 'Je nám líto, ale produkt byl již prodán.';
+		} elseif ($this->now > $product->expire) { // dosel cas pro aukci -> chyba
+			$this->error = 'Je nám líto, ale čas určený pro aukci vypršel.';
 		} elseif ($id_user == $product->id_user) { // nelze koupit svuj produkt -> chyba
 			$this->error = 'Je nám líto, ale produkt nelze koupit.';
 		} else {
@@ -36,6 +38,22 @@ class Auction extends Nette\Object {
 			// uprava produktu
 			$val['expire'] = $this->now;
 			$product->update($val);
+		}
+		return $this->error;
+	} 
+
+	public function bidClasicAuction($product, $id_user, $deposit) { // aukce "kup hned"
+		if ($this->now > $product->expire) { // dosel cas pro aukci -> chyba
+			$this->error = 'Je nám líto, ale čas určený pro aukci vypršel.';
+		} elseif ($id_user == $product->id_user) { // nelze koupit svuj produkt -> chyba
+			$this->error = 'Je nám líto, ale produkt nelze koupit.';
+		} else {
+			// uprava prihozu
+			$values['id_product'] = $product->id;
+			$values['id_user'] = $id_user;
+			$values['added'] = $this->now;
+			$values['deposit'] = $deposit;
+			$this->database->findAll('bid')->insert($values);
 		}
 		return $this->error;
 	} 

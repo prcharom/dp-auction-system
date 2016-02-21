@@ -94,21 +94,41 @@ _<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($im
                                             <td>Konec aukce:</td>
                                             <td><?php echo Latte\Runtime\Filters::escapeHtml($template->date($product->expire, 'd/m/Y, h:i \h\o\d.'), ENT_NOQUOTES) ?></td>
                                         </tr> 
-<?php if ($product->expire <= $now) { ?>                                        <tr>
-                                            <td>Kupec:</td>
-                                            <td>
-<?php if ($product->related('bid.id_product')->count() > 0) { $bid = $product->related('bid.id_product')->fetch() ?>
-                                                    <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("User:profile", array($bid->id_user)), ENT_COMPAT) ?>
+                                        <tr>
+<?php if ($product->id_type_auction == 1) { ?>
+                                                <td>Kupec:</td>
+                                                <td>
+<?php if ($product->related('bid.id_product')->count() > 0) { $bid = $product->related('bid.id_product')->order('id DESC')->fetch() ?>
+                                                        <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("User:profile", array($bid->id_user)), ENT_COMPAT) ?>
 ">
-                                                        <?php echo Latte\Runtime\Filters::escapeHtml($bid->user->name, ENT_NOQUOTES) ?>
+                                                            <?php echo Latte\Runtime\Filters::escapeHtml($bid->user->name, ENT_NOQUOTES) ?>
 
-                                                    </a>
+                                                        </a>
 <?php } else { ?>
-                                                    -
+                                                        -
 <?php } ?>
-                                            </td>
+                                                </td>
+<?php } else { ?>
+                                                <td>
+<?php if ($product->expire > $now) { ?>
+                                                        Nejvyšší nabídka:
+<?php } else { ?>
+                                                        Výherce aukce:
+<?php } ?>
+                                                </td>
+                                                <td>
+<?php if ($product->related('bid.id_product')->count() > 0) { $bid = $product->related('bid.id_product')->order('id DESC')->fetch() ?>
+                                                        <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("User:profile", array($bid->id_user)), ENT_COMPAT) ?>
+">
+                                                            <?php echo Latte\Runtime\Filters::escapeHtml($bid->user->name, ENT_NOQUOTES) ?>
+
+                                                        </a>
+<?php } else { ?>
+                                                        -
+<?php } ?>
+                                                </td>   
+<?php } ?>
                                         </tr> 
-<?php } ?>
                                     </table>
                                 </div>
                                 <div class="col-sm-6 col-md-7">
@@ -134,7 +154,7 @@ _<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($im
 <?php } ?>
                                 <div class="input-group">
                                     <span class="input-group-addon">Cena</span>
-                                    <input readonly="" type="text" class="form-control" name="value" value="<?php echo Latte\Runtime\Filters::escapeHtml($template->number($product->cost), ENT_COMPAT) ?> Kč"> 
+                                    <input readonly="" type="text" class="form-control" name="value" value="<?php echo Latte\Runtime\Filters::escapeHtml($template->number($product->cost + $product->related('bid.id_product')->sum('deposit')), ENT_COMPAT) ?> Kč"> 
                                 </div>
                             </div>
                         </div>
@@ -250,7 +270,7 @@ if (!function_exists($_b->blocks['head'][] = '_lb1af9f19163_head')) { function _
 <?php if (($product->expire > $now) && ($product->id_user != $user->id)) { ?>
             .product-prize .input-group { float: left; margin: 0 .5em 0 0;}
 <?php } ?>
-        .product-prize { padding: 0 0 1em 0;}
+        .product-prize { padding: 1em 0;}
         .product-header { border-bottom: 1px solid #666;}
         .product-header, .product-galery, .product-description { 
             padding: 0 0 1em 0; 

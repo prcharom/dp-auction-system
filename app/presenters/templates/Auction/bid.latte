@@ -17,15 +17,14 @@
 			        </ul> 
 		            <div class="col-md-12 col-lg-12"> 
 		            	{if $product->id_type_auction == 1}
-		            		<div>Jste si jist{if $user->identity->id_gender == 1}ý{else}á{/if}, že chcete koupit tento produkt?</div>
 		            		<table class="auction">
 		            			<tr>
 		            				<td>Název produktu:</td>
-		            				<td><b>{$product->name}</b></td>
+		            				<td><input type="text" class="form-control" value="{$product->name}" readonly=""></td>
 		            			</tr>
 		            			<tr>
 		            				<td>Cena produktu:</td>
-		            				<td><b>{$product->cost|number} Kč</b></td>
+		            				<td><input type="text" class="form-control" value="{$product->cost|number}" readonly=""> Kč</td>
 		            			</tr>
 		            		</table>
 		            	{else}
@@ -68,7 +67,6 @@
     .panel-heading { background: #{$product->category->color}; }
     {/if}
     h2.modal-title { color: #222;}
-    table.auction { margin: 1em 0 0 0;}
     table.auction input { width: 240px;}
     table.auction td { padding: 3px 6px;}
     table.auction td:first-child { padding-left: 0;}

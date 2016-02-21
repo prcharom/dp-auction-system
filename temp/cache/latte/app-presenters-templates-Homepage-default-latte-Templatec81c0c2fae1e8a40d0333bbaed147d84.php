@@ -18,7 +18,7 @@ if (!function_exists($_b->blocks['content'][] = '_lb13520a9f1b_content')) { func
 <?php $iterations = 0; foreach ($products as $p) { ?>
                 <div class="col-sm-4 col-lg-4 col-md-4">
                     <div class="product product-category-<?php echo Latte\Runtime\Filters::escapeHtml($p->id_category, ENT_COMPAT) ?>">
-                        <h4 class="pull-right"><?php echo Latte\Runtime\Filters::escapeHtml($template->number($p->cost), ENT_NOQUOTES) ?> Kč</h4>
+                        <h4 class="pull-right"><?php echo Latte\Runtime\Filters::escapeHtml($template->number($p->cost + $p->related('bid.id_product')->sum('deposit')), ENT_NOQUOTES) ?> Kč</h4>
 <?php if ($img = $p->related('image.id_product')->fetch()) { $img = $p->related('image.id_product')->order('order DESC')->fetch() ?>
                             <div class="image" style="background-image: url(images/products/<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::escapeCss($p->id), ENT_COMPAT) ?>
 _<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::escapeCss($img->id), ENT_COMPAT) ?>

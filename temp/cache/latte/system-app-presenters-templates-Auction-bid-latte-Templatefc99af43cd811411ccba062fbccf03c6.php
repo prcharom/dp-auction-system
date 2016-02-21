@@ -39,16 +39,14 @@ if (!function_exists($_b->blocks['_bid'][] = '_lb1635280e77__bid')) { function _
 <?php } ?>
 		            <div class="col-md-12 col-lg-12"> 
 <?php if ($product->id_type_auction == 1) { ?>
-		            		<div>Jste si jist<?php if ($user->identity->id_gender == 1) { ?>
-ý<?php } else { ?>á<?php } ?>, že chcete koupit tento produkt?</div>
 		            		<table class="auction">
 		            			<tr>
 		            				<td>Název produktu:</td>
-		            				<td><b><?php echo Latte\Runtime\Filters::escapeHtml($product->name, ENT_NOQUOTES) ?></b></td>
+		            				<td><input type="text" class="form-control" value="<?php echo Latte\Runtime\Filters::escapeHtml($product->name, ENT_COMPAT) ?>" readonly=""></td>
 		            			</tr>
 		            			<tr>
 		            				<td>Cena produktu:</td>
-		            				<td><b><?php echo Latte\Runtime\Filters::escapeHtml($template->number($product->cost), ENT_NOQUOTES) ?> Kč</b></td>
+		            				<td><input type="text" class="form-control" value="<?php echo Latte\Runtime\Filters::escapeHtml($template->number($product->cost), ENT_COMPAT) ?>" readonly=""> Kč</td>
 		            			</tr>
 		            		</table>
 <?php } else { ?>
@@ -97,7 +95,6 @@ if (!function_exists($_b->blocks['head'][] = '_lba9fdbe0beb_head')) { function _
     .panel-heading { background: #<?php echo Latte\Runtime\Filters::escapeCss($product->category->color) ?>; }
 <?php } ?>
     h2.modal-title { color: #222;}
-    table.auction { margin: 1em 0 0 0;}
     table.auction input { width: 240px;}
     table.auction td { padding: 3px 6px;}
     table.auction td:first-child { padding-left: 0;}

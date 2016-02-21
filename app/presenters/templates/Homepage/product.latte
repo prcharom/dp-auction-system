@@ -66,18 +66,38 @@
                                             <td>Konec aukce:</td>
                                             <td>{$product->expire|date:'d/m/Y, h:i \h\o\d.'}</td>
                                         </tr> 
-                                        <tr n:if="$product->expire <= $now">
-                                            <td>Kupec:</td>
-                                            <td>
-                                                {if $product->related('bid.id_product')->count() > 0}
-                                                    {var $bid = $product->related('bid.id_product')->fetch()}
-                                                    <a n:href="User:profile, $bid->id_user">
-                                                        {$bid->user->name}
-                                                    </a>
-                                                {else}
-                                                    -
-                                                {/if}
-                                            </td>
+                                        <tr>
+                                            {if $product->id_type_auction == 1}
+                                                <td>Kupec:</td>
+                                                <td>
+                                                    {if $product->related('bid.id_product')->count() > 0}
+                                                        {var $bid = $product->related('bid.id_product')->order('id DESC')->fetch()}
+                                                        <a n:href="User:profile, $bid->id_user">
+                                                            {$bid->user->name}
+                                                        </a>
+                                                    {else}
+                                                        -
+                                                    {/if}
+                                                </td>
+                                            {else}
+                                                <td>
+                                                    {if $product->expire > $now}
+                                                        Nejvyšší nabídka:
+                                                    {else}
+                                                        Výherce aukce:
+                                                    {/if}
+                                                </td>
+                                                <td>
+                                                    {if $product->related('bid.id_product')->count() > 0}
+                                                        {var $bid = $product->related('bid.id_product')->order('id DESC')->fetch()}
+                                                        <a n:href="User:profile, $bid->id_user">
+                                                            {$bid->user->name}
+                                                        </a>
+                                                    {else}
+                                                        -
+                                                    {/if}
+                                                </td>   
+                                            {/if}
                                         </tr> 
                                     </table>
                                 </div>
@@ -102,7 +122,7 @@
                                 {/if}
                                 <div class="input-group">
                                     <span class="input-group-addon">Cena</span>
-                                    <input readonly="" type="text" class="form-control" name="value" value="{$product->cost|number} Kč"> 
+                                    <input readonly="" type="text" class="form-control" name="value" value="{$product->cost + $product->related('bid.id_product')->sum('deposit')|number} Kč"> 
                                 </div>
                             </div>
                         </div>
@@ -213,7 +233,7 @@
         {if ($product->expire > $now) && ($product->id_user != $user->id)}
             .product-prize .input-group { float: left; margin: 0 .5em 0 0;}
         {/if}
-        .product-prize { padding: 0 0 1em 0;}
+        .product-prize { padding: 1em 0;}
         .product-header { border-bottom: 1px solid #666;}
         .product-header, .product-galery, .product-description { 
             padding: 0 0 1em 0; 
