@@ -20,6 +20,34 @@
             {foreach $products as $p}
                 <div class="col-sm-4 col-lg-4 col-md-4">
                     <div class="product product-category-{$p->id_category}">
+                        <h4 class="pull-left">
+                            {if $id == 'rp'}
+                                {if $p->related('bid.id_product')->count() > 0}
+                                    <img src="{$basePath}/images/icons/black/119.png" title="Produkt má zájemce."> 
+                                {else}   
+                                    <img src="{$basePath}/images/icons/black/120.png" title="O produkt zatím nikdo neprojevil zájem."> 
+                                {/if}
+                            {elseif $id == 'ep'}
+                                {if $p->related('bid.id_product')->count() > 0}
+                                    <img src="{$basePath}/images/icons/black/119.png" title="Produkt byl prodán."> 
+                                {else}   
+                                    <img src="{$basePath}/images/icons/black/120.png" title="Produkt nebyl prodán."> 
+                                {/if}
+                            {elseif $id == 'rk'}
+                                {if $p->related('bid.id_product')->order('id DESC')->fetch()->id_user == $user->id}
+                                    <img src="{$basePath}/images/icons/black/119.png" title="Vaše nabídka zatím nebyla přehozena."> 
+                                {else}   
+                                    <img src="{$basePath}/images/icons/black/120.png" title="Vaše nabídka byla přehozena."> 
+                                {/if}
+                            {else}
+                                {if $p->related('bid.id_product')->order('id DESC')->fetch()->id_user == $user->id}
+                                    <img src="{$basePath}/images/icons/black/119.png" title="Tuto aukci jste vyhrál{if $user->identity->id_gender != 1}a{/if}."> 
+                                {else}   
+                                    <img src="{$basePath}/images/icons/black/120.png" title="Tuto aukci jste nevyhrál{if $user->identity->id_gender != 1}a{/if}."> 
+                                {/if}
+                            {/if}
+  
+                        </h4>
                         <h4 class="pull-right">{$p->cost + $p->related('bid.id_product')->sum('deposit')|number} Kč</h4>
                         {if $img = $p->related('image.id_product')->fetch()}
                             {var $img = $p->related('image.id_product')->order('order DESC')->fetch()}
@@ -79,6 +107,8 @@
 		.caption { overflow: hidden; padding: 9px; color: #333;}
 		h4, h4 a, h4 a:hover { white-space: nowrap; color: #222;}
 		h4.pull-right { margin-right: 9px;}
+        h4.pull-left { margin-left: 9px;}
+        h4.pull-left img { height: 18px; width: auto; cursor: pointer;}
         .product { 
             display: block; 
             vertical-align: middle; 

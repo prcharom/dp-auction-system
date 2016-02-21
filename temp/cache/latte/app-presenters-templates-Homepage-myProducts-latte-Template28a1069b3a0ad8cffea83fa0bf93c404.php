@@ -37,6 +37,30 @@ if (!function_exists($_b->blocks['content'][] = '_lb4baec9a9e2_content')) { func
 <?php $iterations = 0; foreach ($products as $p) { ?>
                 <div class="col-sm-4 col-lg-4 col-md-4">
                     <div class="product product-category-<?php echo Latte\Runtime\Filters::escapeHtml($p->id_category, ENT_COMPAT) ?>">
+                        <h4 class="pull-left">
+<?php if ($id == 'rp') { if ($p->related('bid.id_product')->count() > 0) { ?>
+                                    <img src="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>/images/icons/black/119.png" title="Produkt má zájemce."> 
+<?php } else { ?>
+                                    <img src="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>/images/icons/black/120.png" title="O produkt zatím nikdo neprojevil zájem."> 
+<?php } } elseif ($id == 'ep') { if ($p->related('bid.id_product')->count() > 0) { ?>
+                                    <img src="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>/images/icons/black/119.png" title="Produkt byl prodán."> 
+<?php } else { ?>
+                                    <img src="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>/images/icons/black/120.png" title="Produkt nebyl prodán."> 
+<?php } } elseif ($id == 'rk') { if ($p->related('bid.id_product')->order('id DESC')->fetch()->id_user == $user->id) { ?>
+                                    <img src="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>/images/icons/black/119.png" title="Vaše nabídka zatím nebyla přehozena."> 
+<?php } else { ?>
+                                    <img src="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>/images/icons/black/120.png" title="Vaše nabídka byla přehozena."> 
+<?php } } else { if ($p->related('bid.id_product')->order('id DESC')->fetch()->id_user == $user->id) { ?>
+                                    <img src="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>
+/images/icons/black/119.png" title="Tuto aukci jste vyhrál<?php if ($user->identity->id_gender != 1) { ?>
+a<?php } ?>."> 
+<?php } else { ?>
+                                    <img src="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>
+/images/icons/black/120.png" title="Tuto aukci jste nevyhrál<?php if ($user->identity->id_gender != 1) { ?>
+a<?php } ?>."> 
+<?php } } ?>
+  
+                        </h4>
                         <h4 class="pull-right"><?php echo Latte\Runtime\Filters::escapeHtml($template->number($p->cost + $p->related('bid.id_product')->sum('deposit')), ENT_NOQUOTES) ?> Kč</h4>
 <?php if ($img = $p->related('image.id_product')->fetch()) { $img = $p->related('image.id_product')->order('order DESC')->fetch() ?>
                             <div class="image" style="background-image: url(<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::escapeCss($basePath), ENT_COMPAT) ?>
@@ -111,6 +135,8 @@ if (!function_exists($_b->blocks['head'][] = '_lbd741884690_head')) { function _
 		.caption { overflow: hidden; padding: 9px; color: #333;}
 		h4, h4 a, h4 a:hover { white-space: nowrap; color: #222;}
 		h4.pull-right { margin-right: 9px;}
+        h4.pull-left { margin-left: 9px;}
+        h4.pull-left img { height: 18px; width: auto; cursor: pointer;}
         .product { 
             display: block; 
             vertical-align: middle; 

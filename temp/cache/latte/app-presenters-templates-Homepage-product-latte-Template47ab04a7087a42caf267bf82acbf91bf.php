@@ -100,7 +100,7 @@ _<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($im
                                         </tr> 
                                         <tr>
 <?php if ($product->id_type_auction == 1) { ?>
-                                                <td>Kupec:</td>
+                                                <td>Výherce aukce:</td>
                                                 <td>
 <?php if ($product->related('bid.id_product')->count() > 0) { $bid = $product->related('bid.id_product')->order('id DESC')->fetch() ?>
                                                         <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("User:profile", array($bid->id_user)), ENT_COMPAT) ?>
