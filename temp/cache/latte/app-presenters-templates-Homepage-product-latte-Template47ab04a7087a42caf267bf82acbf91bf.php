@@ -82,6 +82,10 @@ _<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($im
                                     </h3>
                                     <table>
                                         <tr>
+                                            <td>ID aukce:</td>
+                                            <td><?php echo Latte\Runtime\Filters::escapeHtml($product->id, ENT_NOQUOTES) ?></td>
+                                        </tr>
+                                        <tr>
                                             <td>Typ aukce:</td>
                                             <td title="<?php echo Latte\Runtime\Filters::escapeHtml($product->type_auction->description, ENT_COMPAT) ?>
 "><?php echo Latte\Runtime\Filters::escapeHtml($product->type_auction->name, ENT_NOQUOTES) ?></td>

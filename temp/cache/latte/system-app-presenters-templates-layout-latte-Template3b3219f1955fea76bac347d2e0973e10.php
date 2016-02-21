@@ -59,7 +59,6 @@ if (empty($_l->extends) && !empty($_control->snippetMode)) {
 // main template
 //
 ?>
-<!-- pohlaví = gender -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -150,7 +149,10 @@ call_user_func(reset($_b->blocks['head']), $_b, get_defined_vars())  ?>
                             </a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-fw fa-dashboard"></i> Moje aukce</a>
+                            <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("Homepage:myProducts", array('rp')), ENT_COMPAT) ?>
+">
+                            	<i class="fa fa-fw fa-dashboard"></i> Moje aukce
+                            </a>
                         </li>
                         <li class="divider"></li>
                         <li>

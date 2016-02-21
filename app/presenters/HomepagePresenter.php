@@ -46,10 +46,33 @@ class HomepagePresenter extends BasePresenter {
         $this->template->products = $products->limit($this->template->paginator->getLength(), $this->template->paginator->getOffset());	
 	}
 
-	/* --- --- Category --- --- */
+	/* --- --- MyProducts --- --- */
+	public function renderMyProducts($id = null, $page = null) {
 
-	public function renderCategory($id = null) {
-		$this->template->auctions = $this->database->findAll('auction')->where('id_category', $id);
+		// predani id do template
+		$this->template->id = $id;
+
+		// nastaveni paginatoru
+		$this->template->paginator = new Nette\Utils\Paginator;
+        $this->template->paginator->setItemsPerPage(12); // def počtu položek na stránce
+        $this->template->paginator->setPage($page); // def stranky
+
+        // selekce produktu
+        $products = $this->database->findAll('product');
+		if ($id == 'rp') { // pokud mam zadany filtr, tak filtruji produkty
+			$products = $products->where('NOW() <= expire')->where('id_user', $this->user->id);
+		} elseif ($id == 'ep') {
+			$products = $products->where('NOW() > expire')->where('id_user', $this->user->id);
+		} elseif ($id == 'rk') {
+			$products = $products->where('NOW() <= expire')->where(':bid.id_user', $this->user->id);
+		} else {
+			$products = $products->where('NOW() > expire')->where(':bid.id_user', $this->user->id);	
+		}
+		$products = $products->order('added DESC');
+
+		// prideleni produktu na stranku
+		$this->template->paginator->setItemCount($products->count('*'));
+        $this->template->products = $products->limit($this->template->paginator->getLength(), $this->template->paginator->getOffset());	
 	}
 
 	/* --- --- Product --- --- */
@@ -134,6 +157,7 @@ class HomepagePresenter extends BasePresenter {
         // nactu fotky k danemu produktu
         $this->template->photos = $this->database->findAll('image')->where('id_product', $id);
 	}
+
 
 	/* --- --- Factories --- --- */
 

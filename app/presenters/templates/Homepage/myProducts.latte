@@ -1,0 +1,102 @@
+{block content}  
+        <div class="row row-center row-header">
+            <ul class="pagination">
+                <li {if $id == 'rp'}class="active"{/if}>
+                    <a n:href="Homepage:myProducts, rp">Probíhající prodeje</a>
+                </li>
+                <li {if $id == 'ep'}class="active"{/if}>
+                    <a n:href="Homepage:myProducts, ep">Proběhlé prodeje</a>
+                </li>
+                <li {if $id == 'rk'}class="active"{/if}>
+                    <a n:href="Homepage:myProducts, rk">Probíhající koupě</a>
+                </li>
+                <li {if $id == 'ek'}class="active"{/if}>
+                    <a n:href="Homepage:myProducts, ek">Proběhlé koupě</a>
+                </li>
+            </ul>            
+        </div>  
+    {if}
+        <div class="row">
+            {foreach $products as $p}
+                <div class="col-sm-4 col-lg-4 col-md-4">
+                    <div class="product product-category-{$p->id_category}">
+                        <h4 class="pull-right">{$p->cost + $p->related('bid.id_product')->sum('deposit')|number} Kč</h4>
+                        {if $img = $p->related('image.id_product')->fetch()}
+                            {var $img = $p->related('image.id_product')->order('order DESC')->fetch()}
+                            <div class="image" style="background-image: url({$basePath}/images/products/{$p->id}_{$img->id}_{$img->name}.{$img->extension});  background-position: 50% 0%; background-size: 242px auto; background-repeat: no-repeat;"></div>
+                        {else}
+                            <div class="image">
+                                <img src="{$basePath}/images/products/default.png" alt="{$p->name}">
+                            </div>
+                        {/if}
+                        <div class="caption">
+                            <h4>
+                                <a n:href="Homepage:product, $p->id">{$p->name}</a>
+                            </h4>
+                            <p>{$p->description|truncate:85}</p>
+                        </div>
+                    </div>
+                </div>
+            {/foreach}                        
+        </div>
+        <!-- Pagination -->
+        <div class="row row-center">
+            <ul class="pagination">
+                <li>
+                    <a n:href="Homepage:myProducts, $id, 1">&laquo;</a>
+                </li>
+                {for $i = max(1,$paginator->page-2); $i <= $paginator->page-1; $i++}
+                    <li>
+                        <a n:href="Homepage:myProducts, $id, $i">{$i}</a>
+                    </li>
+                {/for}
+                <li class="active">
+                    <a href="#">{$paginator->page}</a>
+                </li>
+                {for $i = $paginator->page+1; $i <= min($paginator->page+2,$paginator->getPageCount()); $i++}
+                    <li>
+                        <a n:href="Homepage:myProducts, $id, $i">{$i}</a>
+                    </li>
+                {/for}
+                <li>
+                    <a n:href="Homepage:myProducts, $id, $paginator->getLastPage()">&raquo;</a>
+                </li>
+            </ul>
+        </div>
+    {else}
+        <div class="row row-center">
+            {if $id == null}
+                Nebyly nalezeny žádné produkty.
+            {else}
+                V této kategorii nebyly nalezeny žádné produkty.
+            {/if}
+        </div>
+    {/if isset($p)}
+
+{/block}
+{block head}
+	<style>
+		.caption { overflow: hidden; padding: 9px; color: #333;}
+		h4, h4 a, h4 a:hover { white-space: nowrap; color: #222;}
+		h4.pull-right { margin-right: 9px;}
+        .product { 
+            display: block; 
+            vertical-align: middle; 
+            padding: 2px; 
+            border-radius: 0px;
+            margin: 0.6em; 
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.7); 
+            border: none; 
+            height: 260px; 
+            text-align: left;
+        }
+        .product .image { width: 100%; height: 100px; margin: 0; padding: 0; margin-top: 1.2em; overflow-y: hidden;}
+        .product .image img { width: 100%; margin: 0; padding: 0; border: 0;}
+        .row-center { text-align: center; padding: 1em;}
+        .row-header { padding-top: 0;}
+        .row-header ul.pagination { margin-top: 0;}
+        .row-header .pagination>li>a, .row-header .pagination>li>span { color: #555;}
+        .row-header .pagination>li.active>a, .row-header .pagination>li.active>span { color: #fff;}
+	</style>
+{/block}
+
