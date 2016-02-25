@@ -123,51 +123,38 @@ call_user_func(reset($_b->blocks['head']), $_b, get_defined_vars())  ?>
             	<li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>
                     <ul class="dropdown-menu message-dropdown">
+<?php ob_start() ;$iterations = 0; foreach ($alerts as $alert) { ?>
+		                        <li class="message-preview">
+		                            <a href="#">
+		                                <div class="media">
+		                                    <div class="media-body">
+		                                        <h5 class="media-heading">
+		                                        	<strong>
+		                                        		<?php echo Latte\Runtime\Filters::escapeHtml($alert->type_alert->name, ENT_NOQUOTES) ?>
+
+		                                        	</strong>
+		                                        </h5>
+		                                        <p class="small text-muted">
+		                                        	<i class="fa fa-clock-o"></i> 
+		                                        	<?php echo Latte\Runtime\Filters::escapeHtml($template->mydate($alert->added), ENT_NOQUOTES) ?>
+ <?php echo Latte\Runtime\Filters::escapeHtml($template->date($alert->added, 'H:i'), ENT_NOQUOTES) ?>
+
+		                                        </p>
+		                                        <p><?php echo Latte\Runtime\Filters::escapeHtml($template->truncate($alert->body, 70), ENT_NOQUOTES) ?></p>
+		                                    </div>
+		                                </div>
+		                            </a>
+		                        </li> 
+<?php $iterations++; } ob_start() ?>
                         <li class="message-preview">
-                            <a href="#">
-                                <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                                    <div class="media-body">
-                                        <h5 class="media-heading"><strong>John Smith</strong>
-                                        </h5>
-                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                    </div>
-                                </div>
-                            </a>
+                        	<div class="media">
+                        		<div class="media-body">
+                        			<p>Nemáte žádná nová upozornění.</p>
+                        		</div>
+                        	</div>
                         </li>
-                        <li class="message-preview">
-                            <a href="#">
-                                <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                                    <div class="media-body">
-                                        <h5 class="media-heading"><strong>John Smith</strong>
-                                        </h5>
-                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="message-preview">
-                            <a href="#">
-                                <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                                    <div class="media-body">
-                                        <h5 class="media-heading"><strong>John Smith</strong>
-                                        </h5>
-                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
+                        <?php if (isset($alert)) { ob_end_clean(); ob_end_flush(); } else { $_l->else = ob_get_contents(); ob_end_clean(); ob_end_clean(); echo $_l->else; } ?>
+
                         <li class="message-footer">
                             <a href="#">Zobrazit všechna upozornění</a>
                         </li>
