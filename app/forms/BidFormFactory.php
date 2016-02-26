@@ -63,13 +63,20 @@ class BidFormFactory extends Nette\Object {
 
 		// provedu prihoz 
 		if ($this->product != null) {
-			$auction_manager = new Model\Auction($this->database);
+			$auction_manager = new Model\Auction($this->database); 	// stara se o logiku prihozu
+			$alert_manager = new Model\Alert($this->database);		// stara se o logiku upozorneni
 			if ($this->product->id_type_auction == 1) { // aukce "kup hned"
 				$this->error = $auction_manager->bidBuyNow($this->product, $this->id_user);
-				$msg = 'Zakoupili jste si produkt '. $this->product->name .'.'; 
+				if ($this->error == null) {
+					$alert_manager->endOfAuction($this->product);
+					$msg = 'Zakoupili jste si produkt '. $this->product->name .'.'; 
+				}
 			} else { // klasická aukce
 				$this->error = $auction_manager->bidClasicAuction($this->product, $this->id_user, $values['deposit']);
-				$msg = 'Navýšili jste cenu u produktu '. $this->product->name .'.';
+				if ($this->error == null) {
+					$alert_manager->newBid($this->product);
+					$msg = 'Navýšili jste cenu u produktu '. $this->product->name .'.';
+				}
 			}
 		} 
 

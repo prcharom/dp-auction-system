@@ -60,7 +60,14 @@
             <ul class="nav navbar-right top-nav">
             {if $user->loggedIn}
             	<li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-bell">
+                            {var $count = $alerts->count()}
+                            {if $count > 0}
+                                {$count}
+                            {/if}
+                        </i>
+                        <b class="caret"></b></a>
                     <ul class="dropdown-menu message-dropdown">
                     	{if}
                     		{foreach $alerts as $alert}

@@ -121,7 +121,14 @@ call_user_func(reset($_b->blocks['head']), $_b, get_defined_vars())  ?>
             <ul class="nav navbar-right top-nav">
 <?php if ($user->loggedIn) { ?>
             	<li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-bell">
+<?php $count = $alerts->count() ;if ($count > 0) { ?>
+                                <?php echo Latte\Runtime\Filters::escapeHtml($count, ENT_NOQUOTES) ?>
+
+<?php } ?>
+                        </i>
+                        <b class="caret"></b></a>
                     <ul class="dropdown-menu message-dropdown">
 <?php ob_start() ;$iterations = 0; foreach ($alerts as $alert) { ?>
 		                        <li class="message-preview">
