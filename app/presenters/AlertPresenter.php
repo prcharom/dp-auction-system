@@ -17,23 +17,36 @@ class AlertPresenter extends BasePresenter {
 
 	public function renderAlerts($kat = null, $page = null) {
 
+		// predam template kategorii
+		$this->template->kat = $kat;
+
 		// nastaveni paginatoru
 		$this->template->paginator = new Nette\Utils\Paginator;
         $this->template->paginator->setItemsPerPage(12); // def počtu položek na stránce
         $this->template->paginator->setPage($page); // def stranky
 
         // selekce upozorneni
-		$alerts = $this->database->findAll('alert')->where('id_user', $this->user->id);
+		$t_alerts = $this->database->findAll('alert')->where('id_user', $this->user->id);
 		if ($kat == 'read') { 	// prectene
-			$alerts = $alerts->where('visited', 1);
+			$t_alerts = $t_alerts->where('visited', 1);
 		} else {				// neprectene
-			$alerts = $alerts->where('visited', 0);
+			$t_alerts = $t_alerts->where('visited', 0);
 		}
-		$alerts = $alerts->order('added DESC')->order('id DESC');
+		$t_alerts = $t_alerts->order('added DESC')->order('id DESC');
 
 		// prideleni produktu na stranku
-		$this->template->paginator->setItemCount($alerts->count('*'));
-        $this->template->alerts = $alerts->limit($this->template->paginator->getLength(), $this->template->paginator->getOffset());	
+		$this->template->paginator->setItemCount($t_alerts->count('*'));
+        $this->template->t_alerts = $t_alerts->limit($this->template->paginator->getLength(), $this->template->paginator->getOffset());	
+	}
+
+	public function renderDetail($id = null) {
+		$this->template->t_alert = $this->database->findById('alert', $id);
+		if (!$this->template->t_alert) {
+			$this->flashMessage('Oznámení nebylo nalezeno. Je možné, že jej někdo smazal.');
+			$this->redirect('Alert:alerts', 'unread');	
+		}
+		$val['visited'] = 1;
+		$this->template->t_alert->update($val);
 	}
 
 	/* --- --- Factories --- --- */

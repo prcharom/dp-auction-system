@@ -132,7 +132,8 @@ call_user_func(reset($_b->blocks['head']), $_b, get_defined_vars())  ?>
                     <ul class="dropdown-menu message-dropdown">
 <?php ob_start() ;$iterations = 0; foreach ($alerts as $alert) { ?>
 		                        <li class="message-preview">
-		                            <a href="#">
+		                            <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("Alert:detail", array($alert->id)), ENT_COMPAT) ?>
+">
 		                                <div class="media">
 		                                    <div class="media-body">
 		                                        <h5 class="media-heading">
@@ -163,7 +164,8 @@ call_user_func(reset($_b->blocks['head']), $_b, get_defined_vars())  ?>
                         <?php if (isset($alert)) { ob_end_clean(); ob_end_flush(); } else { $_l->else = ob_get_contents(); ob_end_clean(); ob_end_clean(); echo $_l->else; } ?>
 
                         <li class="message-footer">
-                            <a href="#">Zobrazit všechna upozornění</a>
+                            <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("Alert:alerts", array('unread')), ENT_COMPAT) ?>
+">Zobrazit všechna upozornění</a>
                         </li>
                     </ul>
                 </li>              

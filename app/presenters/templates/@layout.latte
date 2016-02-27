@@ -72,7 +72,7 @@
                     	{if}
                     		{foreach $alerts as $alert}
 		                        <li class="message-preview">
-		                            <a href="#">
+		                            <a n:href="Alert:detail, $alert->id">
 		                                <div class="media">
 		                                    <div class="media-body">
 		                                        <h5 class="media-heading">
@@ -100,7 +100,7 @@
                         </li>
                         {/if isset($alert)}        
                         <li class="message-footer">
-                            <a href="#">Zobrazit všechna upozornění</a>
+                            <a n:href="Alert:alerts, unread">Zobrazit všechna upozornění</a>
                         </li>
                     </ul>
                 </li>              

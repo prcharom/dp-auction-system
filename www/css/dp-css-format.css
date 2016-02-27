@@ -257,8 +257,13 @@ ul.alert-dropdown {
     width: 200px;
 }
 
+.dropdown-menu .media-body > p {
+    padding: 10px 20px 0;
+} 
+
 /* --- --- Footer --- --- */
 footer {
     margin: 1em 0;
     color: #aaa;
 }
+

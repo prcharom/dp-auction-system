@@ -153,7 +153,7 @@ if (!function_exists($_b->blocks['head'][] = '_lbd741884690_head')) { function _
         .row-center { text-align: center; padding: 1em;}
         .row-header { padding-top: 0;}
         .row-header ul.pagination { margin-top: 0;}
-        .row-header .pagination>li>a, .row-header .pagination>li>span { color: #555;}
+        .row-header .pagination>li>a, .row-header .pagination>li>span { color: #555; width: 150px;}
         .row-header .pagination>li.active>a, .row-header .pagination>li.active>span { color: #fff;}
 	</style>
 <?php
