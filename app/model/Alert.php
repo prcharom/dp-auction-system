@@ -21,6 +21,9 @@ class Alert extends Nette\Object {
 	// vyrozumneni o probehle aukci
 	public function endOfAuction($product) {
 
+		// priprava na posilani emailu
+		$email_manager = new Model\Email($this->database); 
+
 		// celkova cena 
 		$cost = $product->cost + $product->related('bid.id_product')->sum('deposit');
 
@@ -34,7 +37,10 @@ class Alert extends Nette\Object {
 		$val['body'] = 'Vyhráli jste aukci produktu '.$product->name.' (id '.$product->id.'). Cena produktu činí '.number_format($cost).' Kč. Pro další informace k předání produktu kontaktujte '.
 		$product->user->name.' (tel: '.$product->user->phone.', email: '.$product->user->email.').';
 		// vlozeni alertu pro viteze do db
-		$this->database->insert('alert', $val);
+		$row = $this->database->insert('alert', $val);
+		// a poslani emailu vitezi aukce
+		$email_manager->sendEmail($winners_bid->user->email, 'end_auction_winner', $product, $winners_bid, $cost, $row->type_alert->name);
+
 
 		/* --- vyrozumneni pro zbyle ucastniky aukce --- */
 		$bids = $this->database->findAll('bid')->where('id_product', $product->id)->group('id_user');
@@ -42,9 +48,11 @@ class Alert extends Nette\Object {
 			if ($bid->id_user != $winners_bid->id_user) { // vitez aukce uz informovan byl
 				// uprava alertu
 				$val['id_user'] = $bid->id_user;
-				$val['body'] = 'Aukce produktu '.$product->name.' (id '.$product->id.'), do které jste zasáhli, je u konce. Aukci vyhrál jiný účastník.';
+				$val['body'] = 'Aukci produktu '.$product->name.' (id '.$product->id.'), do které jste zasáhli, vyhrál jiný účastník.';
 				// vlozeni do db
-				$this->database->insert('alert', $val);
+				$row = $this->database->insert('alert', $val);
+				// a poslani emailu porazenym
+				$email_manager->sendEmail($bid->user->email, 'end_auction_others', $product, $bid, $cost, $row->type_alert->name);
 			}
 		}
 
@@ -52,7 +60,10 @@ class Alert extends Nette\Object {
 		$val['id_user'] = $product->id_user;
 		$val['body'] = 'Aukce produktu '.$product->name.' (id '.$product->id.') je u konce. Výherce aukce je '.$winners_bid->user->name.
 		' (tel: '.$winners_bid->user->phone.', email: '.$winners_bid->user->email.'), který produkt koupil za '.number_format($cost).' Kč.';
-		$this->database->insert('alert', $val);
+		// vlozeni do db
+		$row = $this->database->insert('alert', $val);
+		// a poslani emailu zadavateli
+		$email_manager->sendEmail($product->user->email, 'end_auction_seller', $product, $winners_bid, $cost, $row->type_alert->name);
 	}
 
 } 

@@ -1,0 +1,27 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>{$title}</title>
+    <style>
+    p { margin-top: 1em;}
+    span { color: darkblue;}
+    </style>
+</head>
+<body>
+    <p>
+        Dobrý den {$product->user->name},
+    </p>
+    <p>
+        aukci produktu <span>{$product->name} (id {$product->id})</span> vyhrál uživatel <span>{$winners_bid->user->name} (tel: {$winners_bid->user->phone}, email: {$winners_bid->user->email})</span>. Cena produktu byla aukcí stanovena na <span>{$cost|number}</span> Kč. Děkujeme, že jste uskutečnil aukci na našich stránkách.
+    </p>
+    <p>
+        Náhled produktu je na adrese http://127.0.0.1/dp-auction-system/www/homepage/product/{$product->id}, případně jej lze dohledat v sekci <span>Moje aukce</span>.
+    </p>
+    <p>
+        Na tento email prosím neodpovídejte, byl vygenerován automaticky. V případě, že máte nějaké dotazy, tak se obraťte na naši podporu. 
+    </p>
+    <p>
+        S pozdravem, auctionSystem.
+    </p>
+</body>
+</html>

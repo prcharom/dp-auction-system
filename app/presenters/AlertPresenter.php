@@ -24,7 +24,7 @@ class AlertPresenter extends BasePresenter {
 
 		// nastaveni paginatoru
 		$this->template->paginator = new Nette\Utils\Paginator;
-        $this->template->paginator->setItemsPerPage(8); // def počtu položek na stránce
+        $this->template->paginator->setItemsPerPage(6); // def počtu položek na stránce
         $this->template->paginator->setPage($page); // def stranky
 
         // selekce upozorneni

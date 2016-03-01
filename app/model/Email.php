@@ -3,6 +3,7 @@
 namespace App\Model;
 
 use Nette;
+use Latte;
 use App\Model;
 
 class Email extends Nette\Object {
@@ -13,17 +14,10 @@ class Email extends Nette\Object {
 		/* Mailer */
 		private $mailer;
 
-		/* Error */
-		private $error = null;
-
-		/* Actual DateTime - DB Format */
-		private $now;
-
 	public function __construct(Model\Database $database) {
 
 		// nastaveni attr
 		$this->database = $database;
-		$this->now = date('Y-m-d H:i:s');
 
 		// nastaveni emailu, ktery bude maily posilat
 		$this->mailer = array(
@@ -34,20 +28,23 @@ class Email extends Nette\Object {
                 );
 	} 
 
-	public function sendEmail($email = null) {
+	public function sendEmail($email = null, $latte_name, $product, $winners_bid, $cost, $title) {
 
 		if($email != null || $email != "") {
             // nastaveni parametru pro latte emailu
-            $latte = new Nette\Latte\Engine;
+            $latte = new Latte\Engine;
             $params = array(
-                'par1' => $par1, // pripravit parametry pro latte
+                'product' => $product,
+                'winners_bid' => $winners_bid,
+                'cost' => $cost,
+                'title' => $title,
             );
 
             // nastaveni mailu
             $mail = new Nette\Mail\Message;
-            $mail->setFrom($this->mailer->username)
+            $mail->setFrom($this->mailer['username'])
             ->addTo($email)
-            ->setHtmlBody($latte->renderToString(__DIR__ . '/../presenters/templates/Email/email.latte', $params));
+            ->setHtmlBody($latte->renderToString(__DIR__ . '/../presenters/templates/Email/'.$latte_name.'.latte', $params));
 
             // poslani mailu
            	$mailer = new Nette\Mail\SmtpMailer($this->mailer);
