@@ -38,7 +38,7 @@ if (!function_exists($_b->blocks['_sign'][] = '_lb68cbcaaf7d__sign')) { function
 <?php $iterations++; } ?>
 				    </ul> 
 <?php } ?>
-		        	<img class="col-md-4" src="images/web/icons/user_success.png" style="max-width: 100%">
+		        	<img class="col-md-4" src="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>/images/web/icons/user_success.png" style="max-width: 100%">
 		        	<div class="col-md-8 mar-input">
 		        		Po úspěšném přihlášení do systému se budete moci účastnit jednotlivých aukcí, nové aukce zakládat a mnoho dalšího. 
 		        	</div>

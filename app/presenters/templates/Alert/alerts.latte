@@ -9,31 +9,38 @@
                 </li>
             </ul>            
         </div>
-    {if}    
-        <div class="row">
-            <ul class="alerts">
-                {foreach $t_alerts as $alert}
-                    <li class="message-preview">
-                        <a n:href="Alert:detail, $alert->id">
-                            <div class="media">
-                                <div class="media-body">
-                                    <h5 class="media-heading">
-                                        <strong>
-                                            {$alert->type_alert->name}
-                                        </strong>
-                                    </h5>
-                                    <p class="small text-muted">
-                                        <i class="fa fa-clock-o"></i> 
-                                        {$alert->added|mydate} {$alert->added|date:'H:i'}
-                                    </p>
-                                    <p>{$alert->body|truncate:230}</p>
+    {if} 
+        {form alertForm}   
+            <div class="row">
+                <ul class="alerts">
+                    {foreach $t_alerts as $alert}
+                        <li class="message-preview">
+                            <a n:href="Alert:detail, $alert->id">
+                                <div class="media">
+                                    <span class="pull-left">
+                                        {input $alert->id}
+                                    </span>
+                                    <div class="media-body">
+                                        <h5 class="media-heading">
+                                            <strong>
+                                                {$alert->type_alert->name}
+                                            </strong>
+                                        </h5>
+                                        <p class="small text-muted">
+                                            <i class="fa fa-clock-o"></i> 
+                                            {$alert->added|mydate} {$alert->added|date:'H:i'}
+                                        </p>
+                                        <p>{$alert->body|truncate:230}</p>
+                                    </div>
                                 </div>
-                            </div>
-                        </a>
-                    </li>               
-                {/foreach}  
-            </ul>                      
-        </div>
+                            </a>
+                        </li>               
+                    {/foreach}  
+                </ul>
+                {input btndel}
+                {input btnvis}                      
+            </div>
+        {/form}
         <!-- Pagination -->
         <div class="row row-center">
             <ul class="pagination">
@@ -48,7 +55,7 @@
                 <li class="active">
                     <a href="#">{$paginator->page}</a>
                 </li>
-                {for $i = $paginator->page+1; $i <= min($paginator->page+2,$paginator->getPageCount()); $i++}
+                {for $i = $paginator->page+1; $i <= min($paginator->page+2, $paginator->getPageCount()); $i++}
                     <li>
                         <a n:href="Alert:alerts, $kat, $i">{$i}</a>
                     </li>
@@ -78,12 +85,12 @@
         ul.alerts { list-style-type: none;}
         .alerts .message-preview { width: 100%;}
         .alerts a { display: block; color: #333; text-decoration: none; padding: 1em;}
-        .alerts li a:hover, .alerts li a:focus { color: #262626; background-color: #f5f5f5;}
+        .alerts li a:hover, .alerts li a:focus { color: #262626; text-decoration: none; background-color: #f5f5f5;}
         .row-center { text-align: center; padding: 1em;}
         .row-header { padding-top: 0;}
         .row-header ul.pagination { margin-top: 0;}
         .row-header .pagination>li>a, .row-header .pagination>li>span { color: #555; width: 130px;}
         .row-header .pagination>li.active>a, .row-header .pagination>li.active>span { color: #fff;}
+        .row .btn-primary { margin-left: 40px;}
 	</style>
 {/block}
-

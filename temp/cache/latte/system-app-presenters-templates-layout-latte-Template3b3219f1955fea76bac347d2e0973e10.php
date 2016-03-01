@@ -148,7 +148,7 @@ call_user_func(reset($_b->blocks['head']), $_b, get_defined_vars())  ?>
  <?php echo Latte\Runtime\Filters::escapeHtml($template->date($alert->added, 'H:i'), ENT_NOQUOTES) ?>
 
 		                                        </p>
-		                                        <p><?php echo Latte\Runtime\Filters::escapeHtml($template->truncate($alert->body, 70), ENT_NOQUOTES) ?></p>
+		                                        <p><?php echo Latte\Runtime\Filters::escapeHtml($template->truncate($alert->body, 55), ENT_NOQUOTES) ?></p>
 		                                    </div>
 		                                </div>
 		                            </a>
@@ -157,7 +157,7 @@ call_user_func(reset($_b->blocks['head']), $_b, get_defined_vars())  ?>
                         <li class="message-preview">
                         	<div class="media">
                         		<div class="media-body">
-                        			<p>Nemáte žádná nová upozornění.</p>
+                        			<p class="empty">Nemáte žádná nová upozornění.</p>
                         		</div>
                         	</div>
                         </li>

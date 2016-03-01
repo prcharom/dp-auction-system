@@ -4,14 +4,16 @@ namespace App\Presenters;
 
 use Nette;
 use App\Model;
-use App\Forms\ProductFormFactory;
+use App\Forms\AlertFormFactory;
 
 
 class AlertPresenter extends BasePresenter {
 
-		/** @var ProductFormFactory @inject */
-		public $productFactory;
+		/** @var AlertFormFactory @inject */
+		public $alertFactory;
 
+		/* selected alerts */
+		private $alerts;
 
 	/* --- --- Default --- --- */	
 
@@ -22,7 +24,7 @@ class AlertPresenter extends BasePresenter {
 
 		// nastaveni paginatoru
 		$this->template->paginator = new Nette\Utils\Paginator;
-        $this->template->paginator->setItemsPerPage(12); // def počtu položek na stránce
+        $this->template->paginator->setItemsPerPage(8); // def počtu položek na stránce
         $this->template->paginator->setPage($page); // def stranky
 
         // selekce upozorneni
@@ -37,6 +39,7 @@ class AlertPresenter extends BasePresenter {
 		// prideleni produktu na stranku
 		$this->template->paginator->setItemCount($t_alerts->count('*'));
         $this->template->t_alerts = $t_alerts->limit($this->template->paginator->getLength(), $this->template->paginator->getOffset());	
+        $this->alerts = $this->template->t_alerts;
 	}
 
 	public function renderDetail($id = null) {
@@ -55,17 +58,10 @@ class AlertPresenter extends BasePresenter {
 	 * Product form factory.
 	 * @return Nette\Application\UI\Form
 	 */
-	protected function createComponentProductForm() {		
-		$form = $this->productFactory->create($this->user->id);
-		$form->onSuccess[] = function ($form) {
-			$values = $form->getValues();
-			if ($values['id'] == null) {
-				$this->flashMessage('Produkt byl úspěšně vytvořen.');
-				$this->redirect('Homepage:default');
-			} else {
-				$this->flashMessage('Produkt byl úspěšně upraven.');
-				$this->redirect('Homepage:product', $values['id']);
-			}
+	protected function createComponentAlertForm() {		
+		$form = $this->alertFactory->create($this->template->t_alerts);
+		$form->onSuccess[] = function ($form) {	
+			
 		};
 		return $form;
 	}

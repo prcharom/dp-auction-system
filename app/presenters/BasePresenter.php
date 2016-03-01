@@ -25,7 +25,7 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter {
 		/* --- --- promenne --- --- */
 		$this->template->systemName = $this->database->findAll('setings')->where('id_parameter', 1)->fetch();
         $this->template->categories = $this->database->findAll('category');
-        $this->template->alerts = $this->database->findAll('alert')->where('id_user', $this->user->id)->where('visited', 0);
+        $this->template->alerts = $this->database->findAll('alert')->where('id_user', $this->user->id)->where('visited', 0)->order('added DESC')->order('id DESC');
         $this->template->id_category = (int) $this->getParameter('kat'); 
 
         /* --- --- vlastni helpery --- --- */

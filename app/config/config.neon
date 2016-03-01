@@ -32,4 +32,5 @@ services:
 	- App\Forms\PhotoEditFormFactory
 	- App\Forms\PhotoDeleteFormFactory
 	- App\Forms\BidFormFactory
+	- App\Forms\AlertFormFactory
 	router: App\RouterFactory::createRouter

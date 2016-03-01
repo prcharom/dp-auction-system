@@ -84,7 +84,7 @@
 		                                        	<i class="fa fa-clock-o"></i> 
 		                                        	{$alert->added|mydate} {$alert->added|date:'H:i'}
 		                                        </p>
-		                                        <p>{$alert->body|truncate:70}</p>
+		                                        <p>{$alert->body|truncate:55}</p>
 		                                    </div>
 		                                </div>
 		                            </a>
@@ -94,7 +94,7 @@
                         <li class="message-preview">
                         	<div class="media">
                         		<div class="media-body">
-                        			<p>Nemáte žádná nová upozornění.</p>
+                        			<p class="empty">Nemáte žádná nová upozornění.</p>
                         		</div>
                         	</div>
                         </li>

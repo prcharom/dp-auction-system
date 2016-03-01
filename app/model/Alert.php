@@ -31,7 +31,7 @@ class Alert extends Nette\Object {
 		$val['id_type_alert'] = 1;
 		$val['added'] = $this->now;
 		$val['visited'] = 0;
-		$val['body'] = 'Vyhráli jste aukci produktu '.$product->name.' (id '.$product->id.'). Cena produktu činí '.$cost.' Kč. Pro další informace pro předání produktu kontaktujte '.
+		$val['body'] = 'Vyhráli jste aukci produktu '.$product->name.' (id '.$product->id.'). Cena produktu činí '.number_format($cost).' Kč. Pro další informace k předání produktu kontaktujte '.
 		$product->user->name.' (tel: '.$product->user->phone.', email: '.$product->user->email.').';
 		// vlozeni alertu pro viteze do db
 		$this->database->insert('alert', $val);
@@ -51,7 +51,7 @@ class Alert extends Nette\Object {
 		/* --- vyrozumneni pro zadavatele aukce --- */
 		$val['id_user'] = $product->id_user;
 		$val['body'] = 'Aukce produktu '.$product->name.' (id '.$product->id.') je u konce. Výherce aukce je '.$winners_bid->user->name.
-		' (tel: '.$winners_bid->user->phone.', email: '.$winners_bid->user->email.'), který produkt koupil za '.$cost.' Kč.';
+		' (tel: '.$winners_bid->user->phone.', email: '.$winners_bid->user->email.'), který produkt koupil za '.number_format($cost).' Kč.';
 		$this->database->insert('alert', $val);
 	}
 

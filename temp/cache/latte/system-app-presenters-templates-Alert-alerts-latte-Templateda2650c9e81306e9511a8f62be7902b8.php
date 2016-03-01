@@ -25,34 +25,46 @@ if (!function_exists($_b->blocks['content'][] = '_lb2cf5f6c2c6_content')) { func
             </ul>            
         </div>
 <?php ob_start() ?>
-        <div class="row">
-            <ul class="alerts">
-<?php $iterations = 0; foreach ($t_alerts as $alert) { ?>
-                    <li class="message-preview">
-                        <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("Alert:detail", array($alert->id)), ENT_COMPAT) ?>
-">
-                            <div class="media">
-                                <div class="media-body">
-                                    <h5 class="media-heading">
-                                        <strong>
-                                            <?php echo Latte\Runtime\Filters::escapeHtml($alert->type_alert->name, ENT_NOQUOTES) ?>
+        <?php echo Nette\Bridges\FormsLatte\Runtime::renderFormBegin($form = $_form = $_control["alertForm"], array()) ?>
 
-                                        </strong>
-                                    </h5>
-                                    <p class="small text-muted">
-                                        <i class="fa fa-clock-o"></i> 
-                                        <?php echo Latte\Runtime\Filters::escapeHtml($template->mydate($alert->added), ENT_NOQUOTES) ?>
+            <div class="row">
+                <ul class="alerts">
+<?php $iterations = 0; foreach ($t_alerts as $alert) { ?>
+                        <li class="message-preview">
+                            <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("Alert:detail", array($alert->id)), ENT_COMPAT) ?>
+">
+                                <div class="media">
+                                    <span class="pull-left">
+                                        <?php $_input = is_object($alert->id) ? $alert->id : $_form[$alert->id]; echo $_input->getControl() ?>
+
+                                    </span>
+                                    <div class="media-body">
+                                        <h5 class="media-heading">
+                                            <strong>
+                                                <?php echo Latte\Runtime\Filters::escapeHtml($alert->type_alert->name, ENT_NOQUOTES) ?>
+
+                                            </strong>
+                                        </h5>
+                                        <p class="small text-muted">
+                                            <i class="fa fa-clock-o"></i> 
+                                            <?php echo Latte\Runtime\Filters::escapeHtml($template->mydate($alert->added), ENT_NOQUOTES) ?>
  <?php echo Latte\Runtime\Filters::escapeHtml($template->date($alert->added, 'H:i'), ENT_NOQUOTES) ?>
 
-                                    </p>
-                                    <p><?php echo Latte\Runtime\Filters::escapeHtml($template->truncate($alert->body, 230), ENT_NOQUOTES) ?></p>
+                                        </p>
+                                        <p><?php echo Latte\Runtime\Filters::escapeHtml($template->truncate($alert->body, 230), ENT_NOQUOTES) ?></p>
+                                    </div>
                                 </div>
-                            </div>
-                        </a>
-                    </li>               
+                            </a>
+                        </li>               
 <?php $iterations++; } ?>
-            </ul>                      
-        </div>
+                </ul>
+                <?php echo $_form["btndel"]->getControl() ?>
+
+                <?php echo $_form["btnvis"]->getControl() ?>
+
+            </div>
+        <?php echo Nette\Bridges\FormsLatte\Runtime::renderFormEnd($_form) ?>
+
         <!-- Pagination -->
         <div class="row row-center">
             <ul class="pagination">
@@ -69,7 +81,7 @@ if (!function_exists($_b->blocks['content'][] = '_lb2cf5f6c2c6_content')) { func
                 <li class="active">
                     <a href="#"><?php echo Latte\Runtime\Filters::escapeHtml($paginator->page, ENT_NOQUOTES) ?></a>
                 </li>
-<?php for ($i = $paginator->page+1; $i <= min($paginator->page+2,$paginator->getPageCount()); $i++) { ?>
+<?php for ($i = $paginator->page+1; $i <= min($paginator->page+2, $paginator->getPageCount()); $i++) { ?>
                     <li>
                         <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("Alert:alerts", array($kat, $i)), ENT_COMPAT) ?>
 "><?php echo Latte\Runtime\Filters::escapeHtml($i, ENT_NOQUOTES) ?></a>
@@ -107,12 +119,13 @@ if (!function_exists($_b->blocks['head'][] = '_lb5071b1f794_head')) { function _
         ul.alerts { list-style-type: none;}
         .alerts .message-preview { width: 100%;}
         .alerts a { display: block; color: #333; text-decoration: none; padding: 1em;}
-        .alerts li a:hover, .alerts li a:focus { color: #262626; background-color: #f5f5f5;}
+        .alerts li a:hover, .alerts li a:focus { color: #262626; text-decoration: none; background-color: #f5f5f5;}
         .row-center { text-align: center; padding: 1em;}
         .row-header { padding-top: 0;}
         .row-header ul.pagination { margin-top: 0;}
         .row-header .pagination>li>a, .row-header .pagination>li>span { color: #555; width: 130px;}
         .row-header .pagination>li.active>a, .row-header .pagination>li.active>span { color: #fff;}
+        .row .btn-primary { margin-left: 40px;}
 	</style>
 <?php
 }}
@@ -138,7 +151,5 @@ if (empty($_l->extends) && !empty($_control->snippetMode)) {
 // main template
 //
 if ($_l->extends) { ob_end_clean(); return $template->renderChildTemplate($_l->extends, get_defined_vars()); }
-call_user_func(reset($_b->blocks['content']), $_b, get_defined_vars()) ; call_user_func(reset($_b->blocks['head']), $_b, get_defined_vars())  ?>
-
-<?php
+call_user_func(reset($_b->blocks['content']), $_b, get_defined_vars()) ; call_user_func(reset($_b->blocks['head']), $_b, get_defined_vars()) ; 
 }}

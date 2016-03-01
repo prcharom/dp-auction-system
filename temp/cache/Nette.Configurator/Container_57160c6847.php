@@ -19,18 +19,19 @@ class Container_57160c6847 extends Nette\DI\Container
 					'http.context',
 					'security.user',
 					'session.session',
-					'25_App_Forms_BidFormFactory',
-					'26_App_Forms_PasswordFormFactory',
-					'27_App_Forms_PhotoDeleteFormFactory',
-					'28_App_Forms_PhotoEditFormFactory',
-					'29_App_Forms_ProductDeleteFormFactory',
-					'30_App_Forms_ProductFormFactory',
-					'31_App_Forms_SignFormFactory',
-					'32_App_Forms_UploadProfilePhotoFormFactory',
-					'33_App_Forms_UserFormFactory',
-					'34_App_Model_Auction',
-					'35_App_Model_Database',
-					'36_App_Model_Photo',
+					'25_App_Forms_AlertFormFactory',
+					'26_App_Forms_BidFormFactory',
+					'27_App_Forms_PasswordFormFactory',
+					'28_App_Forms_PhotoDeleteFormFactory',
+					'29_App_Forms_PhotoEditFormFactory',
+					'30_App_Forms_ProductDeleteFormFactory',
+					'31_App_Forms_ProductFormFactory',
+					'32_App_Forms_SignFormFactory',
+					'33_App_Forms_UploadProfilePhotoFormFactory',
+					'34_App_Forms_UserFormFactory',
+					'35_App_Model_Auction',
+					'36_App_Model_Database',
+					'37_App_Model_Photo',
 					'application.1',
 					'application.2',
 					'application.3',
@@ -83,38 +84,41 @@ class Container_57160c6847 extends Nette\DI\Container
 			'Tracy\ILogger' => array(1 => array('tracy.logger')),
 			'Tracy\BlueScreen' => array(1 => array('tracy.blueScreen')),
 			'Tracy\Bar' => array(1 => array('tracy.bar')),
+			'App\Forms\AlertFormFactory' => array(
+				1 => array('25_App_Forms_AlertFormFactory'),
+			),
 			'App\Forms\BidFormFactory' => array(
-				1 => array('25_App_Forms_BidFormFactory'),
+				1 => array('26_App_Forms_BidFormFactory'),
 			),
 			'App\Forms\PasswordFormFactory' => array(
-				1 => array('26_App_Forms_PasswordFormFactory'),
+				1 => array('27_App_Forms_PasswordFormFactory'),
 			),
 			'App\Forms\PhotoDeleteFormFactory' => array(
-				1 => array('27_App_Forms_PhotoDeleteFormFactory'),
+				1 => array('28_App_Forms_PhotoDeleteFormFactory'),
 			),
 			'App\Forms\PhotoEditFormFactory' => array(
-				1 => array('28_App_Forms_PhotoEditFormFactory'),
+				1 => array('29_App_Forms_PhotoEditFormFactory'),
 			),
 			'App\Forms\ProductDeleteFormFactory' => array(
-				1 => array('29_App_Forms_ProductDeleteFormFactory'),
+				1 => array('30_App_Forms_ProductDeleteFormFactory'),
 			),
 			'App\Forms\ProductFormFactory' => array(
-				1 => array('30_App_Forms_ProductFormFactory'),
+				1 => array('31_App_Forms_ProductFormFactory'),
 			),
 			'App\Forms\SignFormFactory' => array(
-				1 => array('31_App_Forms_SignFormFactory'),
+				1 => array('32_App_Forms_SignFormFactory'),
 			),
 			'App\Forms\UploadProfilePhotoFormFactory' => array(
 				1 => array(
-					'32_App_Forms_UploadProfilePhotoFormFactory',
+					'33_App_Forms_UploadProfilePhotoFormFactory',
 				),
 			),
 			'App\Forms\UserFormFactory' => array(
-				1 => array('33_App_Forms_UserFormFactory'),
+				1 => array('34_App_Forms_UserFormFactory'),
 			),
-			'App\Model\Auction' => array(1 => array('34_App_Model_Auction')),
-			'App\Model\Database' => array(1 => array('35_App_Model_Database')),
-			'App\Model\Photo' => array(1 => array('36_App_Model_Photo')),
+			'App\Model\Auction' => array(1 => array('35_App_Model_Auction')),
+			'App\Model\Database' => array(1 => array('36_App_Model_Database')),
+			'App\Model\Photo' => array(1 => array('37_App_Model_Photo')),
 			'App\Presenters\BasePresenter' => array(
 				array(
 					'application.1',
@@ -246,18 +250,19 @@ class Container_57160c6847 extends Nette\DI\Container
 			'Nette\DI\Container' => array(1 => array('container')),
 		),
 		'services' => array(
-			'25_App_Forms_BidFormFactory' => 'App\Forms\BidFormFactory',
-			'26_App_Forms_PasswordFormFactory' => 'App\Forms\PasswordFormFactory',
-			'27_App_Forms_PhotoDeleteFormFactory' => 'App\Forms\PhotoDeleteFormFactory',
-			'28_App_Forms_PhotoEditFormFactory' => 'App\Forms\PhotoEditFormFactory',
-			'29_App_Forms_ProductDeleteFormFactory' => 'App\Forms\ProductDeleteFormFactory',
-			'30_App_Forms_ProductFormFactory' => 'App\Forms\ProductFormFactory',
-			'31_App_Forms_SignFormFactory' => 'App\Forms\SignFormFactory',
-			'32_App_Forms_UploadProfilePhotoFormFactory' => 'App\Forms\UploadProfilePhotoFormFactory',
-			'33_App_Forms_UserFormFactory' => 'App\Forms\UserFormFactory',
-			'34_App_Model_Auction' => 'App\Model\Auction',
-			'35_App_Model_Database' => 'App\Model\Database',
-			'36_App_Model_Photo' => 'App\Model\Photo',
+			'25_App_Forms_AlertFormFactory' => 'App\Forms\AlertFormFactory',
+			'26_App_Forms_BidFormFactory' => 'App\Forms\BidFormFactory',
+			'27_App_Forms_PasswordFormFactory' => 'App\Forms\PasswordFormFactory',
+			'28_App_Forms_PhotoDeleteFormFactory' => 'App\Forms\PhotoDeleteFormFactory',
+			'29_App_Forms_PhotoEditFormFactory' => 'App\Forms\PhotoEditFormFactory',
+			'30_App_Forms_ProductDeleteFormFactory' => 'App\Forms\ProductDeleteFormFactory',
+			'31_App_Forms_ProductFormFactory' => 'App\Forms\ProductFormFactory',
+			'32_App_Forms_SignFormFactory' => 'App\Forms\SignFormFactory',
+			'33_App_Forms_UploadProfilePhotoFormFactory' => 'App\Forms\UploadProfilePhotoFormFactory',
+			'34_App_Forms_UserFormFactory' => 'App\Forms\UserFormFactory',
+			'35_App_Model_Auction' => 'App\Model\Auction',
+			'36_App_Model_Database' => 'App\Model\Database',
+			'37_App_Model_Photo' => 'App\Model\Photo',
 			'application.1' => 'App\Presenters\AlertPresenter',
 			'application.2' => 'App\Presenters\AuctionPresenter',
 			'application.3' => 'App\Presenters\Error4xxPresenter',
@@ -353,11 +358,21 @@ class Container_57160c6847 extends Nette\DI\Container
 
 
 	/**
+	 * @return App\Forms\AlertFormFactory
+	 */
+	public function createService__25_App_Forms_AlertFormFactory()
+	{
+		$service = new App\Forms\AlertFormFactory($this->getService('36_App_Model_Database'));
+		return $service;
+	}
+
+
+	/**
 	 * @return App\Forms\BidFormFactory
 	 */
-	public function createService__25_App_Forms_BidFormFactory()
+	public function createService__26_App_Forms_BidFormFactory()
 	{
-		$service = new App\Forms\BidFormFactory($this->getService('35_App_Model_Database'));
+		$service = new App\Forms\BidFormFactory($this->getService('36_App_Model_Database'));
 		return $service;
 	}
 
@@ -365,7 +380,7 @@ class Container_57160c6847 extends Nette\DI\Container
 	/**
 	 * @return App\Forms\PasswordFormFactory
 	 */
-	public function createService__26_App_Forms_PasswordFormFactory()
+	public function createService__27_App_Forms_PasswordFormFactory()
 	{
 		$service = new App\Forms\PasswordFormFactory($this->getService('security.user'), $this->getService('database.default.context'));
 		return $service;
@@ -375,9 +390,9 @@ class Container_57160c6847 extends Nette\DI\Container
 	/**
 	 * @return App\Forms\PhotoDeleteFormFactory
 	 */
-	public function createService__27_App_Forms_PhotoDeleteFormFactory()
+	public function createService__28_App_Forms_PhotoDeleteFormFactory()
 	{
-		$service = new App\Forms\PhotoDeleteFormFactory($this->getService('35_App_Model_Database'));
+		$service = new App\Forms\PhotoDeleteFormFactory($this->getService('36_App_Model_Database'));
 		return $service;
 	}
 
@@ -385,9 +400,9 @@ class Container_57160c6847 extends Nette\DI\Container
 	/**
 	 * @return App\Forms\PhotoEditFormFactory
 	 */
-	public function createService__28_App_Forms_PhotoEditFormFactory()
+	public function createService__29_App_Forms_PhotoEditFormFactory()
 	{
-		$service = new App\Forms\PhotoEditFormFactory($this->getService('35_App_Model_Database'));
+		$service = new App\Forms\PhotoEditFormFactory($this->getService('36_App_Model_Database'));
 		return $service;
 	}
 
@@ -395,9 +410,9 @@ class Container_57160c6847 extends Nette\DI\Container
 	/**
 	 * @return App\Forms\ProductDeleteFormFactory
 	 */
-	public function createService__29_App_Forms_ProductDeleteFormFactory()
+	public function createService__30_App_Forms_ProductDeleteFormFactory()
 	{
-		$service = new App\Forms\ProductDeleteFormFactory($this->getService('35_App_Model_Database'));
+		$service = new App\Forms\ProductDeleteFormFactory($this->getService('36_App_Model_Database'));
 		return $service;
 	}
 
@@ -405,9 +420,9 @@ class Container_57160c6847 extends Nette\DI\Container
 	/**
 	 * @return App\Forms\ProductFormFactory
 	 */
-	public function createService__30_App_Forms_ProductFormFactory()
+	public function createService__31_App_Forms_ProductFormFactory()
 	{
-		$service = new App\Forms\ProductFormFactory($this->getService('35_App_Model_Database'));
+		$service = new App\Forms\ProductFormFactory($this->getService('36_App_Model_Database'));
 		return $service;
 	}
 
@@ -415,7 +430,7 @@ class Container_57160c6847 extends Nette\DI\Container
 	/**
 	 * @return App\Forms\SignFormFactory
 	 */
-	public function createService__31_App_Forms_SignFormFactory()
+	public function createService__32_App_Forms_SignFormFactory()
 	{
 		$service = new App\Forms\SignFormFactory($this->getService('security.user'), $this->getService('database.default.context'));
 		return $service;
@@ -425,9 +440,9 @@ class Container_57160c6847 extends Nette\DI\Container
 	/**
 	 * @return App\Forms\UploadProfilePhotoFormFactory
 	 */
-	public function createService__32_App_Forms_UploadProfilePhotoFormFactory()
+	public function createService__33_App_Forms_UploadProfilePhotoFormFactory()
 	{
-		$service = new App\Forms\UploadProfilePhotoFormFactory($this->getService('35_App_Model_Database'));
+		$service = new App\Forms\UploadProfilePhotoFormFactory($this->getService('36_App_Model_Database'));
 		return $service;
 	}
 
@@ -435,7 +450,7 @@ class Container_57160c6847 extends Nette\DI\Container
 	/**
 	 * @return App\Forms\UserFormFactory
 	 */
-	public function createService__33_App_Forms_UserFormFactory()
+	public function createService__34_App_Forms_UserFormFactory()
 	{
 		$service = new App\Forms\UserFormFactory($this->getService('security.user'), $this->getService('database.default.context'));
 		return $service;
@@ -445,9 +460,9 @@ class Container_57160c6847 extends Nette\DI\Container
 	/**
 	 * @return App\Model\Auction
 	 */
-	public function createService__34_App_Model_Auction()
+	public function createService__35_App_Model_Auction()
 	{
-		$service = new App\Model\Auction($this->getService('35_App_Model_Database'));
+		$service = new App\Model\Auction($this->getService('36_App_Model_Database'));
 		return $service;
 	}
 
@@ -455,7 +470,7 @@ class Container_57160c6847 extends Nette\DI\Container
 	/**
 	 * @return App\Model\Database
 	 */
-	public function createService__35_App_Model_Database()
+	public function createService__36_App_Model_Database()
 	{
 		$service = new App\Model\Database($this->getService('database.default.context'));
 		return $service;
@@ -465,9 +480,9 @@ class Container_57160c6847 extends Nette\DI\Container
 	/**
 	 * @return App\Model\Photo
 	 */
-	public function createService__36_App_Model_Photo()
+	public function createService__37_App_Model_Photo()
 	{
-		$service = new App\Model\Photo($this->getService('35_App_Model_Database'));
+		$service = new App\Model\Photo($this->getService('36_App_Model_Database'));
 		return $service;
 	}
 
@@ -477,11 +492,11 @@ class Container_57160c6847 extends Nette\DI\Container
 	 */
 	public function createServiceApplication__1()
 	{
-		$service = new App\Presenters\AlertPresenter($this->getService('35_App_Model_Database'));
+		$service = new App\Presenters\AlertPresenter($this->getService('36_App_Model_Database'));
 		$service->injectPrimary($this, $this->getService('application.presenterFactory'), $this->getService('routing.router'),
 			$this->getService('http.request'), $this->getService('http.response'), $this->getService('session.session'),
 			$this->getService('security.user'), $this->getService('latte.templateFactory'));
-		$service->productFactory = $this->getService('30_App_Forms_ProductFormFactory');
+		$service->alertFactory = $this->getService('25_App_Forms_AlertFormFactory');
 		$service->invalidLinkMode = 5;
 		return $service;
 	}
@@ -492,11 +507,11 @@ class Container_57160c6847 extends Nette\DI\Container
 	 */
 	public function createServiceApplication__2()
 	{
-		$service = new App\Presenters\AuctionPresenter($this->getService('35_App_Model_Database'));
+		$service = new App\Presenters\AuctionPresenter($this->getService('36_App_Model_Database'));
 		$service->injectPrimary($this, $this->getService('application.presenterFactory'), $this->getService('routing.router'),
 			$this->getService('http.request'), $this->getService('http.response'), $this->getService('session.session'),
 			$this->getService('security.user'), $this->getService('latte.templateFactory'));
-		$service->bidFactory = $this->getService('25_App_Forms_BidFormFactory');
+		$service->bidFactory = $this->getService('26_App_Forms_BidFormFactory');
 		$service->invalidLinkMode = 5;
 		return $service;
 	}
@@ -507,7 +522,7 @@ class Container_57160c6847 extends Nette\DI\Container
 	 */
 	public function createServiceApplication__3()
 	{
-		$service = new App\Presenters\Error4xxPresenter($this->getService('35_App_Model_Database'));
+		$service = new App\Presenters\Error4xxPresenter($this->getService('36_App_Model_Database'));
 		$service->injectPrimary($this, $this->getService('application.presenterFactory'), $this->getService('routing.router'),
 			$this->getService('http.request'), $this->getService('http.response'), $this->getService('session.session'),
 			$this->getService('security.user'), $this->getService('latte.templateFactory'));
@@ -531,14 +546,14 @@ class Container_57160c6847 extends Nette\DI\Container
 	 */
 	public function createServiceApplication__5()
 	{
-		$service = new App\Presenters\HomepagePresenter($this->getService('35_App_Model_Database'));
+		$service = new App\Presenters\HomepagePresenter($this->getService('36_App_Model_Database'));
 		$service->injectPrimary($this, $this->getService('application.presenterFactory'), $this->getService('routing.router'),
 			$this->getService('http.request'), $this->getService('http.response'), $this->getService('session.session'),
 			$this->getService('security.user'), $this->getService('latte.templateFactory'));
-		$service->photoDeleteFactory = $this->getService('27_App_Forms_PhotoDeleteFormFactory');
-		$service->photoEditFactory = $this->getService('28_App_Forms_PhotoEditFormFactory');
-		$service->productDeleteFactory = $this->getService('29_App_Forms_ProductDeleteFormFactory');
-		$service->productFactory = $this->getService('30_App_Forms_ProductFormFactory');
+		$service->photoDeleteFactory = $this->getService('28_App_Forms_PhotoDeleteFormFactory');
+		$service->photoEditFactory = $this->getService('29_App_Forms_PhotoEditFormFactory');
+		$service->productDeleteFactory = $this->getService('30_App_Forms_ProductDeleteFormFactory');
+		$service->productFactory = $this->getService('31_App_Forms_ProductFormFactory');
 		$service->invalidLinkMode = 5;
 		return $service;
 	}
@@ -549,14 +564,14 @@ class Container_57160c6847 extends Nette\DI\Container
 	 */
 	public function createServiceApplication__6()
 	{
-		$service = new App\Presenters\UserPresenter($this->getService('35_App_Model_Database'));
+		$service = new App\Presenters\UserPresenter($this->getService('36_App_Model_Database'));
 		$service->injectPrimary($this, $this->getService('application.presenterFactory'), $this->getService('routing.router'),
 			$this->getService('http.request'), $this->getService('http.response'), $this->getService('session.session'),
 			$this->getService('security.user'), $this->getService('latte.templateFactory'));
-		$service->passwordFactory = $this->getService('26_App_Forms_PasswordFormFactory');
-		$service->uploadProfilePhotoFactory = $this->getService('32_App_Forms_UploadProfilePhotoFormFactory');
-		$service->userFactory = $this->getService('33_App_Forms_UserFormFactory');
-		$service->signFactory = $this->getService('31_App_Forms_SignFormFactory');
+		$service->passwordFactory = $this->getService('27_App_Forms_PasswordFormFactory');
+		$service->uploadProfilePhotoFactory = $this->getService('33_App_Forms_UploadProfilePhotoFormFactory');
+		$service->userFactory = $this->getService('34_App_Forms_UserFormFactory');
+		$service->signFactory = $this->getService('32_App_Forms_SignFormFactory');
 		$service->invalidLinkMode = 5;
 		return $service;
 	}

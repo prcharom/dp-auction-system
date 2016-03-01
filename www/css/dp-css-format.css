@@ -257,7 +257,7 @@ ul.alert-dropdown {
     width: 200px;
 }
 
-.dropdown-menu .media-body > p {
+.dropdown-menu .media-body > p.empty {
     padding: 10px 20px 0;
 } 
 
