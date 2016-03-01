@@ -15,6 +15,8 @@ class AlertFormFactory extends Nette\Object {
 		/* Selected Alerts */
 		private $alerts = null;
 
+		/* kat */
+		private $kat = null;
 
 	public function __construct(Model\Database $database) {
 		$this->database = $database;
@@ -23,10 +25,26 @@ class AlertFormFactory extends Nette\Object {
 	/**
 	 * @return Form
 	 */
-	public function create($alerts = null) {
+	public function create($kat = null, $page = null, $id_user = null) {
 
-		// predani upozorneni
-		$this->alerts = $alerts;
+		// nastaveni paginatoru
+		$paginator = new Nette\Utils\Paginator;
+        $paginator->setItemsPerPage(6); // def počtu položek na stránce
+        $paginator->setPage($page); // def stranky
+
+        // selekce upozorneni
+		$alerts = $this->database->findAll('alert')->where('id_user', $id_user);
+		if ($kat == 'read') { 	// prectene
+			$alerts = $alerts->where('visited', 1);
+		} else {				// neprectene
+			$alerts = $alerts->where('visited', 0);
+		}
+		$alerts = $alerts->order('added DESC')->order('id DESC');
+
+		// prideleni produktu na stranku
+		$paginator->setItemCount($alerts->count('*'));
+        $this->alerts = $alerts->limit($paginator->getLength(), $paginator->getOffset());
+        $this->kat = $kat;
 
 		// form
 		$form = new Form;
@@ -48,9 +66,16 @@ class AlertFormFactory extends Nette\Object {
 	}
 
 	public function formSucceeded(Form $form, $values) {
+
+		$alert_manager = new Model\Alert($this->database);
 		if ($this->alerts != null) {
-			//$photo_manager = new Model\Photo($this->database);
-			//$photo_manager->deleteProductPhotos($values, $this->photos);
+			if ($form['btndel']->isSubmittedBy()) {
+				$alert_manager->deleteAlerts($values, $this->alerts);
+				$form->getPresenter()->flashMessage('Vybraná upozornění byla smazána.');
+			} else {
+				$form->getPresenter()->flashMessage('Inaktivujes me smudlo.');
+			}
+			$form->getPresenter()->redirect('Alert:alerts', $this->kat);
 		}
 	}
 

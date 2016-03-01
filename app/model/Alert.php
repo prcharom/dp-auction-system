@@ -18,6 +18,17 @@ class Alert extends Nette\Object {
 		$this->now = date('Y-m-d H:i:s');
 	} 
 
+	// mazani vybranych upozorneni
+	public function deleteAlerts($values, $alerts) {
+
+		foreach($alerts as $a) {
+            if($values["$a->id"] == true) {
+                $a->delete(); // smazu alert
+            }
+        }
+
+	}
+
 	// vyrozumneni o probehle aukci
 	public function endOfAuction($product) {
 

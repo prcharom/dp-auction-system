@@ -12,9 +12,6 @@ class AlertPresenter extends BasePresenter {
 		/** @var AlertFormFactory @inject */
 		public $alertFactory;
 
-		/* selected alerts */
-		private $alerts;
-
 	/* --- --- Default --- --- */	
 
 	public function renderAlerts($kat = null, $page = null) {
@@ -39,7 +36,6 @@ class AlertPresenter extends BasePresenter {
 		// prideleni produktu na stranku
 		$this->template->paginator->setItemCount($t_alerts->count('*'));
         $this->template->t_alerts = $t_alerts->limit($this->template->paginator->getLength(), $this->template->paginator->getOffset());	
-        $this->alerts = $this->template->t_alerts;
 	}
 
 	public function renderDetail($id = null) {
@@ -58,10 +54,12 @@ class AlertPresenter extends BasePresenter {
 	 * Product form factory.
 	 * @return Nette\Application\UI\Form
 	 */
-	protected function createComponentAlertForm() {		
-		$form = $this->alertFactory->create($this->template->t_alerts);
+	protected function createComponentAlertForm() {	
+		$kat = $this->getParameter('kat');
+		$page = (int) $this->getParameter('page');  	
+		$form = $this->alertFactory->create($kat, $page, $this->user->id);
 		$form->onSuccess[] = function ($form) {	
-			
+			// form->getValues() ...	
 		};
 		return $form;
 	}
