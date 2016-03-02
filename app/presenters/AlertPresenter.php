@@ -19,6 +19,11 @@ class AlertPresenter extends BasePresenter {
 		// predam template kategorii
 		$this->template->kat = $kat;
 
+		$form = $this['alertForm'];
+		if ($kat == 'read') {
+			$form['btnvis']->caption = 'Označit jako nepřečtené';
+		}
+
 		// nastaveni paginatoru
 		$this->template->paginator = new Nette\Utils\Paginator;
         $this->template->paginator->setItemsPerPage(6); // def počtu položek na stránce

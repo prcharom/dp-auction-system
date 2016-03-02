@@ -69,13 +69,21 @@ class AlertFormFactory extends Nette\Object {
 
 		$alert_manager = new Model\Alert($this->database);
 		if ($this->alerts != null) {
-			if ($form['btndel']->isSubmittedBy()) {
-				$alert_manager->deleteAlerts($values, $this->alerts);
+			if ($form['btndel']->isSubmittedBy()) { // mazani alertu
+				$alert_manager->delete($values, $this->alerts);
 				$form->getPresenter()->flashMessage('Vybraná upozornění byla smazána.');
-			} else {
-				$form->getPresenter()->flashMessage('Inaktivujes me smudlo.');
+				$form->getPresenter()->redirect('Alert:alerts', $this->kat);
+			} else { 
+				if ($this->kat == 'read') { 				// oznaceni alertu jako neprectene 
+					$alert_manager->activate($values, $this->alerts);
+					$form->getPresenter()->flashMessage('Vybraná upozornění byla označena jako nepřečtená.');
+					$form->getPresenter()->redirect('Alert:alerts', 'unread');
+				} else { 							// oznaceni alertu jako prectene
+					$alert_manager->inactivate($values, $this->alerts);
+					$form->getPresenter()->flashMessage('Vybraná upozornění byla označena jako přečtená.');
+					$form->getPresenter()->redirect('Alert:alerts', 'read');
+				}
 			}
-			$form->getPresenter()->redirect('Alert:alerts', $this->kat);
 		}
 	}
 

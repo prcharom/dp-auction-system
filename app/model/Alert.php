@@ -18,15 +18,33 @@ class Alert extends Nette\Object {
 		$this->now = date('Y-m-d H:i:s');
 	} 
 
-	// mazani vybranych upozorneni
-	public function deleteAlerts($values, $alerts) {
+	// inaktivovani vybranych upozorneni
+	public function inactivate($values, $alerts) {
+		foreach($alerts as $a) {
+            if($values["$a->id"] == true) {
+            	$arr['visited'] = 1;
+                $a->update($arr); // updatuji alert jako precteny
+            }
+        }
+	}
 
+	// aktivovani vybranych upozorneni
+	public function activate($values, $alerts) {
+		foreach($alerts as $a) {
+            if($values["$a->id"] == true) {
+            	$arr['visited'] = 0;
+                $a->update($arr); // updatuji alert jako neprecteny
+            }
+        }
+	}
+
+	// mazani vybranych upozorneni
+	public function delete($values, $alerts) {
 		foreach($alerts as $a) {
             if($values["$a->id"] == true) {
                 $a->delete(); // smazu alert
             }
         }
-
 	}
 
 	// vyrozumneni o probehle aukci
