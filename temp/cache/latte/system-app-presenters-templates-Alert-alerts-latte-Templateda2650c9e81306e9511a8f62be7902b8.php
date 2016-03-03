@@ -16,11 +16,11 @@ if (!function_exists($_b->blocks['content'][] = '_lb2cf5f6c2c6_content')) { func
             <ul class="pagination">
                 <li <?php if ($kat == 'unread') { ?>class="active"<?php } ?>>
                     <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("Alert:alerts", array('unread')), ENT_COMPAT) ?>
-">Nepřečtená</a>
+">Nepřečtené</a>
                 </li>
                 <li <?php if ($kat == 'read') { ?>class="active"<?php } ?>>
                     <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("Alert:alerts", array('read')), ENT_COMPAT) ?>
-">Přečtená</a>
+">Přečtené</a>
                 </li>
             </ul>            
         </div>

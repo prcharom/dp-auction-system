@@ -1,24 +1,24 @@
 <?php
-// source: C:\Users\prcharom\Desktop\EasyPHP-DevServer-14.1VC9\data\localweb\dp-auction-system\app\presenters/templates/@layout.latte
+// source: C:\Users\prcharom\Desktop\EasyPHP-DevServer-14.1VC9\data\localweb\dp-auction-system\app\presenters/templates/Admin/../@layout-admin.latte
 
-class Template3b3219f1955fea76bac347d2e0973e10 extends Latte\Template {
+class Template413445763b8217f74d25b588aa0ec856 extends Latte\Template {
 function render() {
 foreach ($this->params as $__k => $__v) $$__k = $__v; unset($__k, $__v);
 // prolog Latte\Macros\CoreMacros
-list($_b, $_g, $_l) = $template->initialize('f4051d300c', 'html')
+list($_b, $_g, $_l) = $template->initialize('f5b6502bd5', 'html')
 ;
 // prolog Latte\Macros\BlockMacros
 //
 // block head
 //
-if (!function_exists($_b->blocks['head'][] = '_lb681d77e7dd_head')) { function _lb681d77e7dd_head($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v
+if (!function_exists($_b->blocks['head'][] = '_lbb28c1c774b_head')) { function _lbb28c1c774b_head($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v
 ;
 }}
 
 //
 // block scripts
 //
-if (!function_exists($_b->blocks['scripts'][] = '_lb40a8740310_scripts')) { function _lb40a8740310_scripts($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v
+if (!function_exists($_b->blocks['scripts'][] = '_lb6e26bd3f5f_scripts')) { function _lb6e26bd3f5f_scripts($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v
 ?>	<!-- jQuery -->
     <script type="text/javascript" src="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>/assets/js/jquery-1.11.3.min.js"></script>
 
@@ -250,15 +250,11 @@ call_user_func(reset($_b->blocks['head']), $_b, get_defined_vars())  ?>
         <div class="row">
 
             <div class="col-md-3">
-                <p class="lead">Kategorie</p>
+                <p class="lead">Administrátor</p>
                 <div class="list-group">
-<?php $iterations = 0; foreach ($categories as $category) { if ($category->id == $id_category) { ?>
-                    	    <a class="list-group-item active" href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("Homepage:default", array($category->id)), ENT_COMPAT) ?>
-"><?php echo Latte\Runtime\Filters::escapeHtml($category->name, ENT_NOQUOTES) ?></a>
-<?php } else { ?>
-                            <a class="list-group-item" href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("Homepage:default", array($category->id)), ENT_COMPAT) ?>
-"><?php echo Latte\Runtime\Filters::escapeHtml($category->name, ENT_NOQUOTES) ?></a>
-<?php } $iterations++; } ?>
+                    <a class="list-group-item <?php if ($_presenter->isLinkCurrent("Admin:category")) { ?>
+active<?php } ?>" href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("Admin:category"), ENT_COMPAT) ?>
+">Kategorie</a>
                 </div>
             </div>
 

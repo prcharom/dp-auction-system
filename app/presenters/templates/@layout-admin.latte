@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="Roman Prchal">
 
-	<title>{ifset title}{include title|striptags} | {/ifset}Aukční systém</title>
+	<title>{ifset title}{include title|striptags} | {/ifset}{$systemName->value}</title>
 
 	<!-- Favicon -->
 	<link href="{$basePath}/favicon.ico" rel="shortcut icon">
@@ -20,14 +20,8 @@
 	<!-- Bootstrap Core CSS -->
     <link href="{$basePath}/assets/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Morris Charts CSS -->
-    <link href="{$basePath}/css/plugins/morris.css" rel="stylesheet">
-
     <!-- Custom CSS -->
-    <link href="{$basePath}/assets/css/shop-homepage.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link href="{$basePath}/css/sb-admin.css" rel="stylesheet">
+    <link href="{$basePath}/css/dp-css-format.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="{$basePath}/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -39,180 +33,277 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <style>
+        {foreach $categories as $c}
+            .product-category-{$c->id} { background-color: #{$c->color};}
+        {/foreach}
+    </style>
+
 	{block head}{/block}
 </head>
 
 <body>
-
-    <div id="wrapper">
-
-        <!-- Navigation -->
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	<!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" n:href="Homepage:default">Yes2Aukce.cz</a>
+                <a class="navbar-brand" n:href="Homepage:default">{$systemName->value}</a>
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
+            {if $user->loggedIn}
+            	<li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-bell">
+                            {var $count = $alerts->count()}
+                            {if $count > 0}
+                                {$count}
+                            {/if}
+                        </i>
+                        <b class="caret"></b></a>
                     <ul class="dropdown-menu message-dropdown">
+                    	{if}
+                    		{foreach $alerts as $alert}
+		                        <li class="message-preview">
+		                            <a n:href="Alert:detail, $alert->id">
+		                                <div class="media">
+		                                    <div class="media-body">
+		                                        <h5 class="media-heading">
+		                                        	<strong>
+		                                        		{$alert->type_alert->name}
+		                                        	</strong>
+		                                        </h5>
+		                                        <p class="small text-muted">
+		                                        	<i class="fa fa-clock-o"></i> 
+		                                        	{$alert->added|mydate} {$alert->added|date:'H:i'}
+		                                        </p>
+		                                        <p>{$alert->body|truncate:55}</p>
+		                                    </div>
+		                                </div>
+		                            </a>
+		                        </li> 
+	                        {/foreach}
+                        {else}
                         <li class="message-preview">
-                            <a href="#">
-                                <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                                    <div class="media-body">
-                                        <h5 class="media-heading"><strong>John Smith</strong>
-                                        </h5>
-                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                    </div>
-                                </div>
-                            </a>
+                        	<div class="media">
+                        		<div class="media-body">
+                        			<p class="empty">Nemáte žádná nová upozornění.</p>
+                        		</div>
+                        	</div>
                         </li>
-                        <li class="message-preview">
-                            <a href="#">
-                                <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                                    <div class="media-body">
-                                        <h5 class="media-heading"><strong>John Smith</strong>
-                                        </h5>
-                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="message-preview">
-                            <a href="#">
-                                <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                                    <div class="media-body">
-                                        <h5 class="media-heading"><strong>John Smith</strong>
-                                        </h5>
-                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
+                        {/if isset($alert)}        
                         <li class="message-footer">
-                            <a href="#">Read All New Messages</a>
+                            <a n:href="Alert:alerts, unread">Zobrazit všechna upozornění</a>
                         </li>
                     </ul>
-                </li>
+                </li>              
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>
-                    <ul class="dropdown-menu alert-dropdown">
-                        <li>
-                            <a href="#">Alert Name <span class="label label-default">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Alert Name <span class="label label-primary">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Alert Name <span class="label label-success">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Alert Name <span class="label label-info">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Alert Name <span class="label label-warning">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Alert Name <span class="label label-danger">Alert Badge</span></a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">View All</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {$user->identity->name} <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
+                            <a data-toggle="modal" n:href="User:myProfile" data-target="#profile_modal">
+                                <i class="fa fa-fw fa-user"></i> Můj profil
+                            </a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
+                            <a data-toggle="modal" n:href="User:profilePhoto" data-target="#password_modal">
+                                <i class="fa fa-fw fa-photo"></i> Změnit foto
+                            </a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
+                            <a data-toggle="modal" n:href="User:password" data-target="#profilePhoto_modal">
+                                <i class="fa fa-fw fa-edit"></i> Změnit heslo
+                            </a>
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                            <a data-toggle="modal" n:href="Homepage:productAddEdit" data-target="#addProduct_modal">
+                                <i class="fa fa-fw fa-plus"></i> Přidat aukci
+                            </a>
+                        </li>
+                        <li>
+                            <a n:href="Homepage:myProducts, rp">
+                            	<i class="fa fa-fw fa-shopping-cart"></i> Moje aukce
+                            </a>
+                        </li>
+                        <li n:if="$user->identity->roles[0] == 'Admin'">
+                            <a n:href="Admin:category">
+                                <i class="fa fa-fw fa-user-md"></i> Administrátor
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a n:href="User:logout"><i class="fa fa-fw fa-power-off"></i> Odhlásit se</a>
                         </li>
                     </ul>
                 </li>
+            {else}                   
+                <li>
+                    <a data-toggle="modal" data-target="#login_modal" n:href="User:login">Přihlásit</a>
+                </li>
+                <li>
+                    <a data-toggle="modal" data-target="#register_modal" n:href="User:registration">Registrovat</a>
+                </li>
+            {/if}
             </ul>
-            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
-            <div class="collapse navbar-collapse navbar-ex1-collapse">
-                <ul class="nav navbar-nav side-nav">
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
                     <li>
-                        <a href="#hlavniStranka" data-toggle="collapse" data-target="#mainPage" class="active"><i class="fa fa-fw fa-desktop"></i> Hlavní stránka<i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="mainPage" class="collapse">
-                            <li>
-                            	<!-- Úprava počtu zobrazných plakátů, add, edit, del -->
-                                <a href="#">Plakáty</a>
-                            </li>
-                            <li>
-                            	<!-- Úprava kategorií -->
-                                <a href="#">Kategorizace</a>
-                            </li>
-                        </ul>
+                        <a href="#">Podmínky</a>
                     </li>
                     <li>
-                        <a href="#podminky"><i class="fa fa-fw fa-info"></i> Podmínky</a>
-                    </li>
-                    <li>
-                        <a href="#kontakt"><i class="fa fa-fw fa-edit"></i> Kontakt</a>
+                        <a href="#">Kontakt</a>
                     </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
-        </nav>
+        </div>
+        <!-- /.container -->
+    </nav>
 
-        <div id="page-wrapper">
+    <!-- Page Content -->
+    <div class="container">
 
-            <div class="container-fluid">
+        <div class="row">
 
-            {include content}
-
+            <div class="col-md-3">
+                <p class="lead">Administrátor</p>
+                <div class="list-group">
+                    <a n:href="Admin:category" class="list-group-item {ifCurrent Admin:category}active{/ifCurrent}">Kategorie</a>
+                </div>
             </div>
-            <!-- /.container-fluid -->
+
+            <div class="col-md-9">
+
+                <div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
+	            {include content}
+
+	        </div>
 
         </div>
-        <!-- /#page-wrapper -->
 
     </div>
-    <!-- /#wrapper -->
+    <!-- /.container -->
 
- 	{block scripts}
+    <div class="container">
+
+        <hr>
+
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; {$systemName->value} {date('Y')}</p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    <!-- /.container -->
+
+    <!-- PopUp pomoci bootstrap, pro profile.latte -->
+    <div id="profile_modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+
+    <!-- PopUp pomoci bootstrap, pro profilePhoto.latte -->
+    <div id="profilePhoto_modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+
+    <!-- PopUp pomoci bootstrap, pro password.latte -->
+    <div id="password_modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+
+    <!-- PopUp pomoci bootstrap, pro login.latte -->
+    <div id="login_modal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+        </div>
+      </div>
+    </div>
+
+    <!-- PopUp pomoci bootstrap, pro register.latte -->
+    <div id="register_modal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+        </div>
+      </div>
+    </div>
+
+    <!-- PopUp pomoci bootstrap, pro product.latte -->
+    <div id="addProduct_modal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+        </div>
+      </div>
+    </div>
+
+    <!-- PopUp pomoci bootstrap, pro product.latte -->
+    <div id="product_modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+          <p>Some text in the modal.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+    </div>
+
+	{block scripts}
 
 	<!-- jQuery -->
-    <script src="{$basePath}/assets/js/jquery.js"></script>
+    <script type="text/javascript" src="{$basePath}/assets/js/jquery-1.11.3.min.js"></script>
+
+    <!-- Nette Ajax -->
+    <script src="{$basePath}/js/nette.ajax.js"></script>
+
+    <!-- My Custome JavaScript -->
+    <script src="{$basePath}/js/dp-js-functions.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="{$basePath}/assets/js/bootstrap.min.js"></script>
 
-    <!-- Morris Charts JavaScript -->
-    <script src="{$basePath}/js/plugins/morris/raphael.min.js"></script>
-    <script src="{$basePath}/js/plugins/morris/morris.min.js"></script>
-    <script src="{$basePath}/js/plugins/morris/morris-data.js"></script>
+    <!-- Bootstrap Galleries -->
+    <script src="{$basePath}/assets/js/jquery.blueimp-gallery.min.js"></script>
+    <script src="{$basePath}/assets/js/bootstrap-image-gallery.js"></script>
 
 	{/block}
 </body>
