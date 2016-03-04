@@ -25,13 +25,18 @@ class AdminPresenter extends BasePresenter {
 	/* --- --- Category --- --- */
 
 	public function renderCategory($id = null) {
+		$this->template->id = $id;
 		$form = $this['adminCategoryForm'];
-		$this->template->category = $this->database->findById('category', $id);
-		if (!$this->template->category) {
-			$this->flashMessage('Kategorie nebyla nalezena. Je možné, že ji někdo smazal.');
-			$this->redirect('Admin:categories');
+		if ($id != null) { // pokud edituji
+			$this->template->category = $this->database->findById('category', $id);
+			if (!$this->template->category) {
+				$this->flashMessage('Kategorie nebyla nalezena. Je možné, že ji někdo smazal.');
+				$this->redirect('Admin:categories');
+			}
+			$form->setDefaults($this->template->category);
+		} else {
+			$form['btnedit']->caption = 'Přidat novou';
 		}
-		$form->setDefaults($this->template->category);
 	}
 
 	/* --- --- Factories --- --- */
@@ -43,9 +48,6 @@ class AdminPresenter extends BasePresenter {
 	protected function createComponentAdminCategoryForm() {	
 		$id = (int) $this->getParameter('id'); 	
 		$form = $this->adminCategoryFactory->create($id);
-		$form->onSuccess[] = function ($form) {	
-			// form->getValues() ...	
-		};
 		return $form;
 	}
 
@@ -56,7 +58,8 @@ class AdminPresenter extends BasePresenter {
 	protected function createComponentAdminDeleteCategoryForm() {	
 		$form = $this->adminDeleteCategoryFactory->create();
 		$form->onSuccess[] = function ($form) {	
-			// form->getValues() ...	
+			$this->flashMessage('Vybrané kategorie byly smazány.');
+			$this->redirect('Admin:categories');
 		};
 		return $form;
 	}

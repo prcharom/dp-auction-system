@@ -53,8 +53,10 @@ if (!function_exists($_b->blocks['content'][] = '_lb424f28fce8_content')) { func
                             </tr>               
 <?php $iterations++; } ?>
                     </table>   
-                    <a class="btn btn-primary" href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("Admin:category"), ENT_COMPAT) ?>
-">Přidat novou</a>   
+                    <a data-toggle="modal" data-target="#admin_category" class="btn btn-primary" href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("Admin:category"), ENT_COMPAT) ?>
+">
+                        Přidat novou
+                    </a>   
                     <?php echo $_form["send"]->getControl() ?>
 
                 </div>
@@ -88,7 +90,7 @@ if (!function_exists($_b->blocks['head'][] = '_lb46ea06c22e_head')) { function _
         table.category td:first-child { width: 50px; text-align: center;}
 		table.category td:nth-child(2), table.category td:nth-child(3) { width: 150px;}
 		table.category td { padding: 3px 6px;}
-        table.category th { background: #555; color: #fff; font-weight: normal; padding: 6px;}
+        table.category th { background: #444; color: #fff; font-weight: normal; padding: 6px;}
         table.category th:first-child { border-top-left-radius: 5px; border-bottom-left-radius: 5px;}
         table.category th:last-child { border-top-right-radius: 5px; border-bottom-right-radius: 5px;}
         table.category tr:nth-child(2n+1) td {

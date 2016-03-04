@@ -30,7 +30,7 @@
 				                        <td>RGB barva:</td>
 				                        <td>
 				                    		<div class="mar-input input-group">
-							        			<span class="input-group-addon" id="reg-password" style="width: 4em">#</span>
+							        			<span class="input-group-addon" style="width: 4em">#</span>
 							        			{input color} 
 							    			</div>
 				                        </td>
@@ -44,7 +44,7 @@
 	        <!-- Modal footer -->
 			<div class="modal-footer panel-footer">
 				{input btnedit} 
-				{input btndelete}
+				{if $id != null}{input btndelete}{/if}
 			  	<input type="button" class="btn btn-default" data-dismiss="modal" value="Zavřít">
 			</div>
 	    {/form}

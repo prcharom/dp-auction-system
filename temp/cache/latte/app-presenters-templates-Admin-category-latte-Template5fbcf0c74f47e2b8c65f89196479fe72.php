@@ -53,7 +53,7 @@ if (!function_exists($_b->blocks['_adminCategory'][] = '_lb459b8caa25__adminCate
 				                        <td>RGB barva:</td>
 				                        <td>
 				                    		<div class="mar-input input-group">
-							        			<span class="input-group-addon" id="reg-password" style="width: 4em">#</span>
+							        			<span class="input-group-addon" style="width: 4em">#</span>
 							        			<?php echo $_form["color"]->getControl() ?>
 
 							    			</div>
@@ -69,7 +69,7 @@ if (!function_exists($_b->blocks['_adminCategory'][] = '_lb459b8caa25__adminCate
 			<div class="modal-footer panel-footer">
 				<?php echo $_form["btnedit"]->getControl() ?>
 
-				<?php echo $_form["btndelete"]->getControl() ?>
+				<?php if ($id != null) { echo $_form["btndelete"]->getControl() ;} ?>
 
 			  	<input type="button" class="btn btn-default" data-dismiss="modal" value="Zavřít">
 			</div>
