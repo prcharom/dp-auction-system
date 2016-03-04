@@ -20,6 +20,16 @@ class Category extends Nette\Object {
 		$this->database->insert('category', $values);
 	}
 
+	// uprava stavajici kategorie
+	public function edit($values, $category) {
+		$category->update($values);
+	}
+
+	// mazani vybrane kategorie
+	public function delete($category) {
+		$category->delete();
+	}
+
 	// mazani vybranych upozorneni
 	public function deleteGroup($values, $categories) {
 		foreach($categories as $c) {

@@ -62,10 +62,21 @@ class AdminCategoryFormFactory extends Nette\Object {
 			$category_manager->add($values);
 			$form->getPresenter()->flashMessage('Nová kategorie byla přidána.');
 		} else { 
+			$category = $this->database->findById('category', $this->id);
 			if ($form['btnedit']->isSubmittedBy()) { 	// upravuji kategorii
-				$form->getPresenter()->flashMessage('Upravujes.');	
+				if ($category) {
+					$category_manager->edit($values, $category);
+					$form->getPresenter()->flashMessage('Kategorie byla upravena');
+				} else {
+					$form->getPresenter()->flashMessage('Kategorii nebylo možno upravit, pravděpodobně ji někdo smazal.');
+				}	
 			} else { 									// mazu kategorii
-				$form->getPresenter()->flashMessage('Mazes.');
+				if ($category) {
+					$category_manager->delete($category);
+					$form->getPresenter()->flashMessage('Kategorie byla smazána');
+				} else {
+					$form->getPresenter()->flashMessage('Kategorii nebylo možno smazat, pravděpodobně ji někdo smazal.');
+				}	
 			}
 		}
 		$form->getPresenter()->redirect('Admin:categories');
