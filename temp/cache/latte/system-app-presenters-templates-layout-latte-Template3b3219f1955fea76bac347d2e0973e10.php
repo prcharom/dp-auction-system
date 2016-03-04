@@ -204,7 +204,7 @@ call_user_func(reset($_b->blocks['head']), $_b, get_defined_vars())  ?>
                             </a>
                         </li>
 <?php if ($user->identity->roles[0] == 'Admin') { ?>                        <li>
-                            <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("Admin:category"), ENT_COMPAT) ?>
+                            <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("Admin:categories"), ENT_COMPAT) ?>
 ">
                                 <i class="fa fa-fw fa-user-md"></i> Administrátor
                             </a>

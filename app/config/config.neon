@@ -33,4 +33,6 @@ services:
 	- App\Forms\PhotoDeleteFormFactory
 	- App\Forms\BidFormFactory
 	- App\Forms\AlertFormFactory
+	- App\Forms\AdminCategoryFormFactory
+	- App\Forms\AdminDeleteCategoryFormFactory
 	router: App\RouterFactory::createRouter

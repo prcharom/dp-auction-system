@@ -134,7 +134,7 @@
                             </a>
                         </li>
                         <li n:if="$user->identity->roles[0] == 'Admin'">
-                            <a n:href="Admin:category">
+                            <a n:href="Admin:categories">
                                 <i class="fa fa-fw fa-user-md"></i> Administrátor
                             </a>
                         </li>
@@ -177,7 +177,7 @@
             <div class="col-md-3">
                 <p class="lead">Administrátor</p>
                 <div class="list-group">
-                    <a n:href="Admin:category" class="list-group-item {ifCurrent Admin:category}active{/ifCurrent}">Kategorie</a>
+                    <a n:href="Admin:categories" class="list-group-item {ifCurrent Admin:categories}active{/ifCurrent}">Kategorie</a>
                 </div>
             </div>
 

@@ -1,10 +1,58 @@
-{layout "../@layout-admin.latte"}
+{layout "../@layout-modal.latte"}
 
 {block content}
+	{snippet adminCategory}
+	    {form adminCategoryForm}
+			<!--- Modal-header -->
+			<div class="modal-header panel-heading">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+		    	<h2 class="modal-title">Kategorie</h2>
+			</div>
+			<!-- Modal-body -->
+			<div class="modal-body panel-body">
+				<div class="row">
+			        <div class="left-panel col-md-12">
+			        	<!-- vykreslení chyb -->
+					    <ul class="errors" n:if="$form->hasErrors()">
+					        <li n:foreach="$form->errors as $error">{$error}</li>
+					    </ul> 
+			        	<div class="col-md-12">
+						    <!-- vykresleni formu -->
+						    <table class="table table-my-grid">
+				                <tbody>
+				                    <tr>
+				                        <td>Název:</td>
+				                        <td>
+				                        	{input name}
+				                        </td>
+				                    </tr>
+				                    <tr>
+				                        <td>RGB barva:</td>
+				                        <td>
+				                    		<div class="mar-input input-group">
+							        			<span class="input-group-addon" id="reg-password" style="width: 4em">#</span>
+							        			{input color} 
+							    			</div>
+				                        </td>
+				                    </tr>
+				                </tbody>
+				            </table>
+				        </div>
+			        </div>
+		        </div>
+	        </div>
+	        <!-- Modal footer -->
+			<div class="modal-footer panel-footer">
+				{input btnedit} 
+				{input btndelete}
+			  	<input type="button" class="btn btn-default" data-dismiss="modal" value="Zavřít">
+			</div>
+	    {/form}
+	{/snippet}
 {/block}
 
 {block head}
 <style>
-
+	div.mar-input { margin-bottom: 1em; width: 100%;}
 </style>
 {/block}

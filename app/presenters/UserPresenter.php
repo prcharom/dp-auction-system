@@ -136,7 +136,7 @@ class UserPresenter extends BasePresenter {
 		$form = $this->uploadProfilePhotoFactory->create($this->user->id);
 		$form->onSuccess[] = function ($form) {
 			$this->flashMessage('Váše profilová fotografie byla upravena.');
-			$this->redirect('Homepage:default');
+			$this->redirect('User:profile', $this->user->id);
 		};
 		return $form;
 	}
@@ -149,7 +149,7 @@ class UserPresenter extends BasePresenter {
 		$form = $this->passwordFactory->create($this->user->id);
 		$form->onSuccess[] = function ($form) {
 			$this->flashMessage('Vaše heslo bylo úspěšně změněno.');
-			$this->redirect('Homepage:default');
+			$this->redirect('User:profile', $this->user->id);
 		};
 		return $form;
 	}

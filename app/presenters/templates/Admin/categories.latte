@@ -1,0 +1,71 @@
+{layout "../@layout-admin.latte"}
+
+{block content}
+    {if} 
+
+            {form adminDeleteCategoryForm}
+                <div class="row category">
+                    <!-- vykreslení chyb -->
+                    <ul class="errors" n:if="$form->hasErrors()">
+                        <li n:foreach="$form->errors as $error">{$error}</li>
+                    </ul>
+                    <!-- vykresleni tabulky -->
+                    <table class="category">
+                    <tr>
+                        <th></th>
+                        <th>Kategorie</th>
+                        <th colspan="2">RGB barva</th>
+                    </tr>
+                        {foreach $cats as $cat}
+                            <tr>
+                                <td>
+                                    {input $cat->id}
+                                </td>
+                                <td>
+                                	{$cat->name}
+                                </td>
+                                <td>
+                                    #{$cat->color}
+                                </td>
+                                <td>	
+                                	<a data-toggle="modal" n:href="Admin:category, $cat->id" data-target="#admin_category">
+                                        Upravit
+                                    </a>
+                                </td>
+                            </tr>               
+                        {/foreach}  
+                    </table>   
+                    <a n:href="Admin:category" class="btn btn-primary">Přidat novou</a>   
+                    {input send}            
+                </div>
+            {/form}
+
+        <!-- PopUp pomoci bootstrap, pro register.latte -->
+        <div id="admin_category" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+            </div>
+          </div>
+        </div>
+
+    {else}
+        <div class="row row-center">
+        	Nemáte v systému žádné kategorie.
+        </div>
+    {/if isset($cat)}
+{/block}
+{block head}
+	<style>
+		div.category { margin-left: 40px; display: block;}
+        table.category { width: 100%; margin: 0 0 1em;}
+        table.category td:first-child { width: 50px; text-align: center;}
+		table.category td:nth-child(2), table.category td:nth-child(3) { width: 150px;}
+		table.category td { padding: 3px 6px;}
+        table.category th { background: #555; color: #fff; font-weight: normal; padding: 6px;}
+        table.category th:first-child { border-top-left-radius: 5px; border-bottom-left-radius: 5px;}
+        table.category th:last-child { border-top-right-radius: 5px; border-bottom-right-radius: 5px;}
+        table.category tr:nth-child(2n+1) td {
+            background: #EEE;
+        }
+	</style>
+{/block}
