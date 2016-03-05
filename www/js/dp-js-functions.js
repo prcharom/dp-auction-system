@@ -1,8 +1,24 @@
 // akce dokumentu po nacteni stranky
 $( document ).ready(function() { 
 
-  // inicializace nette ajaxu
-  $.nette.init();
+	// inicializace nette ajaxu
+  	$.nette.init();
+
+  	// reset modalnich oken refreshem cele stranky
+	/*$('#admin_category').on('hidden.bs.modal', function () {
+	 location.reload();
+	});*/
+
+	// reset modalnich oken pomoci load
+	$( document ).on("click", "a[data-target=#admin_category]", function(ev) {
+	    ev.preventDefault();
+	    var target = $(this).attr("href");
+	    $("#admin_category .modal-content").html('');
+	    // load the url and show modal on success
+	    $("#admin_category .modal-content").load(target, function() { 
+	         $("#admin_category").modal("show"); 
+	    });
+	});
   
 	// skryvani flash zprav
 	$( document ).on('click', 'div.flash', function() {
