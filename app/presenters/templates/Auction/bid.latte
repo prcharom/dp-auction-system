@@ -35,11 +35,21 @@
 		            			</tr>
 		            			<tr>
 		            				<td>Současná cena:</td>
-		            				<td><input type="text" class="form-control" value="{$product->cost + $product->related('bid.id_product')->sum('deposit')|number}" readonly=""> Kč</td>
+		            				<td>
+		            					<div class="input-group">
+											<input type="text" class="form-control" value="{$product->cost + $product->related('bid.id_product')->sum('deposit')|number}" readonly="">
+											<span class="input-group-addon">Kč</span>
+										</div>
+		            				</td>
 		            			</tr>
 		            			<tr>
 		            				<td>Navýšit cenu o:</td>
-		            				<td>{input deposit} Kč</td>
+		            				<td>
+		            					<div class="input-group">
+											{input deposit}
+											<span class="input-group-addon">Kč</span>
+										</div>
+		            				</td>
 		            			</tr>
 		            		</table>
 		            	{/if}

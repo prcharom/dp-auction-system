@@ -76,10 +76,30 @@ if (!function_exists($_b->blocks['_product'][] = '_lb89cc03a1d3__product')) { fu
 			                        </td>
 			                    </tr>
 			                    <tr>
+			                        <td>Doba trvání aukce:</td>
+			                        <td>
+			                        	<?php echo $_form["id_duration_auction"]->getControl() ?>
+
+			                        </td>
+			                    </tr>
+			                    <tr>
 			                        <td>Cena:</td>
 			                        <td>
-			                        	<?php echo $_form["cost"]->getControl() ?>
+										<div class="input-group">
+											<?php echo $_form["cost"]->getControl() ?>
 
+											<span class="input-group-addon">Kč</span>
+										</div>
+			                        </td>
+			                    </tr>
+			                    <tr>
+			                        <td>Minimální příhoz:</td>
+			                        <td>
+			                        	<div class="input-group">
+											<?php echo $_form["min_bid"]->getControl() ?>
+
+											<span class="input-group-addon">Kč</span>
+										</div>
 			                        </td>
 			                    </tr>
 			                </tbody>

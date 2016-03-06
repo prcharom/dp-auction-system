@@ -57,11 +57,22 @@ if (!function_exists($_b->blocks['_bid'][] = '_lb1635280e77__bid')) { function _
 		            			</tr>
 		            			<tr>
 		            				<td>Současná cena:</td>
-		            				<td><input type="text" class="form-control" value="<?php echo Latte\Runtime\Filters::escapeHtml($template->number($product->cost + $product->related('bid.id_product')->sum('deposit')), ENT_COMPAT) ?>" readonly=""> Kč</td>
+		            				<td>
+		            					<div class="input-group">
+											<input type="text" class="form-control" value="<?php echo Latte\Runtime\Filters::escapeHtml($template->number($product->cost + $product->related('bid.id_product')->sum('deposit')), ENT_COMPAT) ?>" readonly="">
+											<span class="input-group-addon">Kč</span>
+										</div>
+		            				</td>
 		            			</tr>
 		            			<tr>
 		            				<td>Navýšit cenu o:</td>
-		            				<td><?php echo $_form["deposit"]->getControl() ?> Kč</td>
+		            				<td>
+		            					<div class="input-group">
+											<?php echo $_form["deposit"]->getControl() ?>
+
+											<span class="input-group-addon">Kč</span>
+										</div>
+		            				</td>
 		            			</tr>
 		            		</table>
 <?php } ?>

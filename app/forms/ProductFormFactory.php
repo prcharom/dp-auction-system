@@ -55,11 +55,22 @@ class ProductFormFactory extends Nette\Object {
       		->setAttribute('class', 'form-control')
       		->setRequired('Prosím vyberte kategorii.');
 
+      	$auct_duration = $this->database->arrayColumn('duration_auction', 'name');
+		$form->addSelect('id_duration_auction', 'Doba trvání aukce:', $auct_duration)
+      		->setAttribute('class', 'form-control')
+      		->setRequired('Prosím vyberte kategorii.');
+
 		$form->addText('cost', 'Cena:')
 			->setType('number')
 			->setAttribute('class', 'form-control')
 			->setAttribute('placeholder', 'Nevyplněno')
-			->setRequired('Prosím vyplňte pole Cena.');
+			->setRequired('Prosím vyplňte pole Cena.')
+			->addRule(Form::RANGE, 'Cena musí být vyšší nebo rovna 0.', array(0, null));
+
+		$form->addText('min_bid', 'Minimální přihazovaná částka:')
+			->setType('number')
+			->setAttribute('class', 'form-control')
+			->setAttribute('placeholder', 'Nevyplněno');
 
 		$form->addSubmit('send', 'Přidat aukci')
 		->setAttribute('class', 'btn btn-primary');

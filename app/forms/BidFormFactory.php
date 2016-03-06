@@ -44,7 +44,6 @@ class BidFormFactory extends Nette\Object {
 		        ->setRequired('Prosím vložte částku, o kterou chcete navýšit současnou cenu.')
 		        ->setAttribute('placeholder', 'Nevyplněno')
 		        ->setAttribute('class', 'form-control')
-		        ->setAttribute('step', '1')
 		        ->addRule(Form::RANGE, 'Přihazovaná částka musí být vyšší než 0.', array(1, null));
 	    }
 
