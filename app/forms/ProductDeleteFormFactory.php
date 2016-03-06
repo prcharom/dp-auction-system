@@ -43,10 +43,16 @@ class ProductDeleteFormFactory extends Nette\Object {
 	public function formSucceeded(Form $form, $values) {
 		$product = $this->database->findById('product', $this->id_product);
 		if ($product) {
-			$photo_manager = new Model\Photo($this->database);
-			$photo_manager->deleteAllProductPhotos($this->id_product); // smazu fotky produktu
-			$product->delete(); // smazu produkt
-		} 
+			if ($product->related('bid.id_product')->count() <= 0) {
+				$photo_manager = new Model\Photo($this->database);
+				$photo_manager->deleteAllProductPhotos($this->id_product); // smazu fotky produktu
+				$product->delete(); // smazu produkt
+			} else {
+				$form->addError('Produkt nelze smazat. O produkt již nějaký uživatel projevil zájem.');
+			}
+		} else {
+			$form->addError('Produkt nebyl nalezen. Pravděpodobně jej někdo smazal.');
+		}
 	}
 
 	public function formNotSucceeded(Form $form) {
