@@ -81,24 +81,36 @@ class ProductFormFactory extends Nette\Object {
 	}
 
 	public function formSucceeded(Form $form, $values) {
+
+		// pro odchytavani chyb
+		$error = null;
+
+		// ostatni akce 
 		$product = new Model\Product($this->database); 
 		$values['id_user'] = $this->id_user;
 		$imgs = $values['img'];
 		unset($values['img']);
+
 		// add / edit
 		if ($values['id'] == null) { // add
 			$p = $product->add($values);
 			$product_id = $p->id;
 		} else { // edit
-			$product->update($values, $values['id']); 
+			$error = $product->update($values, $values['id']); 
 			$product_id = $values['id'];
 		}
-		// nahrani fotek k produktu
-		if ($imgs != null) {
-			$photo_manager = new Model\Photo($this->database);
-			$photo_manager->uploadProductPhotos($imgs, $product_id);
+
+		if ($error == null) {
+			// nahrani fotek k produktu
+			if ($imgs != null) {
+				$photo_manager = new Model\Photo($this->database);
+				$photo_manager->uploadProductPhotos($imgs, $product_id);
+			}
+		} else {
+			$form->addError($error);
 		}
-		// prekresleni snipetu
+
+		// prekresleni snippetu
 		if($form->getPresenter()->isAjax()) {
 			$form->getPresenter()->redrawControl('product');
 		}
