@@ -20,7 +20,9 @@ class Product extends Nette\Object {
 
 	public function add($values) {
 		$values['added'] = $this->now;
-		$values['expire'] = date('Y-m-d H', strtotime($this->now . ' + 32 day'));
+		// potreba zjistit na kolik dni ma byt aukce spustena
+		$duration = $this->database->findById('duration_auction', $values['id_duration_auction']);
+		$values['expire'] = date('Y-m-d H', strtotime($this->now.' + '.$duration->duration_days.' day'));
 		return $this->database->findAll('product')->insert($values);
 	} // eof add
 
