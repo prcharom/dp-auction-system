@@ -1,1 +1,1 @@
-<?php //netteCache[01]000070a:2:{s:4:"time";s:21:"0.82968700 1457347234";s:10:"serialized";b:1;}?>a:1:{s:2:"id";b:1;}
+<?php //netteCache[01]000070a:2:{s:4:"time";s:21:"0.96079200 1457367669";s:10:"serialized";b:1;}?>a:4:{s:2:"id";b:1;s:16:"duration_auction";b:0;s:19:"id_duration_auction";b:1;s:6:"expire";b:1;}

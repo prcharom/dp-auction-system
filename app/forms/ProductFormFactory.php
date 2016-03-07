@@ -70,7 +70,10 @@ class ProductFormFactory extends Nette\Object {
 		$form->addText('min_bid', 'Minimální přihazovaná částka:')
 			->setType('number')
 			->setAttribute('class', 'form-control')
-			->setAttribute('placeholder', 'Nevyplněno');
+			->setAttribute('placeholder', 'Nevyplněno')
+			->setRequired('Prosím vyplňte pole Minimální příhoz.')
+			->addRule(Form::RANGE, 'Minimální příhoz musí být číslo, které je větší nebo rovno 1.', array(1, null))
+			->setValue(1);
 
 		$form->addSubmit('send', 'Přidat aukci')
 		->setAttribute('class', 'btn btn-primary');
