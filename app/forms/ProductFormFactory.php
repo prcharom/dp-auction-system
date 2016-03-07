@@ -95,9 +95,11 @@ class ProductFormFactory extends Nette\Object {
 		if ($values['id'] == null) { // add
 			$p = $product->add($values);
 			$product_id = $p->id;
+			$form->getPresenter()->flashMessage('Produkt byl úspěšně vytvořen.');
 		} else { // edit
 			$error = $product->update($values, $values['id']); 
 			$product_id = $values['id'];
+			$form->getPresenter()->flashMessage('Produkt byl úspěšně upraven.');
 		}
 
 		if ($error == null) {
@@ -106,14 +108,11 @@ class ProductFormFactory extends Nette\Object {
 				$photo_manager = new Model\Photo($this->database);
 				$photo_manager->uploadProductPhotos($imgs, $product_id);
 			}
+			// presmerovani
+			$form->getPresenter()->redirect('Homepage:product', $product_id);
 		} else {
 			$form->addError($error);
-		}
-
-		// prekresleni snippetu
-		if($form->getPresenter()->isAjax()) {
-			$form->getPresenter()->redrawControl('product');
-		}
+		}			
 	}
 
 	public function formNotSucceeded(Form $form) {

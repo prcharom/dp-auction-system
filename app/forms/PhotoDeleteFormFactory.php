@@ -53,9 +53,21 @@ class PhotoDeleteFormFactory extends Nette\Object {
 	}
 
 	public function formSucceeded(Form $form, $values) {
-		if ($this->photos != null) {
-			$photo_manager = new Model\Photo($this->database);
-			$photo_manager->deleteProductPhotos($values, $this->photos);
+		$product = $this->database->findById('product', $this->id_product);
+		if ($product) {
+			if ($product->related('bid.id_product')->count() <= 0) {
+				if ($this->photos != null) {
+					$photo_manager = new Model\Photo($this->database);
+					$photo_manager->deleteProductPhotos($values, $this->photos);
+					// presmerovani
+					$form->getPresenter()->flashMessage('Vybrané fotografie byly smazány.');
+	        		$form->getPresenter()->redirect('Homepage:product', $this->id_product);
+				}
+			} else {
+				$form->addError('Fotografie nelze smazat. O produkt již nějaký uživatel projevil zájem.');
+			}
+		} else {
+			$form->addError('Produkt nebyl nalezen. Pravděpodobně jej někdo smazal.');
 		}
 	}
 

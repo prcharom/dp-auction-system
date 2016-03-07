@@ -167,16 +167,6 @@ class HomepagePresenter extends BasePresenter {
 	 */
 	protected function createComponentProductForm() {		
 		$form = $this->productFactory->create($this->user->id);
-		$form->onSuccess[] = function ($form) {
-			$values = $form->getValues();
-			if ($values['id'] == null) {
-				$this->flashMessage('Produkt byl úspěšně vytvořen.');
-				$this->redirect('Homepage:default');
-			} else {
-				$this->flashMessage('Produkt byl úspěšně upraven.');
-				$this->redirect('Homepage:product', $values['id']);
-			}
-		};
 		return $form;
 	}
 
@@ -216,11 +206,6 @@ class HomepagePresenter extends BasePresenter {
 	protected function createComponentPhotoDeleteForm() {
 		$id = (int) $this->getParameter('id'); 		
 		$form = $this->photoDeleteFactory->create($id);
-		$form->onSuccess[] = function ($form) {
-			$values = $form->getValues();
-	        $this->flashMessage('Vybrané fotografie byly smazány.');
-	        $this->redirect('Homepage:product', $values['id_product']);
-		};
 		return $form;
 	}
 
