@@ -21,15 +21,16 @@ if (!function_exists($_b->blocks['content'][] = '_lb18920efd08_content')) { func
 
 <?php if (($product->expire <= $now) && ($product->related('bid.id_product')->count() > 0)) { ?>
                                         / PRODÁNO
+<?php } if ($user->loggedIn && $user->id == $product->id_user) { ?>
+                                        <a data-toggle="modal" data-target="#product_edit_modal" href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("Homepage:productAddEdit", array($product->id)), ENT_COMPAT) ?>
+">
+                                            Upravit produkt
+                                        </a>
+                                        <a data-toggle="modal" data-target="#product_delete_modal" href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("Homepage:productDelete", array($product->id)), ENT_COMPAT) ?>
+">
+                                            Smazat produkt
+                                        </a>
 <?php } ?>
-                                    <a data-toggle="modal" data-target="#product_edit_modal" href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("Homepage:productAddEdit", array($product->id)), ENT_COMPAT) ?>
-">
-                                        Upravit produkt
-                                    </a>
-                                    <a data-toggle="modal" data-target="#product_delete_modal" href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("Homepage:productDelete", array($product->id)), ENT_COMPAT) ?>
-">
-                                        Smazat produkt
-                                    </a>
                             	</h2>
                                 <div class="pub">
                                     Publikoval: <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("User:profile", array($product->id_user)), ENT_COMPAT) ?>
@@ -43,14 +44,16 @@ if (!function_exists($_b->blocks['content'][] = '_lb18920efd08_content')) { func
                             <div class="product-galery">
                                 <h3>
                                     Fotografie
-                                    <a data-toggle="modal" data-target="#photo_edit_modal" href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("Homepage:photoEdit", array($product->id)), ENT_COMPAT) ?>
+<?php if ($user->loggedIn && $user->id == $product->id_user) { ?>
+                                        <a data-toggle="modal" data-target="#photo_edit_modal" href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("Homepage:photoEdit", array($product->id)), ENT_COMPAT) ?>
 ">
-                                        Změnit hlavní fotografii
-                                    </a>
-                                    <a data-toggle="modal" data-target="#photo_delete_modal" href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("Homepage:photoDelete", array($product->id)), ENT_COMPAT) ?>
+                                            Změnit hlavní fotografii
+                                        </a>
+                                        <a data-toggle="modal" data-target="#photo_delete_modal" href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("Homepage:photoDelete", array($product->id)), ENT_COMPAT) ?>
 ">
-                                        Smazat fotografii
-                                    </a>
+                                            Smazat fotografii
+                                        </a>
+<?php } ?>
                                 </h3>
 <?php ob_start() ?>
                                 <div id="links">

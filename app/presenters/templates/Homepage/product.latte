@@ -9,12 +9,14 @@
                                     {if ($product->expire <= $now) && ($product->related('bid.id_product')->count() > 0)}
                                         / PRODÁNO
                                     {/if}
-                                    <a data-toggle="modal" n:href="Homepage:productAddEdit, $product->id" data-target="#product_edit_modal">
-                                        Upravit produkt
-                                    </a>
-                                    <a data-toggle="modal" n:href="Homepage:productDelete, $product->id" data-target="#product_delete_modal">
-                                        Smazat produkt
-                                    </a>
+                                    {if $user->loggedIn && $user->id == $product->id_user}
+                                        <a data-toggle="modal" n:href="Homepage:productAddEdit, $product->id" data-target="#product_edit_modal">
+                                            Upravit produkt
+                                        </a>
+                                        <a data-toggle="modal" n:href="Homepage:productDelete, $product->id" data-target="#product_delete_modal">
+                                            Smazat produkt
+                                        </a>
+                                    {/if}
                             	</h2>
                                 <div class="pub">
                                     Publikoval: <a n:href="User:profile, $product->id_user">{$product->user->name}</a>
@@ -26,12 +28,14 @@
                             <div class="product-galery">
                                 <h3>
                                     Fotografie
-                                    <a data-toggle="modal" n:href="Homepage:photoEdit, $product->id" data-target="#photo_edit_modal">
-                                        Změnit hlavní fotografii
-                                    </a>
-                                    <a data-toggle="modal" n:href="Homepage:photoDelete, $product->id" data-target="#photo_delete_modal">
-                                        Smazat fotografii
-                                    </a>
+                                    {if $user->loggedIn && $user->id == $product->id_user}
+                                        <a data-toggle="modal" n:href="Homepage:photoEdit, $product->id" data-target="#photo_edit_modal">
+                                            Změnit hlavní fotografii
+                                        </a>
+                                        <a data-toggle="modal" n:href="Homepage:photoDelete, $product->id" data-target="#photo_delete_modal">
+                                            Smazat fotografii
+                                        </a>
+                                    {/if}
                                 </h3>
                                 {if}
                                 <div id="links">
