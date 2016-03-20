@@ -2,7 +2,9 @@
 
 {block content}
     {if} 
-
+        <div class="flash">
+            Zde se definují jednotlivé kategorie produktů. 
+        </div>
             {form adminDeleteCategoryForm}
                 <div class="row category">
                     <!-- vykreslení chyb -->
@@ -25,20 +27,19 @@
                                 	{$cat->name}
                                 </td>
                                 <td style="background: #{$cat->color};">
-                                <div>
                                 </td>
                                 <td>
                                     #{$cat->color}
                                 </td>
                                 <td>	
-                                	<a data-toggle="modal" n:href="Admin:category, $cat->id" data-target="#admin_category">
+                                	<a data-toggle="modal" n:href="Admin:category, $cat->id" data-target="#admin_reload">
                                         Upravit
                                     </a>
                                 </td>
                             </tr>               
                         {/foreach}  
                     </table>   
-                    <a data-toggle="modal" n:href="Admin:category" data-target="#admin_category" class="btn btn-primary">
+                    <a data-toggle="modal" n:href="Admin:category" data-target="#admin_reload" class="btn btn-primary">
                         Přidat novou
                     </a>   
                     {input send}            
@@ -46,7 +47,7 @@
             {/form}
 
         <!-- PopUp pomoci bootstrap, pro register.latte -->
-        <div id="admin_category" class="modal fade" role="dialog">
+        <div id="admin_reload" class="modal fade" role="dialog">
           <div class="modal-dialog">
             <div class="modal-content">
             </div>
@@ -61,7 +62,8 @@
 {/block}
 {block head}
 	<style>
-		div.category { margin-left: 40px; display: block;}
+		div.category, div.flash { margin-left: 40px; display: block;}
+        div.flash, .row { margin-right: 0;} 
         table.category { width: 100%; margin: 0 0 1em;}
         table.category td:first-child { width: 50px; text-align: center; border-radius: 5px 0 0 5px;}
 		table.category td:nth-child(2), table.category td:nth-child(4) { width: 150px;}

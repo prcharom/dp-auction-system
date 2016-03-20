@@ -95,4 +95,9 @@ class Alert extends Nette\Object {
 		$email_manager->sendEmail($product->user->email, 'end_auction_seller', $product, $winners_bid, $cost, $row->type_alert->name);
 	}
 
+	// upozorneni po prihozeni
+	public function newBid($product) {
+
+	}
+
 } 

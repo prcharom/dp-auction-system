@@ -35,4 +35,6 @@ services:
 	- App\Forms\AlertFormFactory
 	- App\Forms\AdminCategoryFormFactory
 	- App\Forms\AdminDeleteCategoryFormFactory
+	- App\Forms\AdminDurationFormFactory
+	- App\Forms\AdminDeleteDurationFormFactory
 	router: App\RouterFactory::createRouter

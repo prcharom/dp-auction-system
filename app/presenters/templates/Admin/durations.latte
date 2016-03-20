@@ -1,0 +1,77 @@
+{layout "../@layout-admin.latte"}
+
+{block content}
+    {if} 
+        <div class="flash">
+            Zde se definují jednotlivé doby trvání aukce. Tyto doby pak smí uživatelé aukčního systému využívat. 
+        </div>
+            {form adminDeleteDurationForm}
+                <div class="row dur">
+                    <!-- vykreslení chyb -->
+                    <ul class="errors" n:if="$form->hasErrors()">
+                        <li n:foreach="$form->errors as $error">{$error}</li>
+                    </ul>
+                    <!-- vykresleni tabulky -->
+                    <table class="dur">
+                    <tr>
+                        <th></th>
+                        <th>Název</th>
+                        <th colspan="3">Doba trvání</th>
+                    </tr>
+                        {foreach $durs as $d}
+                            <tr>
+                                <td>
+                                    {input $d->id}
+                                </td>
+                                <td>
+                                	{$d->name}
+                                </td>
+                                <td>
+                                    {$d->duration_days} dní
+                                </td>
+                                <td>	
+                                	<a data-toggle="modal" n:href="Admin:duration, $d->id" data-target="#admin_reload">
+                                        Upravit
+                                    </a>
+                                </td>
+                            </tr>               
+                        {/foreach}  
+                    </table>   
+                    <a data-toggle="modal" n:href="Admin:duration" data-target="#admin_reload" class="btn btn-primary">
+                        Přidat novou
+                    </a>   
+                    {input send}            
+                </div>
+            {/form}
+
+        <!-- PopUp pomoci bootstrap, pro register.latte -->
+        <div id="admin_reload" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+            </div>
+          </div>
+        </div>
+
+    {else}
+        <div class="row row-center">
+        	Nemáte v systému žádné časy.
+        </div>
+    {/if isset($d)}
+{/block}
+{block head}
+	<style>
+		div.dur, div.flash { margin-left: 40px; display: block;}
+        .row, div.flash { margin-right: 0;}
+        table.dur { width: 100%; margin: 0 0 1em;}
+        table.dur td:first-child { width: 50px; text-align: center; border-radius: 5px 0 0 5px;}
+		table.dur td:nth-child(2) { width: 170px;}
+        table.dur td:nth-child(3) { width: 150px;}
+		table.dur td { padding: 3px 6px;}
+        table.dur th { background: #444; color: #fff; font-weight: normal; padding: 6px;}
+        table.dur th:first-child { border-top-left-radius: 5px; border-bottom-left-radius: 5px;}
+        table.dur th:last-child { border-top-right-radius: 5px; border-bottom-right-radius: 5px;}
+        table.dur tr:nth-child(2n+1) td {
+            background: #EEE;
+        }
+	</style>
+{/block}

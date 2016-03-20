@@ -56,6 +56,33 @@ class Auction extends Nette\Object {
 			$this->database->findAll('bid')->insert($values);
 		}
 		return $this->error;
+	}
+
+
+	/* --- --- Admin > Duration --- --- */
+
+	// pridani nove kategorie
+	public function addDur($values) {
+		$this->database->insert('duration_auction', $values);
+	}
+
+	// uprava stavajici kategorie
+	public function editDur($values, $dur) {
+		$dur->update($values);
+	}
+
+	// mazani vybrane kategorie
+	public function deleteDur($dur) {
+		$dur->delete();
+	}
+
+	// mazani vybranych
+	public function deleteGroupDur($values, $durs) {
+		foreach($durs as $d) {
+            if($values["$d->id"] == true) {
+                $d->delete(); // smazu duration
+            }
+        }
 	} 
 
 } 

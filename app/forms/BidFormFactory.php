@@ -73,7 +73,7 @@ class BidFormFactory extends Nette\Object {
 			} else { // klasická aukce
 				$this->error = $auction_manager->bidClasicAuction($this->product, $this->id_user, $values['deposit']);
 				if ($this->error == null) {
-					//$alert_manager->newBid($this->product);
+					$alert_manager->newBid($this->product);
 					$msg = 'Navýšili jste cenu u produktu '. $this->product->name .'.';
 				}
 			}

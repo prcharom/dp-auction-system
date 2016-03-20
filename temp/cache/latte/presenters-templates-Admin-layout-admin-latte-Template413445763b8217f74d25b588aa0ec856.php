@@ -255,6 +255,9 @@ call_user_func(reset($_b->blocks['head']), $_b, get_defined_vars())  ?>
                     <a class="list-group-item <?php if ($_presenter->isLinkCurrent("Admin:categories")) { ?>
 active<?php } ?>" href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("Admin:categories"), ENT_COMPAT) ?>
 ">Kategorie</a>
+                    <a class="list-group-item <?php if ($_presenter->isLinkCurrent("Admin:durations")) { ?>
+active<?php } ?>" href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("Admin:durations"), ENT_COMPAT) ?>
+">Trvání aukce</a>
                 </div>
             </div>
 

@@ -30,7 +30,7 @@ class Category extends Nette\Object {
 		$category->delete();
 	}
 
-	// mazani vybranych upozorneni
+	// mazani vybranych
 	public function deleteGroup($values, $categories) {
 		foreach($categories as $c) {
             if($values["$c->id"] == true) {

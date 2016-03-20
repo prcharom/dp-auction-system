@@ -13,7 +13,9 @@ list($_b, $_g, $_l) = $template->initialize('bd6ade508b', 'html')
 //
 if (!function_exists($_b->blocks['content'][] = '_lb424f28fce8_content')) { function _lb424f28fce8_content($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v
 ;ob_start() ?>
-
+        <div class="flash">
+            Zde se definují jednotlivé kategorie produktů. 
+        </div>
             <?php echo Nette\Bridges\FormsLatte\Runtime::renderFormBegin($form = $_form = $_control["adminDeleteCategoryForm"], array()) ?>
 
                 <div class="row category">
@@ -41,14 +43,13 @@ if (!function_exists($_b->blocks['content'][] = '_lb424f28fce8_content')) { func
 
                                 </td>
                                 <td style="background: #<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::escapeCss($cat->color), ENT_COMPAT) ?>;">
-                                <div>
                                 </td>
                                 <td>
                                     #<?php echo Latte\Runtime\Filters::escapeHtml($cat->color, ENT_NOQUOTES) ?>
 
                                 </td>
                                 <td>	
-                                	<a data-toggle="modal" data-target="#admin_category" href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("Admin:category", array($cat->id)), ENT_COMPAT) ?>
+                                	<a data-toggle="modal" data-target="#admin_reload" href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("Admin:category", array($cat->id)), ENT_COMPAT) ?>
 ">
                                         Upravit
                                     </a>
@@ -56,7 +57,7 @@ if (!function_exists($_b->blocks['content'][] = '_lb424f28fce8_content')) { func
                             </tr>               
 <?php $iterations++; } ?>
                     </table>   
-                    <a data-toggle="modal" data-target="#admin_category" class="btn btn-primary" href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("Admin:category"), ENT_COMPAT) ?>
+                    <a data-toggle="modal" data-target="#admin_reload" class="btn btn-primary" href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("Admin:category"), ENT_COMPAT) ?>
 ">
                         Přidat novou
                     </a>   
@@ -67,7 +68,7 @@ if (!function_exists($_b->blocks['content'][] = '_lb424f28fce8_content')) { func
 
 
         <!-- PopUp pomoci bootstrap, pro register.latte -->
-        <div id="admin_category" class="modal fade" role="dialog">
+        <div id="admin_reload" class="modal fade" role="dialog">
           <div class="modal-dialog">
             <div class="modal-content">
             </div>
@@ -88,7 +89,8 @@ if (!function_exists($_b->blocks['content'][] = '_lb424f28fce8_content')) { func
 //
 if (!function_exists($_b->blocks['head'][] = '_lb46ea06c22e_head')) { function _lb46ea06c22e_head($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v
 ?>	<style>
-		div.category { margin-left: 40px; display: block;}
+		div.category, div.flash { margin-left: 40px; display: block;}
+        div.flash, .row { margin-right: 0;} 
         table.category { width: 100%; margin: 0 0 1em;}
         table.category td:first-child { width: 50px; text-align: center; border-radius: 5px 0 0 5px;}
 		table.category td:nth-child(2), table.category td:nth-child(4) { width: 150px;}

@@ -1,0 +1,58 @@
+{layout "../@layout-modal.latte"}
+
+{block content}
+	{snippet adminDuration}
+	    {form adminDurationForm}
+			<!--- Modal-header -->
+			<div class="modal-header panel-heading">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+		    	<h2 class="modal-title">Doba trvání aukce</h2>
+			</div>
+			<!-- Modal-body -->
+			<div class="modal-body panel-body">
+				<div class="row">
+			        <div class="left-panel col-md-12">
+			        	<!-- vykreslení chyb -->
+					    <ul class="errors" n:if="$form->hasErrors()">
+					        <li n:foreach="$form->errors as $error">{$error}</li>
+					    </ul> 
+			        	<div class="col-md-12">
+						    <!-- vykresleni formu -->
+						    <table class="table table-my-grid">
+				                <tbody>
+				                    <tr>
+				                        <td>Název:</td>
+				                        <td>
+				                        	{input name}
+				                        </td>
+				                    </tr>
+				                    <tr>
+				                        <td>Doba trvání:</td>
+				                        <td>
+								        	<div class="input-group">
+												{input duration_days}
+												<span class="input-group-addon">dní</span>
+											</div>
+				                        </td>
+				                    </tr>
+				                </tbody>
+				            </table>
+				        </div>
+			        </div>
+		        </div>
+	        </div>
+	        <!-- Modal footer -->
+			<div class="modal-footer panel-footer">
+				{input btnedit} 
+				{if $id != null}{input btndelete}{/if}
+			  	<input type="button" class="btn btn-default" data-dismiss="modal" value="Zavřít">
+			</div>
+	    {/form}
+	{/snippet}
+{/block}
+
+{block head}
+<style>
+	div.mar-input { margin-bottom: 1em; width: 100%;}
+</style>
+{/block}
